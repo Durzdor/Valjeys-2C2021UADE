@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    private Health healthController;
-    private Armor armorController;
     private Animator animator;
     private CharacterController characterController;
     private ThirdPersonController thirdPersonController;
@@ -14,24 +12,33 @@ public class Character : MonoBehaviour
     public CharacterController Controller => characterController;
     public ThirdPersonController ThirdPersonController => thirdPersonController;
 
+    private bool switchCharacter;
+
     private void Awake()
     {
-        healthController = GetComponent<Health>();
-        armorController = GetComponent<Armor>();
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         thirdPersonController = GetComponent<ThirdPersonController>();
-        
-        healthController.OnDamaged += OnHealthDamageTaken;
-        armorController.OnDamaged += OnArmorDamageTaken;
     }
 
-    private void OnHealthDamageTaken()
+    private void Update()
     {
-        print($"Vida Actual: {healthController.CurrentHealth}/{healthController.MaxHealth}");
-    }
-    private void OnArmorDamageTaken()
-    {
-        print($"Vida Actual: {armorController.CurrentArmor}/{armorController.MaxArmor}");
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (switchCharacter)
+            {
+                thirdPersonController.enabled = false;
+                
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            var test = animator.GetCurrentAnimatorClipInfo(0);
+            print(test[0].clip);
+            print(test[0].clip.length);
+            
+
+        }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class ThirdPersonController : MonoBehaviour
 {
-    private CharacterController controller;
+    private Character character;
     private Vector3 moveDirection = Vector3.zero;
     
     private float cameraPitch = 40.0f;
@@ -31,10 +31,11 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField][Tooltip("Multipler of moveDirectionSpeed")] private float sprintSpeed = 2f;
 
     public event Action OnJump;
+    public event Action OnCharacterSwitch;
 
     private void Awake()
     {
-        controller = GetComponent<CharacterController>();
+        character = GetComponent<Character>();
     }
 
     public void LateUpdate()
@@ -102,7 +103,7 @@ public class ThirdPersonController : MonoBehaviour
             transform.Rotate(0, h * turnSpeed, 0); // Turn left/right
 
         // Only allow user control when on ground
-        if (controller.isGrounded)
+        if (character.Controller.isGrounded)
         {
             if (Input.GetMouseButton(1))
                 moveDirection = new Vector3(h, 0, v).normalized; // Strafe
@@ -123,6 +124,6 @@ public class ThirdPersonController : MonoBehaviour
         }
 
         moveDirection.y -= gravitySpeed * Time.deltaTime; // Apply gravity
-        controller.Move(moveDirection * Time.deltaTime);
+        character.Controller.Move(moveDirection * Time.deltaTime);
     }
 }
