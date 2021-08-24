@@ -31,7 +31,8 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField][Tooltip("Multipler of moveDirectionSpeed")] private float sprintSpeed = 2f;
 
     public event Action OnJump;
-    public event Action OnCharacterSwitch;
+
+    public Vector3 MoveDirection => moveDirection;
 
     private void Awake()
     {

@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Character))]
@@ -7,14 +9,18 @@ public class CharacterAnimation : MonoBehaviour
 
     private static readonly int JumpTrigger = Animator.StringToHash("JumpTrigger");
     private static readonly int LandTrigger = Animator.StringToHash("LandingTrigger");
+    private static readonly int SwitchTrigger = Animator.StringToHash("SwitchTrigger");
     private static readonly int GroundFloat = Animator.StringToHash("GroundFloat");
     private static readonly int AirFloat = Animator.StringToHash("AirFloat");
-    private static readonly int IdleBool = Animator.StringToHash("Idling");
+    private static readonly int GoingForward = Animator.StringToHash("IsGoingForward");
+    
+    public event Action OnSwitchComplete;
 
     private void Start()
     {
         character = GetComponent<Character>();
         character.ThirdPersonController.OnJump += JumpHandler;
+        character.OnCharacterSwitch += SwitchHandler;
     }
 
     private void Update()
@@ -22,10 +28,20 @@ public class CharacterAnimation : MonoBehaviour
         if (character.Controller.isGrounded)
         {
             Landing();
-            // walk animation update
+            // moving
             if (character.Controller.velocity.magnitude > 0.001f)
             {
-                character.Animator.SetBool(IdleBool, false);
+                // Forward
+                if (transform.InverseTransformDirection(character.ThirdPersonController.MoveDirection).z > 0)
+                {
+                    character.Animator.SetBool(GoingForward, true);
+                }
+                // Backward
+                if (transform.InverseTransformDirection(character.ThirdPersonController.MoveDirection).z  < 0)
+                {
+                    character.Animator.SetBool(GoingForward, false);
+                }
+                // Walk or Sprint
                 character.Animator.SetFloat(GroundFloat, character.Controller.velocity.magnitude);
                 character.Animator.ResetTrigger(JumpTrigger);
             }
@@ -53,7 +69,6 @@ public class CharacterAnimation : MonoBehaviour
     private void NotGrounded()
     {
         character.Animator.SetFloat(GroundFloat, 0);
-        character.Animator.SetBool(IdleBool, false);
     }
 
     private void Landing()
@@ -64,5 +79,29 @@ public class CharacterAnimation : MonoBehaviour
         }
 
         character.Animator.SetFloat(AirFloat, 0);
+    }
+
+    private void SwitchHandler()
+    {
+        character.Animator.SetTrigger(SwitchTrigger);
+        StartCoroutine(WaitForSwitch());
+    }
+
+    private IEnumerator WaitForSwitch()
+    {
+        yield return new WaitForSeconds(0.2f);
+        var currAnim = character.Animator.GetCurrentAnimatorClipInfo(0);
+        var clipLength = currAnim[0].clip.length;
+        while (clipLength > 0)
+        {
+            clipLength -= Time.deltaTime;
+            yield return null;
+        }
+
+        if (clipLength <= 0)
+        {
+            character.Animator.ResetTrigger(SwitchTrigger);
+            OnSwitchComplete?.Invoke();
+        }
     }
 }
