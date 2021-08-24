@@ -30,6 +30,7 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
+        // Character Switch InputDetection
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (!characterController.isGrounded || switchCharacter) return;
@@ -41,8 +42,9 @@ public class Character : MonoBehaviour
 
     private void SwitchStart()
     {
-        switchCharacter = true;
-        thirdPersonController.enabled = false;
+        // turn on/off the required components for the switch
+        switchCharacter = true; 
+        thirdPersonController.enabled = false; 
     }
     private void OnSwitchCompleteHandler()
     {

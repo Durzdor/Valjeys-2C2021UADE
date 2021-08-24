@@ -87,6 +87,7 @@ public class CharacterAnimation : MonoBehaviour
         StartCoroutine(WaitForSwitch());
     }
 
+    
     private IEnumerator WaitForSwitch()
     {
         yield return new WaitForSeconds(0.2f);
