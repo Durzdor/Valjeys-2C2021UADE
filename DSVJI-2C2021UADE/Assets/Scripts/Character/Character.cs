@@ -50,5 +50,22 @@ public class Character : MonoBehaviour
     {
         switchCharacter = false;
         thirdPersonController.enabled = true;
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (switchCharacter)
+            {
+                thirdPersonController.enabled = false;
+                
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            var test = animator.GetCurrentAnimatorClipInfo(0);
+            print(test[0].clip);
+            print(test[0].clip.length);
+            
+
+        }
     }
 }
