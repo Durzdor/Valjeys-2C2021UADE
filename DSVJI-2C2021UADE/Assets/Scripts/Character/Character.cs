@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    [SerializeField] private SkinnedMeshRenderer playerMesh;
+    [SerializeField] private Material ruthMaterial;
+    [SerializeField] private Material naomiMaterial;
+    
     private Animator animator;
     private CharacterController characterController;
     private ThirdPersonController thirdPersonController;
@@ -14,9 +18,11 @@ public class Character : MonoBehaviour
     public CharacterController Controller => characterController;
     public ThirdPersonController ThirdPersonController => thirdPersonController;
 
-    private bool switchCharacter;
+    private bool switchingCharacter;
+    private bool isNaomi;
 
     public event Action OnCharacterSwitch;
+    public event Action OnCharacterMoveLock;
 
     private void Awake()
     {
@@ -33,7 +39,7 @@ public class Character : MonoBehaviour
         // Character Switch InputDetection
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (!characterController.isGrounded || switchCharacter) return;
+            if (!characterController.isGrounded || switchingCharacter) return;
             // Event for animations
             OnCharacterSwitch?.Invoke();
             SwitchStart();
@@ -43,29 +49,22 @@ public class Character : MonoBehaviour
     private void SwitchStart()
     {
         // turn on/off the required components for the switch
-        switchCharacter = true; 
-        thirdPersonController.enabled = false; 
+        switchingCharacter = true; 
+        OnCharacterMoveLock?.Invoke();
+        isNaomi = !isNaomi;
+
     }
     private void OnSwitchCompleteHandler()
     {
-        switchCharacter = false;
-        thirdPersonController.enabled = true;
-        if (Input.GetKeyDown(KeyCode.F))
+        switchingCharacter = false;
+        if (isNaomi)
         {
-            if (switchCharacter)
-            {
-                thirdPersonController.enabled = false;
-                
-            }
+            playerMesh.material = naomiMaterial;
         }
-
-        if (Input.GetKeyDown(KeyCode.R))
+        else
         {
-            var test = animator.GetCurrentAnimatorClipInfo(0);
-            print(test[0].clip);
-            print(test[0].clip.length);
-            
-
+            playerMesh.material = ruthMaterial;
         }
+        OnCharacterMoveLock?.Invoke();
     }
 }
