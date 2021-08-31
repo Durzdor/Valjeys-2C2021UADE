@@ -6,6 +6,7 @@ public class ThirdPersonController : MonoBehaviour
 {
     private Character character;
     private Vector3 moveDirection = Vector3.zero;
+    private Vector3 jumpVelocity = Vector3.zero;
     private bool isInputMoving;
     private bool isSprinting;
     private bool canControlMovement = true;
@@ -32,6 +33,7 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private float moveDirectionSpeed = 6f;
     [SerializeField] private float jumpSpeed = 10f;
     [SerializeField] private float sprintSpeed = 2f;
+    [SerializeField] private float rotationLerpSpeed = 10f;
     [Header("Settings")] [Space(2)] 
     [SerializeField] private bool invertMouseY;
     [SerializeField] private bool invertMouseX;
@@ -116,26 +118,27 @@ public class ThirdPersonController : MonoBehaviour
         {
             isInputMoving = false;
         }
-
         // Have camera follow if moving
         if (!lerpYaw && (h != 0 || v != 0))
             lerpYaw = true;
 
         if (Input.GetMouseButton(1))
-            transform.rotation = Quaternion.Euler(0, cameraYaw, 0); // Face camera
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.Euler(0, cameraYaw, 0), Time.deltaTime * rotationLerpSpeed); // Face camera
+        }
         else
             transform.Rotate(0, h * turnSpeed, 0); // Turn left/right
+
+        if (!canControlMovement) return;
         
-        
-        // Only allow user control when on ground
-        if (character.Controller.isGrounded)
-        {
-            if (Input.GetMouseButton(1))
-                moveDirection = new Vector3(h, 0, v).normalized; // Strafe
-            else
-                moveDirection = Vector3.forward * v; // Move forward/backward
+        if (Input.GetMouseButton(1))
+            moveDirection = new Vector3(h, 0, v).normalized; // Strafe
+        else
+            moveDirection = Vector3.forward * v; // Move forward/backward
             
-            moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection = transform.TransformDirection(moveDirection);
+        if (character.Controller.isGrounded) 
+        {
             moveDirection *= moveDirectionSpeed;
             if (Input.GetKey(KeyCode.LeftShift) && isInputMoving)
             {
@@ -148,15 +151,22 @@ public class ThirdPersonController : MonoBehaviour
                 isSprinting = false;
                 OnSprint?.Invoke();
             }
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButton ("Jump")) 
             {
-                moveDirection.y = jumpSpeed;
+                //jumpVelocity = moveDirection;
+                jumpVelocity.y = jumpSpeed;
                 OnJump?.Invoke();
+            } 
+            else {
+                jumpVelocity = Vector3.zero;
             }
+        } 
+        else
+        {
+            moveDirection *= moveDirectionSpeed;
+            jumpVelocity.y -= gravitySpeed * Time.deltaTime;
         }
-
-        // gravity goes here
-        moveDirection.y -= gravitySpeed * Time.deltaTime; // Apply gravity
-        character.Controller.Move(moveDirection * Time.deltaTime);
+        character.Controller.Move((moveDirection + jumpVelocity) * Time.deltaTime);
+        
     }
 }

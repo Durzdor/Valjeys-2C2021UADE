@@ -7,7 +7,7 @@ public class Character : MonoBehaviour
 {
     [SerializeField] private SkinnedMeshRenderer playerMesh;
     [SerializeField] private Material ruthMaterial;
-    [SerializeField] private Material naomiMaterial;
+    [SerializeField] private Material naomiMaterial;    
     
     private Animator animator;
     private CharacterController characterController;
