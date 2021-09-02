@@ -13,6 +13,8 @@ public class CharacterAnimation : MonoBehaviour
     private static readonly int GroundFloat = Animator.StringToHash("GroundFloat");
     private static readonly int AirFloat = Animator.StringToHash("AirFloat");
     private static readonly int GoingForward = Animator.StringToHash("IsGoingForward");
+    private static readonly int IdleBool = Animator.StringToHash("IsIdle");
+    private static readonly int SprintBool = Animator.StringToHash("IsSprinting");
     
     public event Action OnSwitchComplete;
 
@@ -20,17 +22,20 @@ public class CharacterAnimation : MonoBehaviour
     {
         character = GetComponent<Character>();
         character.ThirdPersonController.OnJump += JumpHandler;
+        character.ThirdPersonController.OnSprint += SprintHandler;
         character.OnCharacterSwitch += SwitchHandler;
     }
 
     private void Update()
     {
+        // character.Controller.velocity.magnitude < 0.001f
         if (character.Controller.isGrounded)
         {
             Landing();
             // moving
-            if (character.Controller.velocity.magnitude > 0.001f)
+            if (character.ThirdPersonController.IsInputMoving)
             {
+                character.Animator.SetBool(IdleBool, false);
                 // Forward
                 if (transform.InverseTransformDirection(character.ThirdPersonController.MoveDirection).z > 0)
                 {
@@ -47,8 +52,9 @@ public class CharacterAnimation : MonoBehaviour
             }
 
             // if not moving idle
-            if (character.Controller.velocity.magnitude < 0.001f)
+            if (!character.ThirdPersonController.IsInputMoving)
             {
+                character.Animator.SetBool(IdleBool, true);
                 character.Animator.SetFloat(GroundFloat, 0f);
             }
         }
@@ -64,6 +70,11 @@ public class CharacterAnimation : MonoBehaviour
     {
         character.Animator.SetTrigger(JumpTrigger);
         character.Animator.ResetTrigger(LandTrigger);
+    }
+
+    private void SprintHandler()
+    {
+        character.Animator.SetBool(SprintBool, character.ThirdPersonController.IsSprinting);
     }
 
     private void NotGrounded()
