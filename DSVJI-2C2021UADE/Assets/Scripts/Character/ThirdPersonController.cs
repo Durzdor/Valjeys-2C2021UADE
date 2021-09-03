@@ -4,11 +4,15 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class ThirdPersonController : MonoBehaviour
 {
-    private CharacterController controller;
+    private Character character;
     private Vector3 moveDirection = Vector3.zero;
-    
-    private float cameraPitch = 40.0f;
-    private float cameraYaw = 0;
+    private Vector3 jumpVelocity = Vector3.zero;
+    private bool isInputMoving;
+    private bool isSprinting;
+    private bool canControlMovement = true;
+
+    private float cameraPitch = 0; // starting angle downwards
+    private float cameraYaw = 0; // starting angle sideways
     private float cameraDistance = 5.0f;
     private bool lerpYaw = false;
     private bool lerpDistance = false;
@@ -28,13 +32,28 @@ public class ThirdPersonController : MonoBehaviour
     [Header("Velocities")][Space(2)]
     [SerializeField] private float moveDirectionSpeed = 6f;
     [SerializeField] private float jumpSpeed = 10f;
-    [SerializeField][Tooltip("Multipler of moveDirectionSpeed")] private float sprintSpeed = 2f;
+    [SerializeField] private float sprintSpeed = 2f;
+    [SerializeField] private float rotationLerpSpeed = 10f;
+    [Header("Settings")] [Space(2)] 
+    [SerializeField] private bool invertMouseY;
+    [SerializeField] private bool invertMouseX;
 
     public event Action OnJump;
+    public event Action OnSprint;
+
+    public Vector3 MoveDirection => moveDirection;
+    public bool IsInputMoving => isInputMoving;
+    public bool IsSprinting => isSprinting;
 
     private void Awake()
     {
-        controller = GetComponent<CharacterController>();
+        character = GetComponent<Character>();
+        character.OnCharacterMoveLock += LockMovement;
+    }
+
+    private void LockMovement()
+    {
+        canControlMovement = !canControlMovement;
     }
 
     public void LateUpdate()
@@ -42,9 +61,9 @@ public class ThirdPersonController : MonoBehaviour
         // If mouse button down then allow user to look around
         if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
         {
-            cameraPitch += Input.GetAxis("Mouse Y") * cameraPitchSpeed;
+            cameraPitch += invertMouseY ? Input.GetAxis("Mouse Y") : (Input.GetAxis("Mouse Y") * -1f) * cameraPitchSpeed;
             cameraPitch = Mathf.Clamp(cameraPitch, cameraPitchMin, cameraPitchMax);
-            cameraYaw += Input.GetAxis("Mouse X") * cameraYawSpeed;
+            cameraYaw += invertMouseX ? (Input.GetAxis("Mouse X") * -1f) : Input.GetAxis("Mouse X") * cameraYawSpeed;
             cameraYaw %= 360.0f;
             lerpYaw = false;
         }
@@ -88,41 +107,66 @@ public class ThirdPersonController : MonoBehaviour
     
     public void FixedUpdate()
     {
-
         var h = Input.GetAxis("Horizontal");
         var v = Input.GetAxis("Vertical");
 
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            isInputMoving = true;
+        }
+        else
+        {
+            isInputMoving = false;
+        }
         // Have camera follow if moving
         if (!lerpYaw && (h != 0 || v != 0))
             lerpYaw = true;
 
         if (Input.GetMouseButton(1))
-            transform.rotation = Quaternion.Euler(0, cameraYaw, 0); // Face camera
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.Euler(0, cameraYaw, 0), Time.deltaTime * rotationLerpSpeed); // Face camera
+        }
         else
             transform.Rotate(0, h * turnSpeed, 0); // Turn left/right
 
-        // Only allow user control when on ground
-        if (controller.isGrounded)
+        if (!canControlMovement) return;
+        
+        if (Input.GetMouseButton(1))
+            moveDirection = new Vector3(h, 0, v).normalized; // Strafe
+        else
+            moveDirection = Vector3.forward * v; // Move forward/backward
+            
+        moveDirection = transform.TransformDirection(moveDirection);
+        if (character.Controller.isGrounded) 
         {
-            if (Input.GetMouseButton(1))
-                moveDirection = new Vector3(h, 0, v).normalized; // Strafe
-            else
-                moveDirection = Vector3.forward * v; // Move forward/backward
-
-            moveDirection = transform.TransformDirection(moveDirection);
             moveDirection *= moveDirectionSpeed;
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift) && isInputMoving)
             {
-                 moveDirection *= sprintSpeed;
+                isSprinting = true;
+                moveDirection *= sprintSpeed;
+                OnSprint?.Invoke();
             }
-            if (Input.GetButton("Jump"))
+            else
             {
-                moveDirection.y = jumpSpeed;
+                isSprinting = false;
+                OnSprint?.Invoke();
+            }
+            if (Input.GetButton ("Jump")) 
+            {
+                //jumpVelocity = moveDirection;
+                jumpVelocity.y = jumpSpeed;
                 OnJump?.Invoke();
+            } 
+            else {
+                jumpVelocity = Vector3.zero;
             }
+        } 
+        else
+        {
+            moveDirection *= moveDirectionSpeed;
+            jumpVelocity.y -= gravitySpeed * Time.deltaTime;
         }
-
-        moveDirection.y -= gravitySpeed * Time.deltaTime; // Apply gravity
-        controller.Move(moveDirection * Time.deltaTime);
+        character.Controller.Move((moveDirection + jumpVelocity) * Time.deltaTime);
+        
     }
 }
