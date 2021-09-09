@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using UnityEditor;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -27,5 +29,22 @@ public class Projectile : MonoBehaviour
         _lifespan -= Time.deltaTime;
         
         transform.Translate(_direction * _speed * Time.deltaTime, Space.World);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        var collider = GetComponent<Collider>();
+        
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(collider.transform.position, 1);
+            
     }
 }

@@ -10,25 +10,26 @@ public class WeaponController : MonoBehaviour
 
     [SerializeField] private GameObject _unequippedPrimary;
     [SerializeField] private GameObject _unequippedSecondary;
-    
-    private bool _drawn;
-    public delegate void AttackDelegate(Vector3 direction, Vector3 position);
+
+    public bool drawn { get; private set; }
+
+    public delegate void AttackDelegate();
     public AttackDelegate Attack;
 
     public void DrawSaveWeapon()
     {
-        _drawn = !_drawn;
+        drawn = !drawn;
 
         if (_equippedPrimary && _unequippedPrimary)
         {
-            _equippedPrimary.SetActive(_drawn);
-            _unequippedPrimary.SetActive(!_drawn);
+            _equippedPrimary.SetActive(drawn);
+            _unequippedPrimary.SetActive(!drawn);
         }
 
         if (_equippedSecondary && _unequippedSecondary)
         {
-            _equippedSecondary.SetActive(_drawn);
-            _unequippedSecondary.SetActive(!_drawn);
+            _equippedSecondary.SetActive(drawn);
+            _unequippedSecondary.SetActive(!drawn);
         }
         
 
