@@ -10,7 +10,7 @@ namespace Assets.Scripts.Enemies.DamagePopup
 
         private const float DISAPPEAR_TIMER_MAX = 1f;
 
-        
+        private Camera _camera;
         private float _disappearTimer;
         private Color _textColor;
         private Vector3 _moveVector;
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Enemies.DamagePopup
             _tm = GetComponent<TextMeshPro>();
             _moveVector = new Vector3(0, 1);
             _disappearTimer = DISAPPEAR_TIMER_MAX;
-            
+            _camera = Camera.main;
         }
 
         public void ShowDamage(Vector3 position, int amount)
@@ -35,6 +35,7 @@ namespace Assets.Scripts.Enemies.DamagePopup
 
         private void Update()
         {
+            transform.LookAt(_camera.transform);
             transform.position += _moveVector * Time.deltaTime;
             _moveVector -= _moveVector * 8f * Time.deltaTime;
 
