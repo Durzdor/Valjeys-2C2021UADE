@@ -5,11 +5,11 @@ using UnityEngine;
 public class Ruth : MonoBehaviour
 {
 
-    private RuthWeaponController _ruthWeaponController;
+    private WeaponController _ruthWeaponController;
     
     void Start()
     {
-        _ruthWeaponController = GetComponent<RuthWeaponController>();
+        _ruthWeaponController = GetComponent<WeaponController>();
     }
 
     
