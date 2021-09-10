@@ -24,18 +24,24 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        buttonIndex = 0;
-        currentButton = buttons[0];
+        ResetSelector();
         mainWindow.SetActive(true);
         helpWindow.SetActive(false);
         creditsWindow.SetActive(false);
+    }
+
+    private void ResetSelector()
+    {
+        buttonIndex = 0;
+        currentButton = buttons[0];
+        selectorObject.position = new Vector3(selectorObject.position.x, currentButton.transform.position.y);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (mainWindow.activeSelf)
+            if (mainWindow.activeInHierarchy)
             {
                 buttonIndex--;
                 if (buttonIndex < 0)
@@ -49,7 +55,7 @@ public class MainMenuManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (mainWindow.activeSelf)
+            if (mainWindow.activeInHierarchy)
             {
                 buttonIndex++;
                 if (buttonIndex > buttons.Count - 1)
@@ -64,7 +70,7 @@ public class MainMenuManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (!mainWindow.activeSelf)
+            if (!mainWindow.activeInHierarchy)
             {
                 goBackButton.onClick.Invoke();
                 return;
@@ -94,11 +100,12 @@ public class MainMenuManager : MonoBehaviour
                selectorObject.position = new Vector3(selectorObject.position.x, goBackButton.transform.position.y);
                return;
            case ButtonSwitch.QuitButton:
-               if (Application.isEditor)
-               {
-                   UnityEditor.EditorApplication.isPlaying = false;
-               }
+#if UNITY_EDITOR
+               UnityEditor.EditorApplication.isPlaying = false;
+#endif
+#if UNITY_STANDALONE_WIN
                Application.Quit();
+#endif
                return;
            default: return;
         } 
@@ -106,10 +113,10 @@ public class MainMenuManager : MonoBehaviour
 
     public void GoBackButtonHandler()
     {
-        selectorObject.position = new Vector3(selectorObject.position.x, currentButton.transform.position.y);
         mainWindow.SetActive(true);
         helpWindow.SetActive(false);
         creditsWindow.SetActive(false);
         goBackButton.gameObject.SetActive(false);
+        ResetSelector();
     }
 }

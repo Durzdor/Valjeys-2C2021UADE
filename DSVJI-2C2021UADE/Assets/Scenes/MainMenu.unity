@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 1026577}
   - component: {fileID: 1026576}
   m_Layer: 5
-  m_Name: HelpButton
+  m_Name: ControlsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9015,10 +9015,10 @@ RectTransform:
   m_Father: {fileID: 2090538795}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.3131251, y: 0.17400001}
+  m_AnchorMin: {x: 0.3172918, y: 0.23788896}
   m_AnchorMax: {x: 0.68485427, y: 0.91485184}
-  m_AnchoredPosition: {x: 4.100006, y: 4.299988}
-  m_SizeDelta: {x: -8.506348, y: 2.213379}
+  m_AnchoredPosition: {x: 0.1000061, y: 0.31262207}
+  m_SizeDelta: {x: -0.50634766, y: -0.62506104}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2121995875
 MonoBehaviour:
@@ -9039,27 +9039,21 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
-
-
-    Made by:
+  m_text: 'Made by:
 
 
     Perez Maximiliano
 
 
-
     Puter Jalil
 
 
-
-    Rivarola
-    Gaston
+    Rivarola Gaston
 
 
 
-
-    Desarrollo de videojuegos I - 2C2021
+    Desarrollo
+    de videojuegos I - 2C2021
 
 '
   m_isRightToLeft: 0
@@ -9097,7 +9091,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -9107,7 +9101,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 3
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
