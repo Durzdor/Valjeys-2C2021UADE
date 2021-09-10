@@ -12,6 +12,8 @@ namespace Assets.Scripts.Enemies.DamagePopup
         [SerializeField]
         private GameObject _dmgPopup;
 
+        [SerializeField] private Collider _collider;
+
         private Stopwatch _sw;
         private TimeSpan _ts;
 
@@ -49,7 +51,7 @@ namespace Assets.Scripts.Enemies.DamagePopup
         {
             DamagePopup dmgPopup = Instantiate(_dmgPopup).GetComponent<DamagePopup>();
             Vector3 pos = transform.position - (Camera.main.ScreenToWorldPoint(Camera.main.transform.position) - transform.position).normalized;
-            pos.y = transform.position.y * 2;
+            pos.y = _collider.bounds.extents.y * 2.5f;
             dmgPopup.ShowDamage(pos, damage);
         }
     }

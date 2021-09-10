@@ -36,7 +36,7 @@ public class CharacterUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI manaText;
     [SerializeField] private TextMeshProUGUI experienceText;
 
-    private const string menuScene = "UiTest"; // menu scene name
+    private const string menuScene = "MainMenu"; // menu scene name
 
     private int characterMaxHp;
     private int characterMaxMana;

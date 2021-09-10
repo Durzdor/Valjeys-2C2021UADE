@@ -36,6 +36,7 @@ namespace Assets.Scripts.Enemies.DamagePopup
         private void Update()
         {
             transform.LookAt(_camera.transform);
+            transform.forward *= -1;
             transform.position += _moveVector * Time.deltaTime;
             _moveVector -= _moveVector * 8f * Time.deltaTime;
 
