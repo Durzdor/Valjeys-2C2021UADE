@@ -33061,6 +33061,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 756982768, guid: fb209869d42d51f47b194f290c424bd3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 816a1f0fcbab0ec48b7c6a8ea772e3e4,
+        type: 3}
+    - target: {fileID: 816662748, guid: fb209869d42d51f47b194f290c424bd3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1501781265, guid: fb209869d42d51f47b194f290c424bd3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1541455064, guid: fb209869d42d51f47b194f290c424bd3, type: 3}
+      propertyPath: m_text
+      value: 'Naomi
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 6044810825460919648, guid: fb209869d42d51f47b194f290c424bd3,
         type: 3}
       propertyPath: m_LocalPosition.x

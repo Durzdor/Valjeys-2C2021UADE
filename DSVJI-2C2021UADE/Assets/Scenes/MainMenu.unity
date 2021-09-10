@@ -7122,12 +7122,15 @@ MonoBehaviour:
 
     Shift - Run
 
-    F
-    - Switch character
+    Skills
+    - 1,2,3,4,5
+
+    F - Switch character
 
     LMB, RMB - Control camera
 
-    Escape - pause
+    Escape
+    - pause
 
 '
   m_isRightToLeft: 0
