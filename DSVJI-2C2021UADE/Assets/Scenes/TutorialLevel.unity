@@ -33129,6 +33129,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cooldown4Fill
       objectReference: {fileID: 0}
+    - target: {fileID: 3166841458867644654, guid: fb209869d42d51f47b194f290c424bd3,
+        type: 3}
+      propertyPath: naomiSkillData.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3166841458867644654, guid: fb209869d42d51f47b194f290c424bd3,
+        type: 3}
+      propertyPath: naomiSkillData.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0734f3fa10dee4e419d8a5c159c4ba22,
+        type: 2}
+    - target: {fileID: 3166841458867644654, guid: fb209869d42d51f47b194f290c424bd3,
+        type: 3}
+      propertyPath: naomiSkillData.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: be07a0219fe356c448f8a5d0223bee6c,
+        type: 2}
+    - target: {fileID: 3166841458867644654, guid: fb209869d42d51f47b194f290c424bd3,
+        type: 3}
+      propertyPath: naomiSkillData.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 23087b8b9994a544d939f3d2d52f460f,
+        type: 2}
+    - target: {fileID: 3166841458867644654, guid: fb209869d42d51f47b194f290c424bd3,
+        type: 3}
+      propertyPath: naomiSkillData.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: c7beac7ba014a0b4383501f2e01bf2a0,
+        type: 2}
+    - target: {fileID: 3166841458867644654, guid: fb209869d42d51f47b194f290c424bd3,
+        type: 3}
+      propertyPath: naomiSkillData.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 11978a39794400b44b2edab06cc3cc92,
+        type: 2}
     - target: {fileID: 4847383546748399350, guid: fb209869d42d51f47b194f290c424bd3,
         type: 3}
       propertyPath: m_Name
