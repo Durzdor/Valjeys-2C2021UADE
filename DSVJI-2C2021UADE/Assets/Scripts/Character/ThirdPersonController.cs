@@ -11,7 +11,7 @@ public class ThirdPersonController : MonoBehaviour
     private bool isSprinting;
     private bool canControlMovement = true;
 
-    private float cameraPitch = 0; // starting angle downwards
+    private float cameraPitch = 15f; // starting angle downwards
     private float cameraYaw = 0; // starting angle sideways
     private float cameraDistance = 5.0f;
     private bool lerpYaw = false;
@@ -34,9 +34,6 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private float jumpSpeed = 10f;
     [SerializeField] private float sprintSpeed = 2f;
     [SerializeField] private float rotationLerpSpeed = 10f;
-    [Header("Settings")] [Space(2)] 
-    [SerializeField] private bool invertMouseY;
-    [SerializeField] private bool invertMouseX;
 
     public event Action OnJump;
     public event Action OnSprint;
@@ -61,9 +58,9 @@ public class ThirdPersonController : MonoBehaviour
         // If mouse button down then allow user to look around
         if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
         {
-            cameraPitch += invertMouseY ? Input.GetAxis("Mouse Y") : (Input.GetAxis("Mouse Y") * -1f) * cameraPitchSpeed;
+            cameraPitch += character.CharacterSettings.InvertMouseY ? Input.GetAxis("Mouse Y") : (Input.GetAxis("Mouse Y") * -1f) * cameraPitchSpeed;
             cameraPitch = Mathf.Clamp(cameraPitch, cameraPitchMin, cameraPitchMax);
-            cameraYaw += invertMouseX ? (Input.GetAxis("Mouse X") * -1f) : Input.GetAxis("Mouse X") * cameraYawSpeed;
+            cameraYaw += character.CharacterSettings.InvertMouseX ? (Input.GetAxis("Mouse X") * -1f) : Input.GetAxis("Mouse X") * cameraYawSpeed;
             cameraYaw %= 360.0f;
             lerpYaw = false;
         }
@@ -109,6 +106,7 @@ public class ThirdPersonController : MonoBehaviour
     {
         var h = Input.GetAxis("Horizontal");
         var v = Input.GetAxis("Vertical");
+        var strafeAxis = Input.GetAxis("SecondaryHorizontal");
 
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
@@ -119,7 +117,7 @@ public class ThirdPersonController : MonoBehaviour
             isInputMoving = false;
         }
         // Have camera follow if moving
-        if (!lerpYaw && (h != 0 || v != 0))
+        if (!lerpYaw && (h != 0 || v != 0) || strafeAxis != 0)
             lerpYaw = true;
 
         if (Input.GetMouseButton(1))
@@ -127,23 +125,34 @@ public class ThirdPersonController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.Euler(0, cameraYaw, 0), Time.deltaTime * rotationLerpSpeed); // Face camera
         }
         else
-            transform.Rotate(0, h * turnSpeed, 0); // Turn left/right
+        {
+            if (character.CharacterSettings.AdStrafe)
+            {
+                transform.Rotate(0, strafeAxis * turnSpeed, 0); // Turn left/right
+            }
+            else
+            {
+                transform.Rotate(0, h * turnSpeed, 0); // Turn left/right
+            }
+            
+        }
 
         if (!canControlMovement) return;
-        
-        if (Input.GetMouseButton(1))
+
+        if (Input.GetMouseButton(1) || character.CharacterSettings.AdStrafe)
             moveDirection = new Vector3(h, 0, v).normalized; // Strafe
         else
             moveDirection = Vector3.forward * v; // Move forward/backward
-            
+
         moveDirection = transform.TransformDirection(moveDirection);
         if (character.Controller.isGrounded) 
         {
             moveDirection *= moveDirectionSpeed;
-            if (Input.GetKey(KeyCode.LeftShift) && isInputMoving)
+            if (character.CharacterInput.GetChangeSpeedInput && isInputMoving)
             {
                 isSprinting = true;
-                moveDirection *= sprintSpeed;
+                moveDirection = new Vector3(moveDirection.x * sprintSpeed, jumpVelocity.y,
+                    moveDirection.z * sprintSpeed);
                 OnSprint?.Invoke();
             }
             else
@@ -151,9 +160,8 @@ public class ThirdPersonController : MonoBehaviour
                 isSprinting = false;
                 OnSprint?.Invoke();
             }
-            if (Input.GetButton ("Jump")) 
+            if (character.CharacterInput.GetJumpInput) 
             {
-                //jumpVelocity = moveDirection;
                 jumpVelocity.y = jumpSpeed;
                 OnJump?.Invoke();
             } 

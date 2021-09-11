@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,16 +10,14 @@ public class CharacterUI : MonoBehaviour
 {
     /*
      * TODO:
-     * scripts de ruth y naomi tiene que guardar las imagenes de las skills en una lista de sprites
-     * hacer un inputmanager y guardar los hotkeys de las skills en una lista de strings
-     * enganchar bien el character script asi puede agarrar la info que necesite
-     * hacer eventos para diferentes cosas (vida cambia, mana cambia, exp cambia, recibe daño)
+     * enganchar los cooldowns de las skills a las imagenes que tienen para fill
      */
     
     [Header("Lists")] [Space(5)]
     [SerializeField] private List<GameObject> pauseMenuScreens; // order: default, controls, options, help
     [SerializeField] private List<Button> uiButtons; // order: resume, controls, options, help, menu, quit, return, close
     [SerializeField] private List<Image> skillIcons;
+    [SerializeField] private List<Image> skillCooldownFill;
     [SerializeField] private List<TextMeshProUGUI> skillHotkeys;
 
     [Header("GameObjects to activate")] [Space(5)] 
@@ -35,20 +34,66 @@ public class CharacterUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI manaText;
     [SerializeField] private TextMeshProUGUI experienceText;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI levelText;
 
     private const string menuScene = "MainMenu"; // menu scene name
 
-    private int characterMaxHp;
-    private int characterMaxMana;
-    private int characterExpToLevel;
+    private Character character;
+    private float characterMaxHp;
+    private float characterMaxMana;
+    private float characterExpToLevel;
+
+
+    private void Awake()
+    {
+        character = GetComponent<Character>();
+    }
 
     private void Start()
     {
-        // get max hp and mana from character
-        // characterMaxHp = 10;
-        // characterMaxMana = 10;
-        // characterExpToLevel = 10;
+        FirstLoad();
+        CharacterEventSubscriptions();
         ButtonListeners();
+    }
+
+    private void FirstLoad()
+    {
+        characterMaxHp = character.CharacterHealth.MaxHealth;
+        characterMaxMana = character.CharacterMana.MaxMana;
+        characterExpToLevel = character.CharacterExperience.MaxExp;
+        HealthBarUpdate(character.CharacterHealth.CurrentHealth, character.CharacterHealth.GetRatio);
+        ManaBarUpdate(character.CharacterMana.CurrentMana,character.CharacterMana.GetRatio);
+        ExperienceBarUpdate(character.CharacterExperience.CurrentExp, character.CharacterExperience.GetRatio);
+        SkillHotkeysDisplay(character.CharacterInput.SkillHotkeys);
+        NameChange(character.IsNaomi ? "Naomi" : "Ruth");
+        LevelUpUpdate();
+        SkillSwitch(character.IsNaomi ? character.CharacterNaomi.NaomiSkillImages : character.CharacterRuth.RuthSkillImages);
+        CooldownFirstLoad();
+    }
+
+    private void CooldownFirstLoad()
+    {
+        for (int i = 0; i < skillCooldownFill.Count; i++)
+        {
+            SkillCooldownUpdate(skillCooldownFill[i],0);
+        }
+    }
+    private void CharacterEventSubscriptions()
+    {
+        character.CharacterHealth.OnDamaged += delegate { DamageTakenVFX(); HealthBarUpdate(character.CharacterHealth.CurrentHealth, character.CharacterHealth.GetRatio); };
+        character.CharacterHealth.OnHealed += delegate { HealthBarUpdate(character.CharacterHealth.CurrentHealth, character.CharacterHealth.GetRatio); };
+        character.CharacterMana.OnConsumed += delegate { ManaBarUpdate(character.CharacterMana.CurrentMana,character.CharacterMana.GetRatio); };
+        character.CharacterMana.OnGained += delegate { ManaBarUpdate(character.CharacterMana.CurrentMana,character.CharacterMana.GetRatio); };
+        character.CharacterRuth.OnRuthEnable += delegate { NameChange("Ruth"); SkillSwitch(character.CharacterRuth.RuthSkillImages); }; 
+        character.CharacterNaomi.OnNaomiEnable += delegate { NameChange("Naomi"); SkillSwitch(character.CharacterNaomi.NaomiSkillImages); };
+        character.CharacterExperience.OnExpGained += delegate { ExperienceBarUpdate(character.CharacterExperience.CurrentExp, character.CharacterExperience.GetRatio); };
+        character.CharacterExperience.OnLevelUp += LevelUpUpdate;
+        character.CharacterSkillController.OnSkill1Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[0],f); };
+        character.CharacterSkillController.OnSkill2Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[1],f); };
+        character.CharacterSkillController.OnSkill3Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[2],f); };
+        character.CharacterSkillController.OnSkill4Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[3],f); };
+        character.CharacterSkillController.OnSkill5Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[4],f); };
     }
 
     private void ButtonListeners()
@@ -66,12 +111,31 @@ public class CharacterUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (character.CharacterInput.GetPauseInput)
         {
             PauseMenuActivation();
         }
     }
 
+    private void SkillCooldownUpdate(Image cooldownFill, float cooldownRatio)
+    {
+        cooldownFill.fillAmount = cooldownRatio;
+    }
+    private void LevelUpUpdate()
+    {
+        characterExpToLevel = character.CharacterExperience.MaxExp;
+        levelText.text = character.CharacterExperience.CurrentLevel.ToString();
+        if (Mathf.Approximately(characterExpToLevel, float.MaxValue))
+        {
+            experienceText.gameObject.SetActive(false);
+        }
+    }
+
+    private void NameChange(string newName)
+    {
+        nameText.text = newName;
+    }
+    
     private void DamageTakenVFX()
     {
         StartCoroutine(DamageVFXWait());
@@ -94,25 +158,31 @@ public class CharacterUI : MonoBehaviour
     
     private void SkillSwitch(List<Sprite> newIcons)
     {
-        for (int i = 0; i < skillIcons.Count; i++)
+        for (int i = 0; i < newIcons.Count; i++)
         {
+            skillIcons[i].gameObject.SetActive(true);
             skillIcons[i].sprite = newIcons[i];
+        }
+
+        for (int i = newIcons.Count; i < skillIcons.Count; i++)
+        {
+            skillIcons[i].gameObject.SetActive(false);
         }
     }
 
-    private void ExperienceBarUpdate(int currExp, float expPercent)
+    private void ExperienceBarUpdate(float currExp, float expPercent)
     {
         experienceBarFilling.fillAmount = expPercent;
         experienceText.text = $"{currExp} / {characterExpToLevel}";
     }
 
-    private void ManaBarUpdate(int currMana, float manaPercent)
+    private void ManaBarUpdate(float currMana, float manaPercent)
     {
         manaBarFilling.fillAmount = manaPercent;
         manaText.text = $"{currMana} / {characterMaxMana}";
     }
 
-    private void HealthBarUpdate(int currHp, float hpPercent)
+    private void HealthBarUpdate(float currHp, float hpPercent)
     {
         healthBarFilling.fillAmount = hpPercent;
         healthText.text = $"{currHp} / {characterMaxHp}";
@@ -122,12 +192,14 @@ public class CharacterUI : MonoBehaviour
     {
         var currentState = pauseMenu.activeInHierarchy;
         pauseMenu.SetActive(!currentState);
+        Cursor.visible = !currentState;
         Time.timeScale = !currentState ? 0f : 1f;
     }
 
     private void CloseMessagePopup()
     {
         messagePopup.SetActive(false);
+        Cursor.visible = false;
     }
 
     private void SwitchPauseMenuScreen(int screenToShow)

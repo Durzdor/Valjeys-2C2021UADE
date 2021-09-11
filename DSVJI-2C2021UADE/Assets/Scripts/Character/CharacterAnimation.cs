@@ -18,9 +18,13 @@ public class CharacterAnimation : MonoBehaviour
     
     public event Action OnSwitchComplete;
 
-    private void Start()
+    private void Awake()
     {
         character = GetComponent<Character>();
+    }
+
+    private void Start()
+    {
         character.ThirdPersonController.OnJump += JumpHandler;
         character.ThirdPersonController.OnSprint += SprintHandler;
         character.OnCharacterSwitch += SwitchHandler;
