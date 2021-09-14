@@ -9,8 +9,7 @@ public class ThirdPersonController : MonoBehaviour
     private Vector3 jumpVelocity = Vector3.zero;
     private bool isInputMoving;
     private bool isSprinting;
-    private bool canControlMovement = true;
-
+    
     private float cameraPitch = 15f; // starting angle downwards
     private float cameraYaw = 0; // starting angle sideways
     private float cameraDistance = 5.0f;
@@ -25,7 +24,9 @@ public class ThirdPersonController : MonoBehaviour
     private float cameraDistanceMax = 12.0f;
     private float turnSpeed = 3.0f;
     private float gravitySpeed = 20.0f;
-    
+
+    #region SerializedFields
+#pragma warning disable 649
     [Header("References")][Space(2)]
     [SerializeField] private Transform cameraTarget;
     [SerializeField] private Transform mainCamera;
@@ -34,6 +35,8 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private float jumpSpeed = 10f;
     [SerializeField] private float sprintSpeed = 2f;
     [SerializeField] private float rotationLerpSpeed = 10f;
+#pragma warning restore 649
+    #endregion
 
     public event Action OnJump;
     public event Action OnSprint;
@@ -42,21 +45,39 @@ public class ThirdPersonController : MonoBehaviour
     public bool IsInputMoving => isInputMoving;
     public bool IsSprinting => isSprinting;
 
+    #region CoyoteJump
+
+    private float jumpButtonGracePeriod = 0.1f;
+    private float? lastGroundedTime;
+    private float? jumpButtonPressedTime;
+
+    public bool GroundedBonusTime => Time.time - lastGroundedTime <= jumpButtonGracePeriod;
+    public bool CanJump => Time.time - jumpButtonPressedTime <= jumpButtonGracePeriod;
+
+    private void CoyoteTime()
+    {
+        if (character.Controller.isGrounded)
+        {
+            lastGroundedTime = Time.time;
+        }
+
+        if (character.CharacterInput.GetJumpInput)
+        {
+            jumpButtonPressedTime = Time.time;
+        }
+    }
+
+    #endregion
+    
     private void Awake()
     {
         character = GetComponent<Character>();
-        character.OnCharacterMoveLock += LockMovement;
     }
-
-    private void LockMovement()
-    {
-        canControlMovement = !canControlMovement;
-    }
-
+    
     public void LateUpdate()
     {
         // If mouse button down then allow user to look around
-        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+        if (character.CharacterInput.GetCameraLookAround|| character.CharacterInput.GetCameraPlayerControl)
         {
             cameraPitch += character.CharacterSettings.InvertMouseY ? Input.GetAxis("Mouse Y") : (Input.GetAxis("Mouse Y") * -1f) * cameraPitchSpeed;
             cameraPitch = Mathf.Clamp(cameraPitch, cameraPitchMin, cameraPitchMax);
@@ -72,9 +93,9 @@ public class ThirdPersonController : MonoBehaviour
         }
 
         // Zoom
-        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        if (character.CharacterInput.ZoomAxis != 0)
         {
-            cameraDistance -= Input.GetAxis("Mouse ScrollWheel") * cameraDistanceSpeed;
+            cameraDistance -= character.CharacterInput.ZoomAxis * cameraDistanceSpeed;
             cameraDistance = Mathf.Clamp(cameraDistance, cameraDistanceMin, cameraDistanceMax);
             lerpDistance = false;
         }
@@ -104,11 +125,12 @@ public class ThirdPersonController : MonoBehaviour
     
     public void FixedUpdate()
     {
-        var h = Input.GetAxis("Horizontal");
-        var v = Input.GetAxis("Vertical");
-        var strafeAxis = Input.GetAxis("SecondaryHorizontal");
+        CoyoteTime();
+        var h = character.CharacterInput.HorizontalAxis;
+        var v = character.CharacterInput.VerticalAxis;
+        var strafeAxis = character.CharacterInput.StrafeAxis;
 
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        if (h != 0 || v != 0)
         {
             isInputMoving = true;
         }
@@ -119,8 +141,8 @@ public class ThirdPersonController : MonoBehaviour
         // Have camera follow if moving
         if (!lerpYaw && (h != 0 || v != 0) || strafeAxis != 0)
             lerpYaw = true;
-
-        if (Input.GetMouseButton(1))
+        
+        if (character.CharacterInput.GetCameraPlayerControl)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.Euler(0, cameraYaw, 0), Time.deltaTime * rotationLerpSpeed); // Face camera
         }
@@ -136,16 +158,15 @@ public class ThirdPersonController : MonoBehaviour
             }
             
         }
-
-        if (!canControlMovement) return;
-
-        if (Input.GetMouseButton(1) || character.CharacterSettings.AdStrafe)
+        
+        if (character.CharacterInput.GetCameraPlayerControl || character.CharacterSettings.AdStrafe)
             moveDirection = new Vector3(h, 0, v).normalized; // Strafe
         else
             moveDirection = Vector3.forward * v; // Move forward/backward
 
         moveDirection = transform.TransformDirection(moveDirection);
-        if (character.Controller.isGrounded) 
+        
+        if (GroundedBonusTime) // character.Controller.isGrounded
         {
             moveDirection *= moveDirectionSpeed;
             if (character.CharacterInput.GetChangeSpeedInput && isInputMoving)
@@ -160,8 +181,10 @@ public class ThirdPersonController : MonoBehaviour
                 isSprinting = false;
                 OnSprint?.Invoke();
             }
-            if (character.CharacterInput.GetJumpInput) 
+            if (CanJump) // character.CharacterInput.GetJumpInput
             {
+                jumpButtonPressedTime = null;
+                lastGroundedTime = null; // Coyote
                 jumpVelocity.y = jumpSpeed;
                 OnJump?.Invoke();
             } 
@@ -175,6 +198,5 @@ public class ThirdPersonController : MonoBehaviour
             jumpVelocity.y -= gravitySpeed * Time.deltaTime;
         }
         character.Controller.Move((moveDirection + jumpVelocity) * Time.deltaTime);
-        
     }
 }

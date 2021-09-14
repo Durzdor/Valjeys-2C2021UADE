@@ -1,12 +1,17 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    #region SerializedFields
+#pragma warning disable 649
     [Header("Switch")] [Space(5)]
     [SerializeField] private SkinnedMeshRenderer playerMesh;
     [SerializeField] private GameObject ruthGo;
     [SerializeField] private GameObject naomiGo;
+#pragma warning restore 649
+    #endregion
 
     private Animator animator;
     private CharacterController characterController;
@@ -33,13 +38,14 @@ public class Character : MonoBehaviour
     public Experience CharacterExperience => characterExperience;
     public CharacterSkillController CharacterSkillController => characterSkillController;
 
-    public bool SwitchingCharacter { get; private set; }
     private bool isNaomi;
-
+    private bool isTeleporting = false;
+    
+    [SerializeField] private Transform checkpointRespawn;
+    public bool IsAnimationLocked { get; private set; }
     public bool IsNaomi => isNaomi;
 
     public event Action OnCharacterSwitch;
-    public event Action OnCharacterMoveLock;
 
     private void Awake()
     {
@@ -59,34 +65,71 @@ public class Character : MonoBehaviour
 
     private void Start()
     {
+        characterHealth.OnDeath += OnDeathHandler;
         characterAnimation.OnSwitchComplete += OnSwitchCompleteHandler;
-
+        characterAnimation.OnDeathComplete += OnDeathCompleteHandler;
     }
 
     private void Update()
     {
-        if (SwitchingCharacter) return;
+        if (characterHealth.IsDead)
+        {
+            IsAnimationLocked = true;
+        }
+        if (IsAnimationLocked) return;
         // Character Switch InputDetection
         if (characterInput.GetSwitchCharacterInput)
         {
-            if (!characterController.isGrounded) return;
             // Event for animations
             OnCharacterSwitch?.Invoke();
             SwitchStart();
         }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            characterHealth.TakeDamage(9999);
+        }
+    }
+
+    private void OnDeathHandler()
+    {
+        IsAnimationLocked = true;
+    }
+    private void OnDeathCompleteHandler()
+    {
+        IsAnimationLocked = false;
+        characterMana.ResetToMax();
+        characterHealth.ResetToMax();
+        Teleport(checkpointRespawn);
+    }
+
+    public void Teleport(Transform pos)
+    {
+        if (isTeleporting) return;
+        StartCoroutine(TeleportTo(pos));
+    }
+
+    private IEnumerator TeleportTo(Transform pos)
+    {
+        isTeleporting = true;
+        thirdPersonController.enabled = false;
+        transform.position = pos.position;
+        transform.rotation = pos.rotation;
+        yield return new WaitForSeconds(0.5f);
+        thirdPersonController.enabled = true;
+        isTeleporting = false;
     }
 
     private void SwitchStart()
     {
         // turn on/off the required components for the switch
-        SwitchingCharacter = true; 
-        OnCharacterMoveLock?.Invoke();
+        IsAnimationLocked = true; 
         isNaomi = !isNaomi;
 
     }
     private void OnSwitchCompleteHandler()
     {
-        SwitchingCharacter = false;
+        IsAnimationLocked = false;
         if (isNaomi)
         {
             ruthGo.SetActive(false);
@@ -99,6 +142,5 @@ public class Character : MonoBehaviour
             naomiGo.SetActive(false);
             playerMesh.material = characterRuth.RuthMaterial;
         }
-        OnCharacterMoveLock?.Invoke();
     }
 }

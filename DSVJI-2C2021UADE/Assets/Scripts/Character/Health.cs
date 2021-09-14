@@ -15,6 +15,8 @@ public class Health : MonoBehaviour
     public float MaxHealth => maxHealth;
     public float GetRatio => CurrentHealth / maxHealth;
 
+    public bool IsDead => isDead;
+
     private void Awake()
     {
         CurrentHealth = maxHealth;
@@ -37,6 +39,7 @@ public class Health : MonoBehaviour
    
     public void TakeDamage(float damage)
     {
+        if (isDead) return;
         var healthBefore = CurrentHealth;
         CurrentHealth -= damage;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, maxHealth);
@@ -62,5 +65,11 @@ public class Health : MonoBehaviour
             isDead = true;
             OnDeath?.Invoke();
         }
+    }
+
+    public void ResetToMax()
+    {
+        Heal(maxHealth);
+        isDead = false;
     }
 }

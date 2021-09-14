@@ -8,9 +8,9 @@ public class Mana : MonoBehaviour
     [SerializeField] private float maxMana = 100f;
 
     [Header("Mana Regen")] [Space(5)] 
-    [SerializeField] private bool passiveManaRegenPossible;
-    [SerializeField] private float manaRegenAmount;
-    [SerializeField] private float manaRegenRate;
+    [SerializeField] private bool passiveManaRegenPossible = false;
+    [SerializeField] private float manaRegenAmount = 1f;
+    [SerializeField] private float manaRegenRate = 1f;
     private bool isManaRegenerating;
 
     public event Action OnConsumed;
@@ -72,5 +72,10 @@ public class Mana : MonoBehaviour
             // use this to display on screen
             OnConsumed?.Invoke();
         }
+    }
+
+    public void ResetToMax()
+    {
+        GainMana(maxMana);
     }
 }

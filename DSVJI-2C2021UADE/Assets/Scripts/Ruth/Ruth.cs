@@ -6,11 +6,15 @@ using UnityEngine;
 public class Ruth : MonoBehaviour
 {
     private WeaponController _ruthWeaponController;
-    
+
+    #region SerializedFields
+#pragma warning disable 649
     [Header("Switch")] [Space(5)]
     [SerializeField] private Material ruthMaterial;
     [SerializeField] private List<Sprite> ruthSkillImages;
     [SerializeField] private List<SkillData> ruthSkillData;
+#pragma warning restore 649
+    #endregion
 
     public Material RuthMaterial => ruthMaterial;
     public List<Sprite> RuthSkillImages => ruthSkillImages;

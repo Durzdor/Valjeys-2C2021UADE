@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 6bff0bdf8f128af42a4f10cd09202784
+guid: fec62a37c5e35fc42aec3c2e0482788f
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Jump
+    second: mixamo.com
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -26,43 +26,14 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Jump
-      takeName: mixamo.com
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 25
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -442,18 +413,18 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Character@T-Pose(Clone)
+    - name: CharacterModel(Clone)
       parentName: 
       position: {x: 0.00000063633183, y: 0.0029353332, z: 0.017929194}
       rotation: {x: 7.4472316e-19, y: -0.00000001160481, z: 0.00000039360407, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Character_Shieldmadien
-      parentName: Character@T-Pose(Clone)
+      parentName: CharacterModel(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Root
-      parentName: Character@T-Pose(Clone)
+      parentName: CharacterModel(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}

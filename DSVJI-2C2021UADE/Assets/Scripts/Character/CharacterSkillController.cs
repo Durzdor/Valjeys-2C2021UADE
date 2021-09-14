@@ -27,7 +27,7 @@ public class CharacterSkillController : MonoBehaviour
 
     private void Update()
     {
-        if (character.SwitchingCharacter) return;
+        if (character.IsAnimationLocked) return;
         if (!canUseSkills) return;
         // starts at 0
         if (character.CharacterInput.GetSkillHotkeyInput(0) && isSkill1Available)

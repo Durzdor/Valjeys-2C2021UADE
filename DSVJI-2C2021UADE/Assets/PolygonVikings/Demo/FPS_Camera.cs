@@ -2,6 +2,7 @@
 
 public class FPS_Camera : MonoBehaviour
 {
+#pragma warning disable 649
     [SerializeField]
     [Range(0, 1)]
     private float horizontalSpeed;
@@ -14,7 +15,7 @@ public class FPS_Camera : MonoBehaviour
     [SerializeField]
     [Range(0, 1)]
     private float _Yspeed;
-
+#pragma warning disable 649
 
 
     private float h;

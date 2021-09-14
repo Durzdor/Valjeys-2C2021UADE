@@ -10,13 +10,14 @@ public class CharacterAnimation : MonoBehaviour
     private static readonly int JumpTrigger = Animator.StringToHash("JumpTrigger");
     private static readonly int LandTrigger = Animator.StringToHash("LandingTrigger");
     private static readonly int SwitchTrigger = Animator.StringToHash("SwitchTrigger");
+    private static readonly int DeathTrigger = Animator.StringToHash("DeathTrigger");
     private static readonly int GroundFloat = Animator.StringToHash("GroundFloat");
     private static readonly int AirFloat = Animator.StringToHash("AirFloat");
-    private static readonly int GoingForward = Animator.StringToHash("IsGoingForward");
+    private static readonly int GoingForwardBool = Animator.StringToHash("IsGoingForward");
     private static readonly int IdleBool = Animator.StringToHash("IsIdle");
     private static readonly int SprintBool = Animator.StringToHash("IsSprinting");
-    
     public event Action OnSwitchComplete;
+    public event Action OnDeathComplete;
 
     private void Awake()
     {
@@ -28,12 +29,14 @@ public class CharacterAnimation : MonoBehaviour
         character.ThirdPersonController.OnJump += JumpHandler;
         character.ThirdPersonController.OnSprint += SprintHandler;
         character.OnCharacterSwitch += SwitchHandler;
+        character.CharacterHealth.OnDeath += DeathHandler;
     }
 
     private void Update()
     {
+        if (character.IsAnimationLocked) return;
         // character.Controller.velocity.magnitude < 0.001f
-        if (character.Controller.isGrounded)
+        if (character.Controller.isGrounded) // character.Controller.isGrounded
         {
             Landing();
             // moving
@@ -43,12 +46,12 @@ public class CharacterAnimation : MonoBehaviour
                 // Forward
                 if (transform.InverseTransformDirection(character.ThirdPersonController.MoveDirection).z > 0)
                 {
-                    character.Animator.SetBool(GoingForward, true);
+                    character.Animator.SetBool(GoingForwardBool, true);
                 }
                 // Backward
                 if (transform.InverseTransformDirection(character.ThirdPersonController.MoveDirection).z  < 0)
                 {
-                    character.Animator.SetBool(GoingForward, false);
+                    character.Animator.SetBool(GoingForwardBool, false);
                 }
                 // Walk or Sprint
                 character.Animator.SetFloat(GroundFloat, character.Controller.velocity.magnitude);
@@ -63,10 +66,40 @@ public class CharacterAnimation : MonoBehaviour
             }
         }
 
-        if (!character.Controller.isGrounded)
+        if (!character.Controller.isGrounded) // !character.Controller.isGrounded / !character.ThirdPersonController.CoyoteGrounded
         {
             NotGrounded();
-            character.Animator.SetFloat(AirFloat, Mathf.Abs(character.Controller.velocity.y) + 0.1f);
+            //character.Animator.SetFloat(AirFloat, Mathf.Abs(character.Controller.velocity.y) + 0.1f);
+            
+            if (character.Controller.velocity.y < 0.1f)
+            {
+                character.Animator.SetFloat(AirFloat, Mathf.Abs(character.Controller.velocity.y) + 0.1f);
+            }
+        }
+    }
+
+    private void DeathHandler()
+    {
+        character.Animator.SetTrigger(DeathTrigger);
+        StartCoroutine(WaitForDeath());
+    }
+    
+    private IEnumerator WaitForDeath()
+    {
+        yield return new WaitForSeconds(0.2f);
+        var currAnim = character.Animator.GetCurrentAnimatorClipInfo(0);
+        var clipLength = currAnim[0].clip.length;
+        while (clipLength > 0)
+        {
+            clipLength -= Time.deltaTime;
+            yield return null;
+        }
+
+        if (clipLength <= 0)
+        {
+            //character.Animator.ResetTrigger(DeathTrigger);
+            OnDeathComplete?.Invoke();
+            character.Animator.Play("Idle");
         }
     }
 
@@ -88,7 +121,7 @@ public class CharacterAnimation : MonoBehaviour
 
     private void Landing()
     {
-        if (character.Animator.GetFloat(AirFloat) > 0)
+        if (character.Animator.GetFloat(AirFloat) > -0.1)
         {
             character.Animator.SetTrigger(LandTrigger);
         }

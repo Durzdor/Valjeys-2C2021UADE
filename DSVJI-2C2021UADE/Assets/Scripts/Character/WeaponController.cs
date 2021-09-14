@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+    #region SerializedFields
+#pragma warning disable 649
     [SerializeField] private GameObject _equippedPrimary;
     [SerializeField] private GameObject _equippedSecondary;
 
     [SerializeField] private GameObject _unequippedPrimary;
     [SerializeField] private GameObject _unequippedSecondary;
+#pragma warning restore 649
+    #endregion
 
     public bool drawn { get; private set; }
 

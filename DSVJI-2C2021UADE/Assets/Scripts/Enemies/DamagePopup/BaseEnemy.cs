@@ -7,12 +7,16 @@ namespace Assets.Scripts.Enemies.DamagePopup
 { 
     public class BaseEnemy : MonoBehaviour
     {
+        #region SerializedFields
+#pragma warning disable 649
         [SerializeField]
         private int _hp;
         [SerializeField]
         private GameObject _dmgPopup;
 
         [SerializeField] private Collider _collider;
+#pragma warning restore 649
+        #endregion
 
         private Stopwatch _sw;
         private TimeSpan _ts;

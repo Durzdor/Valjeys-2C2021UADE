@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ public class Experience : MonoBehaviour
     [Header("Starting Stats")] [Space(5)]
     [SerializeField] private int startingLevel = 0;
     [SerializeField] private int maxLevel = 0;
-    [SerializeField] private List<int> expRequirements;
+    [SerializeField] private List<int> expRequirements = null;
     private bool maxLevelReached;
     private float currMaxExp;
 

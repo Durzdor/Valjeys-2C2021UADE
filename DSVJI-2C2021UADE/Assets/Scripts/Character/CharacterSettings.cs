@@ -5,15 +5,18 @@ using UnityEngine.UI;
 
 public class CharacterSettings : MonoBehaviour
 {
-    private bool invertMouseY;
-    private bool invertMouseX;
-    private bool adStrafe;
-
+    #region SerializedFields
+#pragma warning disable 649
     [Header("References")] [Space(2)] 
     [SerializeField] private Toggle invertMouseYToggle;
     [SerializeField] private Toggle invertMouseXToggle;
     [SerializeField] private Toggle strafeToggle;
+#pragma warning restore 649
+    #endregion
     
+    private bool invertMouseY;
+    private bool invertMouseX;
+    private bool adStrafe;
     public bool InvertMouseY => invertMouseY;
     public bool InvertMouseX => invertMouseX;
     public bool AdStrafe => adStrafe;

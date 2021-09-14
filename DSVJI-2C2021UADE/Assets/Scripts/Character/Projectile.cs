@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float _lifespan;
-    [SerializeField] private float _speed;
+    [SerializeField] private float _lifespan = 3f;
+    [SerializeField] private float _speed = 8f;
     
     private Vector3 _direction;
     

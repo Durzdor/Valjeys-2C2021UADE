@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,11 +7,9 @@ using UnityEngine.UI;
 
 public class CharacterUI : MonoBehaviour
 {
-    /*
-     * TODO:
-     * enganchar los cooldowns de las skills a las imagenes que tienen para fill
-     */
-    
+
+    #region SerializedFields
+#pragma warning disable 649
     [Header("Lists")] [Space(5)]
     [SerializeField] private List<GameObject> pauseMenuScreens; // order: default, controls, options, help
     [SerializeField] private List<Button> uiButtons; // order: resume, controls, options, help, menu, quit, return, close
@@ -36,6 +33,8 @@ public class CharacterUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI experienceText;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI levelText;
+#pragma warning restore 649
+    #endregion
 
     private const string menuScene = "MainMenu"; // menu scene name
 
