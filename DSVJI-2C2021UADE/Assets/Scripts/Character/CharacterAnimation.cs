@@ -11,6 +11,7 @@ public class CharacterAnimation : MonoBehaviour
     private static readonly int LandTrigger = Animator.StringToHash("LandingTrigger");
     private static readonly int SwitchTrigger = Animator.StringToHash("SwitchTrigger");
     private static readonly int DeathTrigger = Animator.StringToHash("DeathTrigger");
+    private static readonly int Skill1Trigger = Animator.StringToHash("Skill1Trigger");
     private static readonly int GroundFloat = Animator.StringToHash("GroundFloat");
     private static readonly int AirFloat = Animator.StringToHash("AirFloat");
     private static readonly int GoingForwardBool = Animator.StringToHash("IsGoingForward");
@@ -30,6 +31,7 @@ public class CharacterAnimation : MonoBehaviour
         character.ThirdPersonController.OnSprint += SprintHandler;
         character.OnCharacterSwitch += SwitchHandler;
         character.CharacterHealth.OnDeath += DeathHandler;
+        character.CharacterSkillController.Skill1 += SkillHandler;
     }
 
     private void Update()
@@ -78,6 +80,10 @@ public class CharacterAnimation : MonoBehaviour
         }
     }
 
+    private void SkillHandler()
+    {
+        character.Animator.SetTrigger(Skill1Trigger);
+    }
     private void DeathHandler()
     {
         character.Animator.SetTrigger(DeathTrigger);
@@ -97,7 +103,7 @@ public class CharacterAnimation : MonoBehaviour
 
         if (clipLength <= 0)
         {
-            //character.Animator.ResetTrigger(DeathTrigger);
+            character.Animator.ResetTrigger(DeathTrigger);
             OnDeathComplete?.Invoke();
             character.Animator.Play("Idle");
         }
