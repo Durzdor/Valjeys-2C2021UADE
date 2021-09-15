@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class RuthSkill1 : Skill
 {
+    [SerializeField] private SkillData data;
+
+    private void Start()
+    {
+        skillData = data;
+    }
+
     private void Update()
     {
-        print(UserGameObject);
-        print(SkillData);
+        print(skillData);
         if (Input.GetKeyDown(KeyCode.J))
         {
             UseSkill();
         }
+    }
+
+    public override void UseSkill()
+    {
+        base.UseSkill();
+        print("Use la skill :D");
     }
 }

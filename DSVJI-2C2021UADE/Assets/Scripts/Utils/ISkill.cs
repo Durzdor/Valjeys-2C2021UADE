@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public interface ISkill
 {
-    GameObject UserGameObject { get; set; }
-    SkillData SkillData { get; set; }
+    event Action<float> OnSkillCooldownUpdate;
+    bool IsOffCooldown { get; }
+    SkillData SkillData { get; }
     void UseSkill();
 }
