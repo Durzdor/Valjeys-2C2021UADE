@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class CharacterInput : MonoBehaviour
 {
+    /*
+     * Nuevo input Template
+     * 
+     * [SerializeField] private string {inputName} = "key";
+     * public bool Get{inputName}Input => !character.IsAnimationLocked && Input.GetKeyDown({inputName});
+     * public string {InputName} => {inputName};
+     * 
+     * Reemplazar {inputName} con su nombre y {InputName} con su Nombre
+     * despues se llama character.CharacterInput.Get{inputName}Input en el if
+     */
     #region SerializedFields
 #pragma warning disable 649
     [SerializeField] private List<string> skillHotkeys;
@@ -15,11 +25,12 @@ public class CharacterInput : MonoBehaviour
     [SerializeField] private string pause = "escape";
     [SerializeField] private string cameraLookAround = "mouse 0";
     [SerializeField] private string cameraPlayerControl = "mouse 1";
+    [SerializeField] private string interact = "f";
 #pragma warning restore 649
     #endregion
-
-    private Character character;
     
+    #region Bool Getters
+
     public float HorizontalAxis => character.IsAnimationLocked ? 0 : Input.GetAxis("Horizontal");
     public float VerticalAxis => character.IsAnimationLocked ? 0 : Input.GetAxis("Vertical");
     public float StrafeAxis => character.IsAnimationLocked ? 0 : Input.GetAxis("SecondaryHorizontal");
@@ -28,10 +39,26 @@ public class CharacterInput : MonoBehaviour
     public bool GetJumpInput => !character.IsAnimationLocked && Input.GetKeyDown(jump);
     public bool GetChangeSpeedInput => !character.IsAnimationLocked && Input.GetKey(changeSpeed);
     public bool GetSwitchCharacterInput => !character.IsAnimationLocked && Input.GetKeyDown(switchCharacter);
+    public bool GetInteractInput => !character.IsAnimationLocked && Input.GetKeyDown(interact);
     public bool GetPauseInput => Input.GetKeyDown(pause);
-    public bool GetCameraPlayerControl =>!character.IsAnimationLocked && Input.GetKey(cameraPlayerControl);
-    public bool GetCameraLookAround =>!character.IsAnimationLocked && Input.GetKey(cameraLookAround);
-    
+    public bool GetCameraPlayerControlInput =>!character.IsAnimationLocked && Input.GetKey(cameraPlayerControl);
+    public bool GetCameraLookAroundInput =>!character.IsAnimationLocked && Input.GetKey(cameraLookAround);
+
+    #endregion
+
+    #region String Getter
+
+    public string Jump => jump;
+    public string ChangeSpeed => changeSpeed;
+    public string SwitchCharacter => switchCharacter;
+    public string Pause => pause;
+    public string CameraLookAround => cameraLookAround;
+    public string CameraPlayerControl => cameraPlayerControl;
+    public string Interact => interact;
+
+    #endregion
+
+    private Character character;
 
     private void Awake()
     {

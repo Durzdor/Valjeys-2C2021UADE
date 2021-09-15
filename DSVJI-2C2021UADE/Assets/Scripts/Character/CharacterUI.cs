@@ -21,6 +21,7 @@ public class CharacterUI : MonoBehaviour
     [SerializeField] private GameObject messagePopup;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private Image damageTakenPlateVFX;
+    [SerializeField] private Image checkpointUsed;
 
     [Header("Images")] [Space(5)] 
     [SerializeField] private Image healthBarFilling;
@@ -55,6 +56,14 @@ public class CharacterUI : MonoBehaviour
         CharacterEventSubscriptions();
         ButtonListeners();
     }
+    
+    private void Update()
+    {
+        if (character.CharacterInput.GetPauseInput)
+        {
+            PauseMenuActivation();
+        }
+    }
 
     private void FirstLoad()
     {
@@ -71,6 +80,37 @@ public class CharacterUI : MonoBehaviour
         CooldownFirstLoad();
     }
 
+    private void CheckpointFeedback()
+    {
+        if (checkpointUsed.gameObject.activeInHierarchy) return;
+        StartCoroutine(ImageFade(0.8f));
+    }
+
+    private IEnumerator ImageFade(float secondsToFade)
+    {
+        var timeElapsed = 0f;
+        var lerpDuration = 0.5f;
+        var currBlinks = 0;
+        var blinkTimes = 3f;
+        var nextColor = Color.white;
+        checkpointUsed.gameObject.SetActive(true);
+        while (timeElapsed<lerpDuration && currBlinks <= blinkTimes)
+        {
+            var lerp = Color.Lerp(checkpointUsed.color, nextColor, timeElapsed / lerpDuration);
+            checkpointUsed.color = lerp;
+            timeElapsed += Time.deltaTime;
+            if (timeElapsed >= lerpDuration)
+            {
+                currBlinks++;
+                timeElapsed = 0f;
+                nextColor = checkpointUsed.color == Color.white ? Color.clear : Color.white;
+            }
+            yield return null;
+        }
+        checkpointUsed.gameObject.SetActive(false);
+        checkpointUsed.color=Color.clear;
+    }
+    
     private void CooldownFirstLoad()
     {
         for (int i = 0; i < skillCooldownFill.Count; i++)
@@ -93,6 +133,7 @@ public class CharacterUI : MonoBehaviour
         character.CharacterSkillController.OnSkill3Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[2],f); };
         character.CharacterSkillController.OnSkill4Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[3],f); };
         character.CharacterSkillController.OnSkill5Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[4],f); };
+        character.OnCharacterCheckpointUsed += CheckpointFeedback;
     }
 
     private void ButtonListeners()
@@ -106,14 +147,6 @@ public class CharacterUI : MonoBehaviour
         uiButtons[5].onClick.AddListener(QuitToDesktop);
         uiButtons[6].onClick.AddListener(delegate{SwitchPauseMenuScreen(0);});
         uiButtons[7].onClick.AddListener(CloseMessagePopup);
-    }
-
-    private void Update()
-    {
-        if (character.CharacterInput.GetPauseInput)
-        {
-            PauseMenuActivation();
-        }
     }
 
     private void SkillCooldownUpdate(Image cooldownFill, float cooldownRatio)

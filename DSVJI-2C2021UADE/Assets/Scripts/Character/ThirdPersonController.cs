@@ -77,7 +77,7 @@ public class ThirdPersonController : MonoBehaviour
     public void LateUpdate()
     {
         // If mouse button down then allow user to look around
-        if (character.CharacterInput.GetCameraLookAround|| character.CharacterInput.GetCameraPlayerControl)
+        if (character.CharacterInput.GetCameraLookAroundInput|| character.CharacterInput.GetCameraPlayerControlInput)
         {
             cameraPitch += character.CharacterSettings.InvertMouseY ? Input.GetAxis("Mouse Y") : (Input.GetAxis("Mouse Y") * -1f) * cameraPitchSpeed;
             cameraPitch = Mathf.Clamp(cameraPitch, cameraPitchMin, cameraPitchMax);
@@ -142,7 +142,7 @@ public class ThirdPersonController : MonoBehaviour
         if (!lerpYaw && (h != 0 || v != 0) || strafeAxis != 0)
             lerpYaw = true;
         
-        if (character.CharacterInput.GetCameraPlayerControl)
+        if (character.CharacterInput.GetCameraPlayerControlInput)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.Euler(0, cameraYaw, 0), Time.deltaTime * rotationLerpSpeed); // Face camera
         }
@@ -159,7 +159,7 @@ public class ThirdPersonController : MonoBehaviour
             
         }
         
-        if (character.CharacterInput.GetCameraPlayerControl || character.CharacterSettings.AdStrafe)
+        if (character.CharacterInput.GetCameraPlayerControlInput || character.CharacterSettings.AdStrafe)
             moveDirection = new Vector3(h, 0, v).normalized; // Strafe
         else
             moveDirection = Vector3.forward * v; // Move forward/backward

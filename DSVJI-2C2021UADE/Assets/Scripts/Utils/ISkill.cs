@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface ISkill
 {
+    GameObject UserGameObject { get; set; }
     SkillData SkillData { get; set; }
     void UseSkill();
 }
