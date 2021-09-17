@@ -7127,10 +7127,12 @@ MonoBehaviour:
 
     R - Switch character
 
-    LMB, RMB - Control camera
+    F - Interact
 
-    Escape
-    - pause
+    LMB, RMB - Control
+    camera
+
+    Escape - pause
 
 '
   m_isRightToLeft: 0
