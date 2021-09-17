@@ -30,6 +30,7 @@ public class ThirdPersonController : MonoBehaviour
     [Header("References")][Space(2)]
     [SerializeField] private Transform cameraTarget;
     [SerializeField] private Transform mainCamera;
+    [SerializeField] private LayerMask cameraCollisionLayers;
     [Header("Velocities")][Space(2)]
     [SerializeField] private float moveDirectionSpeed = 6f;
     [SerializeField] private float jumpSpeed = 10f;
@@ -105,7 +106,7 @@ public class ThirdPersonController : MonoBehaviour
 
         // Does new position put us inside anything?
         RaycastHit hitInfo;
-        if (Physics.Linecast(cameraTarget.position, newCameraPosition, out hitInfo))
+        if (Physics.Linecast(cameraTarget.position, newCameraPosition, out hitInfo,cameraCollisionLayers))
         {
             newCameraPosition = hitInfo.point;
             lerpDistance = true;

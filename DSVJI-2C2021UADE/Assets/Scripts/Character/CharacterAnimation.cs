@@ -17,6 +17,7 @@ public class CharacterAnimation : MonoBehaviour
     private static readonly int GoingForwardBool = Animator.StringToHash("IsGoingForward");
     private static readonly int IdleBool = Animator.StringToHash("IsIdle");
     private static readonly int SprintBool = Animator.StringToHash("IsSprinting");
+    private static readonly int NaomiBool = Animator.StringToHash("IsNaomi");
     public event Action OnSwitchComplete;
     public event Action OnDeathComplete;
 
@@ -83,6 +84,7 @@ public class CharacterAnimation : MonoBehaviour
     private void SkillHandler()
     {
         character.Animator.SetTrigger(Skill1Trigger);
+        character.Animator.SetBool(NaomiBool,character.IsNaomi);
     }
     private void DeathHandler()
     {

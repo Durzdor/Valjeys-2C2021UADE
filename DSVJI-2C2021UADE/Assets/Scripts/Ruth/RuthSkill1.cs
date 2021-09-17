@@ -5,32 +5,25 @@ using UnityEngine;
 
 public class RuthSkill1 : Skill
 {
-    [SerializeField] private Character _character;
-    [SerializeField] private WeaponCollider _weaponCollider;
-    
-    
-    private void Awake()
-    {
-        _character = GetComponent<Character>();
-    }
-    
+    [SerializeField] private SkillData data;
+
     private void Start()
     {
-        _character.CharacterSkillController.Skill1 += ActivateWeapon;
-        if (_weaponCollider) _weaponCollider.OnWeaponCollision += OnAttackCollision;
+        skillData = data;
     }
 
-    void ActivateWeapon()
+    private void Update()
     {
-        
-    }
-
-    private void OnAttackCollision(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
+        print(skillData);
+        if (Input.GetKeyDown(KeyCode.J))
         {
             // Play particles?
         }
     }
 
+    public override void UseSkill()
+    {
+        base.UseSkill();
+        print("Use la skill :D");
+    }
 }
