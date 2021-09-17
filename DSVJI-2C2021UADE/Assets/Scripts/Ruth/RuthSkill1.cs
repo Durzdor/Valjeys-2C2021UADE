@@ -1,16 +1,36 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RuthSkill1 : Skill
 {
-    private void Update()
+    [SerializeField] private Character _character;
+    [SerializeField] private WeaponCollider _weaponCollider;
+    
+    
+    private void Awake()
     {
-        print(UserGameObject);
-        print(SkillData);
-        if (Input.GetKeyDown(KeyCode.J))
+        _character = GetComponent<Character>();
+    }
+    
+    private void Start()
+    {
+        _character.CharacterSkillController.Skill1 += ActivateWeapon;
+        if (_weaponCollider) _weaponCollider.OnWeaponCollision += OnAttackCollision;
+    }
+
+    void ActivateWeapon()
+    {
+        
+    }
+
+    private void OnAttackCollision(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
         {
-            UseSkill();
+            // Play particles?
         }
     }
+
 }
