@@ -4,22 +4,31 @@ using UnityEngine;
 
 public class WeaponCollider : MonoBehaviour
 {
-    public delegate void WeaponCollision(Collider other);
+    public bool onAttack { get; private set; }
 
-    public event WeaponCollision OnWeaponCollision;
+    public bool striked { get; private set; }
 
-    private void Start()
+    public void OnAttack(float attackDuration)
     {
-        
+        onAttack = true;
+        Invoke(nameof(DeactivateAttack), attackDuration);
     }
 
-    private void Update()
+    public void Striked()
     {
-        
+        striked = true;
     }
-
+    
+    private void DeactivateAttack()
+    {
+        onAttack = false;
+        striked = false;
+    }
+    
+    
+    
     private void OnTriggerEnter(Collider other)
     {
-        OnWeaponCollision?.Invoke(other);
+        
     }
 }

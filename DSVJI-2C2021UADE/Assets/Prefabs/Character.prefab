@@ -5599,11 +5599,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 23087b8b9994a544d939f3d2d52f460f, type: 2}
   - {fileID: 11400000, guid: c7beac7ba014a0b4383501f2e01bf2a0, type: 2}
   - {fileID: 11400000, guid: 11978a39794400b44b2edab06cc3cc92, type: 2}
+  _character: {fileID: 6044810825460919649}
   projectileGameObject: {fileID: 4322855827107924235, guid: 90b0e837f6be2ef449da90bc7f0b221e,
     type: 3}
   projectileSpawnPoint: {fileID: 5563869921076256871}
-  animationSyncTime: 0
-  animationEndTime: 0
+  animationSyncTime: 0.7
+  animationEndTime: 0.5
   attackCooldown: 2
 --- !u!114 &7662855508910370454
 MonoBehaviour:
@@ -5617,10 +5618,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1384bd5634415424fbd3eed3b285ecef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _equippedPrimary: {fileID: 0}
-  _equippedSecondary: {fileID: 0}
-  _unequippedPrimary: {fileID: 0}
-  _unequippedSecondary: {fileID: 0}
+  _equippedPrimary: {fileID: 6044810825019211948}
+  _equippedSecondary: {fileID: 6044810825949828683}
+  _unequippedPrimary: {fileID: 9214669621249948341}
+  _unequippedSecondary: {fileID: 8761280396492054206}
 --- !u!1 &5487339922788311269
 GameObject:
   m_ObjectHideFlags: 0
@@ -5765,7 +5766,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6044810825019211949
 Transform:
   m_ObjectHideFlags: 0
@@ -5997,6 +5998,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTarget: {fileID: 6044810825245268143}
   mainCamera: {fileID: 6044810825532052938}
+  cameraCollisionLayers:
+    serializedVersion: 2
+    m_Bits: 0
   moveDirectionSpeed: 3
   jumpSpeed: 10
   sprintSpeed: 2.4
@@ -6321,6 +6325,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c9e2e298ea8918f4c9df0e26cc855b5b, type: 2}
   - {fileID: 11400000, guid: 4aab8533f654d4d4e913db1be9e504b1, type: 2}
   - {fileID: 11400000, guid: 42fa2b9b344a66d479ab23f29386781b, type: 2}
+  _character: {fileID: 6044810825460919649}
+  _weaponCollider: {fileID: 7342272891222857796}
+  _animationDuration: 1
 --- !u!114 &6044810825756175710
 MonoBehaviour:
   m_ObjectHideFlags: 0

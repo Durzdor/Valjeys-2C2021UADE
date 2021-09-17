@@ -24,6 +24,5 @@ public class RuthSkill1 : Skill
     public override void UseSkill()
     {
         base.UseSkill();
-        print("Use la skill :D");
     }
 }

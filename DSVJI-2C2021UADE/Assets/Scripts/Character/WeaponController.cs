@@ -35,7 +35,37 @@ public class WeaponController : MonoBehaviour
             _equippedSecondary.SetActive(drawn);
             _unequippedSecondary.SetActive(!drawn);
         }
-        
+    }
 
+    public void ActivateEquippedWeapons()
+    {
+        if (_equippedPrimary && _unequippedPrimary)
+        {
+            _equippedPrimary.SetActive(true);
+            _unequippedPrimary.SetActive(false);
+               
+        }
+
+        if (_equippedSecondary && _unequippedSecondary)
+        {
+            _equippedSecondary.SetActive(true);
+            _unequippedSecondary.SetActive(false);
+        }
+    }
+
+    public void DeactivateWeapons()
+    {
+        if (_equippedPrimary && _unequippedPrimary)
+        {
+            _equippedPrimary.SetActive(false);
+            _unequippedPrimary.SetActive(false);
+                
+        }
+
+        if (_equippedSecondary && _unequippedSecondary)
+        {
+            _equippedSecondary.SetActive(false);
+            _unequippedSecondary.SetActive(false);    
+        }
     }
 }

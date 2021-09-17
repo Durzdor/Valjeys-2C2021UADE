@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bccb559f30ce455428ce88dc8774dfba, type: 3}
   m_Name: NaomiSkill1
   m_EditorClassIdentifier: 
-  skillCooldown: 1
+  skillCooldown: 2
   skillCost: 0

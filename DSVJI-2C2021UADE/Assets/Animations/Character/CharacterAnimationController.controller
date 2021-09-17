@@ -14,6 +14,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: JumpTrigger
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsNaomi
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4219967804284383322}
   m_Solo: 0
@@ -66,6 +69,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Skill1Trigger
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsNaomi
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1096466658475952807}
@@ -166,6 +172,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Skill1Trigger
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsNaomi
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2577215433232252435}
@@ -295,6 +304,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Skill1Trigger
     m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsNaomi
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1457174052259907571}
   m_Solo: 0
@@ -391,6 +403,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Skill1Trigger
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsNaomi
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8615628730414737348}
@@ -570,6 +585,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Skill1Trigger
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsNaomi
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1056145105751894135}
@@ -1273,6 +1291,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Skill1Trigger
     m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsNaomi
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4515325576406508352}
   m_Solo: 0
@@ -1396,6 +1417,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Skill1Trigger
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsNaomi
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5995080224760713815}
@@ -1636,6 +1660,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Skill1Trigger
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsNaomi
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8607526530219832391}
   m_Solo: 0
@@ -1660,6 +1687,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Skill1Trigger
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsNaomi
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6047836648393227323}
@@ -1733,67 +1763,67 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: LandingTrigger
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: SwitchTrigger
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: DeathTrigger
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Skill1Trigger
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsGoingForward
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsIdle
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsSprinting
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsNaomi
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: GroundFloat
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: AirFloat
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -2423,6 +2453,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Skill1Trigger
     m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsNaomi
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7500454043022118362}
   m_Solo: 0
@@ -2816,6 +2849,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Skill1Trigger
     m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsNaomi
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1117084885300787028}
   m_Solo: 0
@@ -2940,6 +2976,25 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1107 &5629402166060055857
+AnimatorStateMachine:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: New Layer
+  m_ChildStates: []
+  m_ChildStateMachines: []
+  m_AnyStateTransitions: []
+  m_EntryTransitions: []
+  m_StateMachineTransitions: {}
+  m_StateMachineBehaviours: []
+  m_AnyStatePosition: {x: 50, y: 20, z: 0}
+  m_EntryPosition: {x: 50, y: 120, z: 0}
+  m_ExitPosition: {x: 800, y: 120, z: 0}
+  m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
+  m_DefaultState: {fileID: 0}
 --- !u!1101 &5671233430217940591
 AnimatorStateTransition:
   m_ObjectHideFlags: 3
@@ -3594,6 +3649,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Skill1Trigger
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsNaomi
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1209925652146665398}
   m_Solo: 0
@@ -3876,9 +3934,12 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Skill1Trigger
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsNaomi
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6280793017830375676}
-  m_Solo: 0
+  m_Solo: 1
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
@@ -3901,9 +3962,12 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Skill1Trigger
     m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsNaomi
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1129898710425080368}
-  m_Solo: 0
+  m_Solo: 1
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3

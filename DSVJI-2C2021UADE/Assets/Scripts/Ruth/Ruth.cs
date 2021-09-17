@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Ruth : MonoBehaviour
 {
+    
     private WeaponController _ruthWeaponController;
 
     #region SerializedFields
@@ -13,6 +14,9 @@ public class Ruth : MonoBehaviour
     [SerializeField] private Material ruthMaterial;
     [SerializeField] private List<Sprite> ruthSkillImages;
     [SerializeField] private List<SkillData> ruthSkillData;
+    [SerializeField] private Character _character;
+    [SerializeField] private WeaponCollider _weaponCollider;
+    [Range(0,2)][SerializeField] private float _animationDuration;
 #pragma warning restore 649
     #endregion
 
@@ -23,12 +27,15 @@ public class Ruth : MonoBehaviour
     public event Action OnRuthEnable;
     private void OnEnable()
     {
+        // if (!_ruthWeaponController) Start();
+        if (_ruthWeaponController) _ruthWeaponController.ActivateEquippedWeapons();
         OnRuthEnable?.Invoke();
     }
-    
+
     void Start()
     {
         _ruthWeaponController = GetComponent<WeaponController>();
+        _character.CharacterSkillController.Skill1 += OnSkillAttack;
     }
 
     
@@ -39,4 +46,14 @@ public class Ruth : MonoBehaviour
             _ruthWeaponController.DrawSaveWeapon();
         }
     }
+
+    void OnSkillAttack()
+    {
+        if (!_character.IsNaomi)
+        {
+            if (!_ruthWeaponController.drawn) _ruthWeaponController.DrawSaveWeapon();
+            _weaponCollider.OnAttack(_animationDuration);    
+        }
+    }
+    
 }

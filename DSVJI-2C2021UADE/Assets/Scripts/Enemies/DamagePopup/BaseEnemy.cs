@@ -29,17 +29,33 @@ namespace Assets.Scripts.Enemies.DamagePopup
             _ts = new TimeSpan(0, 0, 0, 1);
             _sw.Start();
         }
+
+        private void TakeDamage(int damage = 1)
+        {
+            if (_hp == 1)
+                Die();
+            else
+            {
+                var previousHp = _hp;
+                _hp-=damage;
+                DamageDisplay(previousHp - _hp);
+            }
+        }
+        
         private void OnTriggerEnter(Collider other)
         {
+            if (other.CompareTag("PlayerProjectile"))
+            {
+                TakeDamage();
+            }
+            
             if (other.CompareTag("PlayerWeapon"))
             {
-                if (_hp == 1)
-                    Die();
-                else
+                var weaponCollider = other.GetComponent<WeaponCollider>();
+                if (weaponCollider && weaponCollider.onAttack && !weaponCollider.striked)
                 {
-                    var previousHp = _hp;
-                    _hp--;
-                    DamageDisplay(previousHp - _hp);
+                    TakeDamage();
+                    weaponCollider.Striked();
                 }
             }
         }
