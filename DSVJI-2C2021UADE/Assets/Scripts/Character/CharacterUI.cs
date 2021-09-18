@@ -34,9 +34,10 @@ public class CharacterUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI experienceText;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private TextMeshProUGUI interactText;
 #pragma warning restore 649
     #endregion
-
+    
     private const string menuScene = "MainMenu"; // menu scene name
 
     private Character character;
@@ -65,6 +66,11 @@ public class CharacterUI : MonoBehaviour
         }
     }
 
+    private void InteractTextHandler()
+    {
+        
+    }
+    
     private void FirstLoad()
     {
         characterMaxHp = character.CharacterHealth.MaxHealth;

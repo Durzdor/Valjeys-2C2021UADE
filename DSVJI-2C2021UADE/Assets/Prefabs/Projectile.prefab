@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4322855827107924234}
   - component: {fileID: 4322855827107924235}
   - component: {fileID: -1687820242459913565}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Projectile
   m_TagString: PlayerProjectile
   m_Icon: {fileID: 0}
@@ -133,6 +133,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4322855827107924239}
     m_Modifications:
+    - target: {fileID: 3608704944813215890, guid: 6861bbb7a92946942be402c8612a7b45,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3608704944813215895, guid: 6861bbb7a92946942be402c8612a7b45,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -167,6 +172,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.26100934
+      objectReference: {fileID: 0}
+    - target: {fileID: 3608704945419339921, guid: 6861bbb7a92946942be402c8612a7b45,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3608704946320966734, guid: 6861bbb7a92946942be402c8612a7b45,
         type: 3}
@@ -242,6 +252,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fireball
+      objectReference: {fileID: 0}
+    - target: {fileID: 3608704946320966735, guid: 6861bbb7a92946942be402c8612a7b45,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6861bbb7a92946942be402c8612a7b45, type: 3}

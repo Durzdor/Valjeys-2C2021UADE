@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 
@@ -7,30 +8,13 @@ public abstract class Interactable : MonoBehaviour, IInteractable
 {
     [CanBeNull] protected Character Character;
     protected string InteractableName;
-    private TextMeshProUGUI interactionText;
     private string interactionHotkey;
 
-    #region SerializedFields
-#pragma warning disable 649
-    [SerializeField] private GameObject canvas;
-#pragma warning restore 649
-    #endregion
+    public event Action<string> OnInteractTextDisplay; 
 
     private void Awake()
     {
         GetComponent<SphereCollider>().isTrigger = true;
-        interactionText = canvas.GetComponentInChildren<TextMeshProUGUI>();
-    }
-
-    private void Update()
-    {
-        if (canvas.activeInHierarchy)
-        {
-            if (!(Camera.main is null))
-            {
-                canvas.transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
-            }
-        }
     }
 
     public virtual void Interaction()
@@ -44,10 +28,10 @@ public abstract class Interactable : MonoBehaviour, IInteractable
             Character = other.GetComponent<Character>();
             if (Character == null) return;
             interactionHotkey = Character.CharacterInput.Interact;
-            interactionText.text = $"Press {interactionHotkey} to use {InteractableName}";
+            // string $"Press {interactionHotkey} to use {InteractableName}";
+            OnInteractTextDisplay?.Invoke($"Press {interactionHotkey} to use {InteractableName}");
             Character.IsInInteractRange = true;
             Character.Interactable = this;
-            canvas.SetActive(true);
         }
     }
 
@@ -59,13 +43,12 @@ public abstract class Interactable : MonoBehaviour, IInteractable
             Character.IsInInteractRange = false;
             Character.Interactable = null;
             Character = null;
-            canvas.SetActive(false);
         } 
     }
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position,GetComponent<SphereCollider>().radius);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.localPosition + GetComponent<SphereCollider>().center,GetComponent<SphereCollider>().radius);
     }
 }
