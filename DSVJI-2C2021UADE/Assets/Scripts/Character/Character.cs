@@ -13,6 +13,7 @@ public class Character : MonoBehaviour
 
     [SerializeField] private GameObject ruthGo;
     [SerializeField] private GameObject naomiGo;
+    [SerializeField] private int orbsNeeded;
 #pragma warning restore 649
 
     #endregion
@@ -23,41 +24,86 @@ public class Character : MonoBehaviour
     private CharacterController characterController;
     private ThirdPersonController thirdPersonController;
     private CharacterAnimation characterAnimation;
-    private CharacterInput characterInput;
-    private CharacterSettings characterSettings;
-    private Health characterHealth;
-    private Mana characterMana;
-    private Ruth characterRuth;
-    private Naomi characterNaomi;
-    private Experience characterExperience;
-    private CharacterSkillController characterSkillController;
+    private CharacterInput input;
+    private CharacterSettings settings;
+    private Health health;
+    private Mana mana;
+    private Ruth ruth;
+    private Naomi naomi;
+    private Experience experience;
+    private CharacterSkillController skillController;
+    private CharacterUI ui;
 
     public Animator Animator => animator;
     public CharacterController Controller => characterController;
     public ThirdPersonController ThirdPersonController => thirdPersonController;
-    public CharacterInput CharacterInput => characterInput;
-    public CharacterSettings CharacterSettings => characterSettings;
-    public Health CharacterHealth => characterHealth;
-    public Mana CharacterMana => characterMana;
-    public Ruth CharacterRuth => characterRuth;
-    public Naomi CharacterNaomi => characterNaomi;
-    public Experience CharacterExperience => characterExperience;
-    public CharacterSkillController CharacterSkillController => characterSkillController;
+    public CharacterInput Input => input;
+    public CharacterSettings Settings => settings;
+    public Health Health => health;
+    public Mana Mana => mana;
+    public Ruth Ruth => ruth;
+    public Naomi Naomi => naomi;
+    public Experience Experience => experience;
+    public CharacterSkillController SkillController => skillController;
+    public CharacterUI Ui => ui;
 
     #endregion
 
     private bool isNaomi;
     private bool isTeleporting;
     private Transform checkpointRespawn;
-    
-    public bool IsAnimationLocked { get; private set; }
+    private bool isInInteractRange;
+    private int orbsObtained;
+
+    public bool IsAnimationLocked { get; set; }
     public bool IsNaomi => isNaomi;
-    public bool IsInInteractRange { get; set; }
-    [CanBeNull] public IInteractable Interactable { get; set; }
+    public bool IsInInteractRange
+    {
+        get => isInInteractRange;
+        set
+        {
+            isInInteractRange = value;
+            if (!(Interactable is null))
+            {
+                OnCharacterInteractRange?.Invoke($"Press {input.Interact} to use {Interactable.Name}");
+            }
+            else
+            {
+                OnCharacterInteractRange?.Invoke(null);
+            }    
+        } 
+    }
+
+    public int OrbsObtained
+    {
+        get => orbsObtained;
+        private set
+        {
+            orbsObtained = value;
+            if (orbsObtained >= orbsNeeded)
+            {
+                orbsObtained = orbsNeeded;
+                if (!(Interactable is null))
+                    OnCharacterOrbAcquired?.Invoke("All orbs acquired","Now go to the altar to finish the ritual");
+            }
+            else
+            {
+                if (!(Interactable is null))
+                    OnCharacterOrbAcquired?.Invoke("Orb acquired", $"You got {Interactable.Name}\nNow you need {orbsNeeded-orbsObtained} more");
+            }
+        } 
+    }
+
+    [CanBeNull] public Interactable Interactable { get; set; }
+
+    public Transform CheckpointRespawn => checkpointRespawn;
 
     public event Action OnCharacterSwitch;
     public event Action OnCharacterInteract;
+    public event Action<string> OnCharacterInteractRange;
+    public event Action<string,string> OnCharacterOrbAcquired;
     public event Action OnCharacterCheckpointUsed;
+    public event Action OnCharacterPause;
 
     private void Awake()
     {
@@ -67,36 +113,38 @@ public class Character : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         thirdPersonController = GetComponent<ThirdPersonController>();
         characterAnimation = GetComponent<CharacterAnimation>();
-        characterInput = GetComponent<CharacterInput>();
-        characterSettings = GetComponent<CharacterSettings>();
-        characterHealth = GetComponent<Health>();
-        characterMana = GetComponent<Mana>();
-        characterRuth = ruthGo.GetComponent<Ruth>();
-        characterNaomi = naomiGo.GetComponent<Naomi>();
-        characterExperience = GetComponent<Experience>();
-        characterSkillController = GetComponent<CharacterSkillController>();
+        input = GetComponent<CharacterInput>();
+        settings = GetComponent<CharacterSettings>();
+        health = GetComponent<Health>();
+        mana = GetComponent<Mana>();
+        ruth = ruthGo.GetComponent<Ruth>();
+        naomi = naomiGo.GetComponent<Naomi>();
+        experience = GetComponent<Experience>();
+        skillController = GetComponent<CharacterSkillController>();
+        ui = GetComponent<CharacterUI>();
 
         #endregion
     }
 
     private void Start()
     {
-        characterHealth.OnDeath += OnDeathHandler;
+        health.OnDeath += OnDeathHandler;
         characterAnimation.OnSwitchComplete += OnSwitchCompleteHandler;
         characterAnimation.OnDeathComplete += OnDeathCompleteHandler;
         // starting values
         checkpointRespawn = transform;
+        orbsObtained = 0;
     }
 
     private void Update()
     {
-        if (characterHealth.IsDead)
+        if (health.IsDead)
         {
             IsAnimationLocked = true;
         }
-
+        
         // Character Switch InputDetection
-        if (characterInput.GetSwitchCharacterInput)
+        if (input.GetSwitchCharacterInput)
         {
             // Event for animations
             OnCharacterSwitch?.Invoke();
@@ -104,17 +152,29 @@ public class Character : MonoBehaviour
         }
 
         // Interaction input detection
-        if (characterInput.GetInteractInput && IsInInteractRange)
+        if (input.GetInteractInput && IsInInteractRange)
         {
             OnCharacterInteract?.Invoke();
             CharacterInteraction();
         }
+        
+        // Pause menu input detection
+        if (Input.GetPauseInput)
+        {
+            OnCharacterPause?.Invoke();
+        }
 
         // Death Test
-        if (Input.GetKeyDown(KeyCode.L))
+        if (UnityEngine.Input.GetKeyDown(KeyCode.L))
         {
-            characterHealth.TakeDamage(9999);
+            health.TakeDamage(9999);
         }
+    }
+
+    public void OrbAcquisition()
+    {
+        OrbsObtained++;
+        if (!(Interactable is null)) Interactable.gameObject.SetActive(false);
     }
 
     public void SaveCheckpoint(Transform t)
@@ -126,7 +186,7 @@ public class Character : MonoBehaviour
 
     private void CharacterInteraction()
     {
-        Interactable?.Interaction();
+        if (!(Interactable is null)) Interactable.Interaction();
     }
 
     private void OnDeathHandler()
@@ -143,8 +203,8 @@ public class Character : MonoBehaviour
 
     private void FillStats()
     {
-        characterMana.ResetToMax();
-        characterHealth.ResetToMax();
+        mana.ResetToMax();
+        health.ResetToMax();
     }
 
     public void Teleport(Transform pos)
@@ -180,13 +240,13 @@ public class Character : MonoBehaviour
         {
             ruthGo.SetActive(false);
             naomiGo.SetActive(true);
-            playerMesh.material = characterNaomi.NaomiMaterial;
+            playerMesh.material = naomi.NaomiMaterial;
         }
         else
         {
             ruthGo.SetActive(true);
             naomiGo.SetActive(false);
-            playerMesh.material = characterRuth.RuthMaterial;
+            playerMesh.material = ruth.RuthMaterial;
         }
     }
 }

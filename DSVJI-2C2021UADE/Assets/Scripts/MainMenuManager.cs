@@ -28,6 +28,8 @@ public class MainMenuManager : MonoBehaviour
         mainWindow.SetActive(true);
         helpWindow.SetActive(false);
         creditsWindow.SetActive(false);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void ResetSelector()

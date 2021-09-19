@@ -8,7 +8,6 @@ public class Checkpoint : Interactable
 
     public override void Interaction()
     {
-        if (Character == null) return;
-        Character.SaveCheckpoint(transform);
+        if (!(Character is null)) Character.SaveCheckpoint(transform);
     }
 }

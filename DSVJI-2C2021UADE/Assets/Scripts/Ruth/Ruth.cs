@@ -35,7 +35,7 @@ public class Ruth : MonoBehaviour
     void Start()
     {
         _ruthWeaponController = GetComponent<WeaponController>();
-        _character.CharacterSkillController.Skill1 += OnSkillAttack;
+        _character.SkillController.Skill1 += OnSkillAttack;
     }
 
     

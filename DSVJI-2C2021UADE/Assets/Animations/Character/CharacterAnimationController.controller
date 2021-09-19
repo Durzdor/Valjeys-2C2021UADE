@@ -777,10 +777,10 @@ AnimatorStateMachine:
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 8172779274610424459}
-    m_Position: {x: 810, y: -500, z: 0}
+    m_Position: {x: 620, y: -350, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 8631539273537660776}
-    m_Position: {x: 800, y: -380, z: 0}
+    m_Position: {x: 610, y: -230, z: 0}
   m_AnyStateTransitions:
   - {fileID: -6637983670676444268}
   - {fileID: -5194969933684033410}

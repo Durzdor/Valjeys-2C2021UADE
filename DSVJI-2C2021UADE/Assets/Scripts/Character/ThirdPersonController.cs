@@ -9,7 +9,7 @@ public class ThirdPersonController : MonoBehaviour
     private Vector3 jumpVelocity = Vector3.zero;
     private bool isInputMoving;
     private bool isSprinting;
-    
+
     private float cameraPitch = 15f; // starting angle downwards
     private float cameraYaw = 0; // starting angle sideways
     private float cameraDistance = 5.0f;
@@ -26,17 +26,22 @@ public class ThirdPersonController : MonoBehaviour
     private float gravitySpeed = 20.0f;
 
     #region SerializedFields
+
 #pragma warning disable 649
-    [Header("References")][Space(2)]
-    [SerializeField] private Transform cameraTarget;
+    [Header("References")] [Space(2)] [SerializeField]
+    private Transform cameraTarget;
+
     [SerializeField] private Transform mainCamera;
     [SerializeField] private LayerMask cameraCollisionLayers;
-    [Header("Velocities")][Space(2)]
-    [SerializeField] private float moveDirectionSpeed = 6f;
+
+    [Header("Velocities")] [Space(2)] [SerializeField]
+    private float moveDirectionSpeed = 6f;
+
     [SerializeField] private float jumpSpeed = 10f;
     [SerializeField] private float sprintSpeed = 2f;
     [SerializeField] private float rotationLerpSpeed = 10f;
 #pragma warning restore 649
+
     #endregion
 
     public event Action OnJump;
@@ -62,51 +67,50 @@ public class ThirdPersonController : MonoBehaviour
             lastGroundedTime = Time.time;
         }
 
-        if (character.CharacterInput.GetJumpInput)
+        if (character.Input.GetJumpInput)
         {
             jumpButtonPressedTime = Time.time;
         }
     }
 
     #endregion
-    
+
     private void Awake()
     {
         character = GetComponent<Character>();
     }
-    
+
     public void LateUpdate()
     {
         // If mouse button down then allow user to look around
-        if (character.CharacterInput.GetCameraLookAroundInput|| character.CharacterInput.GetCameraPlayerControlInput)
-        {
-            cameraPitch += character.CharacterSettings.InvertMouseY ? Input.GetAxis("Mouse Y") : (Input.GetAxis("Mouse Y") * -1f) * cameraPitchSpeed;
-            cameraPitch = Mathf.Clamp(cameraPitch, cameraPitchMin, cameraPitchMax);
-            cameraYaw += character.CharacterSettings.InvertMouseX ? (Input.GetAxis("Mouse X") * -1f) : Input.GetAxis("Mouse X") * cameraYawSpeed;
-            cameraYaw %= 360.0f;
-            lerpYaw = false;
-        }
-        else
-        {
-            // If moving then make camera follow
-            if (lerpYaw)
-                cameraYaw = Mathf.LerpAngle(cameraYaw, cameraTarget.eulerAngles.y, 5.0f * Time.deltaTime);
-        }
+
+        cameraPitch += character.Settings.InvertMouseY ? 
+            character.Input.MouseYAxis : (character.Input.MouseYAxis * -1f) * cameraPitchSpeed;
+        cameraPitch = Mathf.Clamp(cameraPitch, cameraPitchMin, cameraPitchMax);
+        cameraYaw += character.Settings.InvertMouseX ? 
+            (character.Input.MouseXAxis * -1f) : character.Input.MouseXAxis * cameraYawSpeed;
+        cameraYaw %= 360.0f;
+        lerpYaw = false;
+
+        // If moving then make camera follow
+        if (lerpYaw)
+            cameraYaw = Mathf.LerpAngle(cameraYaw, cameraTarget.eulerAngles.y, 5.0f * Time.deltaTime);
 
         // Zoom
-        if (character.CharacterInput.ZoomAxis != 0)
+        if (character.Input.ZoomAxis != 0)
         {
-            cameraDistance -= character.CharacterInput.ZoomAxis * cameraDistanceSpeed;
+            cameraDistance -= character.Input.ZoomAxis * cameraDistanceSpeed;
             cameraDistance = Mathf.Clamp(cameraDistance, cameraDistanceMin, cameraDistanceMax);
             lerpDistance = false;
         }
 
         // Calculate camera position
-        Vector3 newCameraPosition = cameraTarget.position + (Quaternion.Euler(cameraPitch, cameraYaw, 0) * Vector3.back * cameraDistance);
+        Vector3 newCameraPosition = cameraTarget.position +
+                                    (Quaternion.Euler(cameraPitch, cameraYaw, 0) * Vector3.back * cameraDistance);
 
         // Does new position put us inside anything?
         RaycastHit hitInfo;
-        if (Physics.Linecast(cameraTarget.position, newCameraPosition, out hitInfo,cameraCollisionLayers))
+        if (Physics.Linecast(cameraTarget.position, newCameraPosition, out hitInfo, cameraCollisionLayers))
         {
             newCameraPosition = hitInfo.point;
             lerpDistance = true;
@@ -115,21 +119,24 @@ public class ThirdPersonController : MonoBehaviour
         {
             if (lerpDistance)
             {
-                float newCameraDistance = Mathf.Lerp(Vector3.Distance(cameraTarget.position, mainCamera.transform.position), cameraDistance, 5.0f * Time.deltaTime);
-                newCameraPosition = cameraTarget.position + (Quaternion.Euler(cameraPitch, cameraYaw, 0) * Vector3.back * newCameraDistance);
+                float newCameraDistance =
+                    Mathf.Lerp(Vector3.Distance(cameraTarget.position, mainCamera.transform.position), cameraDistance,
+                        5.0f * Time.deltaTime);
+                newCameraPosition = cameraTarget.position +
+                                    (Quaternion.Euler(cameraPitch, cameraYaw, 0) * Vector3.back * newCameraDistance);
             }
         }
 
         mainCamera.transform.position = newCameraPosition;
         mainCamera.transform.LookAt(cameraTarget.position);
     }
-    
+
     public void FixedUpdate()
     {
         CoyoteTime();
-        var h = character.CharacterInput.HorizontalAxis;
-        var v = character.CharacterInput.VerticalAxis;
-        var strafeAxis = character.CharacterInput.StrafeAxis;
+        var h = character.Input.HorizontalAxis;
+        var v = character.Input.VerticalAxis;
+        var strafeAxis = character.Input.StrafeAxis;
 
         if (h != 0 || v != 0)
         {
@@ -139,38 +146,25 @@ public class ThirdPersonController : MonoBehaviour
         {
             isInputMoving = false;
         }
+
         // Have camera follow if moving
         if (!lerpYaw && (h != 0 || v != 0) || strafeAxis != 0)
             lerpYaw = true;
-        
-        if (character.CharacterInput.GetCameraPlayerControlInput)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.Euler(0, cameraYaw, 0), Time.deltaTime * rotationLerpSpeed); // Face camera
-        }
-        else
-        {
-            if (character.CharacterSettings.AdStrafe)
-            {
-                transform.Rotate(0, strafeAxis * turnSpeed, 0); // Turn left/right
-            }
-            else
-            {
-                transform.Rotate(0, h * turnSpeed, 0); // Turn left/right
-            }
-            
-        }
-        
-        if (character.CharacterInput.GetCameraPlayerControlInput || character.CharacterSettings.AdStrafe)
-            moveDirection = new Vector3(h, 0, v).normalized; // Strafe
-        else
-            moveDirection = Vector3.forward * v; // Move forward/backward
+
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, cameraYaw, 0),
+            Time.deltaTime * rotationLerpSpeed); // Face camera
+
+
+        moveDirection = new Vector3(h, 0, v).normalized; // Strafe
+
 
         moveDirection = transform.TransformDirection(moveDirection);
-        
+
         if (GroundedBonusTime) // character.Controller.isGrounded
         {
             moveDirection *= moveDirectionSpeed;
-            if (character.CharacterInput.GetChangeSpeedInput && isInputMoving)
+            if (character.Input.GetChangeSpeedInput && isInputMoving)
             {
                 isSprinting = true;
                 moveDirection = new Vector3(moveDirection.x * sprintSpeed, jumpVelocity.y,
@@ -182,22 +176,25 @@ public class ThirdPersonController : MonoBehaviour
                 isSprinting = false;
                 OnSprint?.Invoke();
             }
+
             if (CanJump) // character.CharacterInput.GetJumpInput
             {
                 jumpButtonPressedTime = null;
                 lastGroundedTime = null; // Coyote
                 jumpVelocity.y = jumpSpeed;
                 OnJump?.Invoke();
-            } 
-            else {
+            }
+            else
+            {
                 jumpVelocity = Vector3.zero;
             }
-        } 
+        }
         else
         {
             moveDirection *= moveDirectionSpeed;
             jumpVelocity.y -= gravitySpeed * Time.deltaTime;
         }
+
         character.Controller.Move((moveDirection + jumpVelocity) * Time.deltaTime);
     }
 }

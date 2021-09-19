@@ -31,8 +31,8 @@ public class CharacterAnimation : MonoBehaviour
         character.ThirdPersonController.OnJump += JumpHandler;
         character.ThirdPersonController.OnSprint += SprintHandler;
         character.OnCharacterSwitch += SwitchHandler;
-        character.CharacterHealth.OnDeath += DeathHandler;
-        character.CharacterSkillController.Skill1 += SkillHandler;
+        character.Health.OnDeath += DeathHandler;
+        character.SkillController.Skill1 += SkillHandler;
     }
 
     private void Update()
@@ -47,12 +47,12 @@ public class CharacterAnimation : MonoBehaviour
             {
                 character.Animator.SetBool(IdleBool, false);
                 // Forward
-                if (transform.InverseTransformDirection(character.ThirdPersonController.MoveDirection).z > 0)
+                if (transform.InverseTransformDirection(character.ThirdPersonController.MoveDirection).z > 0 && character.Input.VerticalAxis > 0)
                 {
                     character.Animator.SetBool(GoingForwardBool, true);
                 }
                 // Backward
-                if (transform.InverseTransformDirection(character.ThirdPersonController.MoveDirection).z  < 0)
+                if (transform.InverseTransformDirection(character.ThirdPersonController.MoveDirection).z  < 0 && character.Input.VerticalAxis < 0)
                 {
                     character.Animator.SetBool(GoingForwardBool, false);
                 }

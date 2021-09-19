@@ -35,6 +35,8 @@ public class CharacterInput : MonoBehaviour
     public float VerticalAxis => character.IsAnimationLocked ? 0 : Input.GetAxis("Vertical");
     public float StrafeAxis => character.IsAnimationLocked ? 0 : Input.GetAxis("SecondaryHorizontal");
     public float ZoomAxis => character.IsAnimationLocked ? 0 : Input.GetAxis("Mouse ScrollWheel");
+    public float MouseXAxis => character.IsAnimationLocked ? 0 : Input.GetAxis("Mouse X");
+    public float MouseYAxis => character.IsAnimationLocked ? 0 : Input.GetAxis("Mouse Y");
     public List<string> SkillHotkeys => skillHotkeys; // saves all the skill hotkeys together
     public bool GetJumpInput => !character.IsAnimationLocked && Input.GetKeyDown(jump);
     public bool GetChangeSpeedInput => !character.IsAnimationLocked && Input.GetKey(changeSpeed);
@@ -68,6 +70,7 @@ public class CharacterInput : MonoBehaviour
     private void Start()
     {
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     
     public bool GetSkillHotkeyInput(int skill)

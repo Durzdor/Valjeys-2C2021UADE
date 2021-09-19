@@ -35,42 +35,42 @@ public class CharacterSkillController : MonoBehaviour
         if (character.IsAnimationLocked) return;
         if (!canUseSkills) return;
         // starts at 0
-        if (character.CharacterInput.GetSkillHotkeyInput(0) && isSkill1Available)
+        if (character.Input.GetSkillHotkeyInput(0) && isSkill1Available)
         {
             StartCoroutine(GlobalSkillCooldown());
-            StartCoroutine(Skill1Cd(character.IsNaomi ? character.CharacterNaomi.NaomiSkillData[0].SkillCooldown: character.CharacterRuth.RuthSkillData[0].SkillCooldown));
+            StartCoroutine(Skill1Cd(character.IsNaomi ? character.Naomi.NaomiSkillData[0].SkillCooldown: character.Ruth.RuthSkillData[0].SkillCooldown));
             print("Skill 1");
             Skill1?.Invoke();
         }
 
-        if (character.CharacterInput.GetSkillHotkeyInput(1) && isSkill2Available)
+        if (character.Input.GetSkillHotkeyInput(1) && isSkill2Available)
         {
             StartCoroutine(GlobalSkillCooldown());
-            StartCoroutine(Skill2Cd(character.IsNaomi ? character.CharacterNaomi.NaomiSkillData[1].SkillCooldown: character.CharacterRuth.RuthSkillData[1].SkillCooldown));
+            StartCoroutine(Skill2Cd(character.IsNaomi ? character.Naomi.NaomiSkillData[1].SkillCooldown: character.Ruth.RuthSkillData[1].SkillCooldown));
             print("Skill 2");
             Skill2?.Invoke();
         }
 
-        if (character.CharacterInput.GetSkillHotkeyInput(2) && isSkill3Available)
+        if (character.Input.GetSkillHotkeyInput(2) && isSkill3Available)
         {
             StartCoroutine(GlobalSkillCooldown());
-            StartCoroutine(Skill3Cd(character.IsNaomi ? character.CharacterNaomi.NaomiSkillData[2].SkillCooldown: character.CharacterRuth.RuthSkillData[2].SkillCooldown));
+            StartCoroutine(Skill3Cd(character.IsNaomi ? character.Naomi.NaomiSkillData[2].SkillCooldown: character.Ruth.RuthSkillData[2].SkillCooldown));
             print("Skill 3");
             Skill3?.Invoke();
         }
 
-        if (character.CharacterInput.GetSkillHotkeyInput(3) && isSkill4Available)
+        if (character.Input.GetSkillHotkeyInput(3) && isSkill4Available)
         {
             StartCoroutine(GlobalSkillCooldown());
-            StartCoroutine(Skill4Cd(character.IsNaomi ? character.CharacterNaomi.NaomiSkillData[3].SkillCooldown: character.CharacterRuth.RuthSkillData[3].SkillCooldown));
+            StartCoroutine(Skill4Cd(character.IsNaomi ? character.Naomi.NaomiSkillData[3].SkillCooldown: character.Ruth.RuthSkillData[3].SkillCooldown));
             print("Skill 4");
             Skill4?.Invoke();
         }
 
-        if (character.CharacterInput.GetSkillHotkeyInput(4) && isSkill5Available)
+        if (character.Input.GetSkillHotkeyInput(4) && isSkill5Available)
         {
             StartCoroutine(GlobalSkillCooldown());
-            StartCoroutine(Skill5Cd(character.IsNaomi ? character.CharacterNaomi.NaomiSkillData[4].SkillCooldown: character.CharacterRuth.RuthSkillData[4].SkillCooldown));
+            StartCoroutine(Skill5Cd(character.IsNaomi ? character.Naomi.NaomiSkillData[4].SkillCooldown: character.Ruth.RuthSkillData[4].SkillCooldown));
             print("Skill 5");
             Skill5?.Invoke();
         }
