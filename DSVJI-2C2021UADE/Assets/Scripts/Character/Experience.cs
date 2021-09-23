@@ -8,6 +8,7 @@ public class Experience : MonoBehaviour
     [SerializeField] private int startingLevel = 0;
     [SerializeField] private int maxLevel = 0;
     [SerializeField] private List<int> expRequirements = null;
+    
     private bool maxLevelReached;
     private float currMaxExp;
 
@@ -26,6 +27,7 @@ public class Experience : MonoBehaviour
     private void Awake()
     {
         CurrentLevel = startingLevel;
+        //handle level up for each level gained
     }
 
     public void GainExp(float expAmount)

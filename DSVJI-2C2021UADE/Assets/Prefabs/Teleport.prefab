@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6883608780424807305
 Transform:
@@ -138,10 +138,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ccb188165c79cf459ccbaccb579f5a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSceneTeleport: 0
-  sceneToLoad: TutorialLevel
+  isSceneTeleport: 1
+  isEndGameTeleport: 0
+  sceneToLoad: Level1
   teleportLocation: {fileID: 6887745676850475781}
-  teleportName: Tp to location
+  teleportName: Tp to Level1
 --- !u!1 &6887745676850475898
 GameObject:
   m_ObjectHideFlags: 0

@@ -69,8 +69,7 @@ public class CharacterInput : MonoBehaviour
 
     private void Start()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        GameStatus.ChangeGameStatus(GameState.Playing);
     }
     
     public bool GetSkillHotkeyInput(int skill)

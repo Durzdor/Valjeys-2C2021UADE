@@ -75,14 +75,14 @@ public class CharacterSkillController : MonoBehaviour
             Skill5?.Invoke();
         }
     }
-
+    
     private IEnumerator GlobalSkillCooldown()
     {
         canUseSkills = false;
         yield return new WaitForSeconds(GlobalCooldown);
         canUseSkills = true;
     }
-
+    
     private IEnumerator Skill1Cd(float cooldown)
     {
         isSkill1Available = false;

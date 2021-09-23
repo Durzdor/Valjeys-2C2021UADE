@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CharacterUI : MonoBehaviour
@@ -11,45 +10,31 @@ public class CharacterUI : MonoBehaviour
     #region SerializedFields
 
 #pragma warning disable 649
-    [Header("Lists")] [Space(5)] [SerializeField]
-    private List<GameObject> pauseMenuScreens; // order: default, controls, options, help
-
-    [SerializeField]
-    private List<Button> uiButtons; // order: resume, controls, options, help, menu, quit, return, close
-
+    [Header("Lists")] [Space(5)]
     [SerializeField] private List<Image> skillIcons;
     [SerializeField] private List<Image> skillCooldownFill;
     [SerializeField] private List<TextMeshProUGUI> skillHotkeys;
 
-    [Header("GameObjects to activate")] [Space(5)] [SerializeField]
-    private GameObject messagePopup;
-
-    [SerializeField] private GameObject pauseMenu;
+    [Header("GameObjects to activate")] [Space(5)]
     [SerializeField] private Image damageTakenPlateVFX;
     [SerializeField] private Image checkpointUsed;
 
-    [Header("Images")] [Space(5)] [SerializeField]
-    private Image healthBarFilling;
-
+    [Header("Images")] [Space(5)] 
+    [SerializeField] private Image healthBarFilling;
     [SerializeField] private Image manaBarFilling;
     [SerializeField] private Image experienceBarFilling;
 
-    [Header("Texts")] [Space(5)] [SerializeField]
-    private TextMeshProUGUI healthText;
-
+    [Header("Texts")] [Space(5)] 
+    [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI manaText;
     [SerializeField] private TextMeshProUGUI experienceText;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI interactText;
-    [SerializeField] private TextMeshProUGUI messagePopupTitleText;
-    [SerializeField] private TextMeshProUGUI messagePopupBodyText;
 #pragma warning restore 649
 
     #endregion
-
-    private const string menuScene = "MainMenu"; // menu scene name
-
+    
     private Character character;
     private float characterMaxHp;
     private float characterMaxMana;
@@ -64,18 +49,6 @@ public class CharacterUI : MonoBehaviour
     {
         FirstLoad();
         CharacterEventSubscriptions();
-        ButtonListeners();
-    }
-
-    private void MessagePopupHandler(string title, string body)
-    {
-        messagePopup.SetActive(true);
-        character.IsAnimationLocked = true;
-        messagePopupTitleText.text = title;
-        messagePopupBodyText.text = body;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
-        Time.timeScale = 0f;
     }
 
     private void InteractTextHandler([CanBeNull] string text)
@@ -120,6 +93,7 @@ public class CharacterUI : MonoBehaviour
         var blinkTimes = 3f;
         var nextColor = Color.white;
         checkpointUsed.gameObject.SetActive(true);
+        
         while (timeElapsed < lerpDuration && currBlinks <= blinkTimes)
         {
             var lerp = Color.Lerp(checkpointUsed.color, nextColor, timeElapsed / lerpDuration);
@@ -141,9 +115,9 @@ public class CharacterUI : MonoBehaviour
 
     private void CooldownFirstLoad()
     {
-        for (int i = 0; i < skillCooldownFill.Count; i++)
+        foreach (var t in skillCooldownFill)
         {
-            SkillCooldownUpdate(skillCooldownFill[i], 0);
+            SkillCooldownUpdate(t, 0);
         }
     }
 
@@ -180,25 +154,10 @@ public class CharacterUI : MonoBehaviour
         character.SkillController.OnSkill3Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[2], f); };
         character.SkillController.OnSkill4Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[3], f); };
         character.SkillController.OnSkill5Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[4], f); };
-        character.OnCharacterCheckpointUsed += CheckpointFeedback;
         character.OnCharacterInteractRange += delegate(string s) { InteractTextHandler(s); };
-        character.OnCharacterPause += PauseMenuActivation;
-        character.OnCharacterOrbAcquired += delegate(string title, string body) { MessagePopupHandler(title, body); };
+        character.OnCharacterCheckpointUsed += CheckpointFeedback;
     }
-
-    private void ButtonListeners()
-    {
-        // button order: resume, controls, options, help, quit menu, quit app, return
-        uiButtons[0].onClick.AddListener(PauseMenuActivation);
-        uiButtons[1].onClick.AddListener(delegate { SwitchPauseMenuScreen(1); });
-        uiButtons[2].onClick.AddListener(delegate { SwitchPauseMenuScreen(2); });
-        uiButtons[3].onClick.AddListener(delegate { SwitchPauseMenuScreen(3); });
-        uiButtons[4].onClick.AddListener(QuitToMenu);
-        uiButtons[5].onClick.AddListener(QuitToDesktop);
-        uiButtons[6].onClick.AddListener(delegate { SwitchPauseMenuScreen(0); });
-        uiButtons[7].onClick.AddListener(CloseMessagePopup);
-    }
-
+    
     private void SkillCooldownUpdate(Image cooldownFill, float cooldownRatio)
     {
         cooldownFill.fillAmount = cooldownRatio;
@@ -269,50 +228,5 @@ public class CharacterUI : MonoBehaviour
     {
         healthBarFilling.fillAmount = hpPercent;
         healthText.text = $"{currHp} / {characterMaxHp}";
-    }
-
-    private void PauseMenuActivation()
-    {
-        var currentState = pauseMenu.activeInHierarchy;
-        pauseMenu.SetActive(!currentState);
-        Cursor.visible = !currentState;
-        Cursor.lockState = !currentState ? CursorLockMode.Confined : CursorLockMode.Locked;
-        Time.timeScale = !currentState ? 0f : 1f;
-        character.IsAnimationLocked = !currentState;
-    }
-
-    private void CloseMessagePopup()
-    {
-        messagePopup.SetActive(false);
-        character.IsAnimationLocked = false;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1f;
-    }
-
-    private void SwitchPauseMenuScreen(int screenToShow)
-    {
-        for (int i = 0; i < pauseMenuScreens.Count; i++)
-        {
-            pauseMenuScreens[i].gameObject.SetActive(i == screenToShow);
-        }
-    }
-
-    private void QuitToMenu()
-    {
-        SceneManager.LoadSceneAsync(menuScene);
-        SwitchPauseMenuScreen(0);
-        PauseMenuActivation();
-        Time.timeScale = 1f;
-    }
-
-    private void QuitToDesktop()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
-#if UNITY_STANDALONE_WIN
-        Application.Quit();
-#endif
     }
 }

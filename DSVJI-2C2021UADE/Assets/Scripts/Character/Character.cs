@@ -33,6 +33,7 @@ public class Character : MonoBehaviour
     private Experience experience;
     private CharacterSkillController skillController;
     private CharacterUI ui;
+    private NotificationPopup notificationPopup;
 
     public Animator Animator => animator;
     public CharacterController Controller => characterController;
@@ -46,6 +47,7 @@ public class Character : MonoBehaviour
     public Experience Experience => experience;
     public CharacterSkillController SkillController => skillController;
     public CharacterUI Ui => ui;
+    public NotificationPopup NotificationPopup => notificationPopup;
 
     #endregion
 
@@ -83,20 +85,26 @@ public class Character : MonoBehaviour
             if (orbsObtained >= orbsNeeded)
             {
                 orbsObtained = orbsNeeded;
+                GotAllOrbs = true;
                 if (!(Interactable is null))
                     OnCharacterOrbAcquired?.Invoke("All orbs acquired","Now go to the altar to finish the ritual");
             }
             else
             {
+                GotAllOrbs = false;
                 if (!(Interactable is null))
                     OnCharacterOrbAcquired?.Invoke("Orb acquired", $"You got {Interactable.Name}\nNow you need {orbsNeeded-orbsObtained} more");
             }
         } 
     }
 
+    public bool GotAllOrbs { get; private set; }
+
     [CanBeNull] public Interactable Interactable { get; set; }
 
     public Transform CheckpointRespawn => checkpointRespawn;
+
+    public int OrbsNeeded => orbsNeeded;
 
     public event Action OnCharacterSwitch;
     public event Action OnCharacterInteract;
@@ -122,6 +130,7 @@ public class Character : MonoBehaviour
         experience = GetComponent<Experience>();
         skillController = GetComponent<CharacterSkillController>();
         ui = GetComponent<CharacterUI>();
+        notificationPopup = GetComponentInChildren<NotificationPopup>();
 
         #endregion
     }
@@ -131,7 +140,7 @@ public class Character : MonoBehaviour
         health.OnDeath += OnDeathHandler;
         characterAnimation.OnSwitchComplete += OnSwitchCompleteHandler;
         characterAnimation.OnDeathComplete += OnDeathCompleteHandler;
-        // starting values
+        
         checkpointRespawn = transform;
         orbsObtained = 0;
     }
@@ -139,36 +148,26 @@ public class Character : MonoBehaviour
     private void Update()
     {
         if (health.IsDead)
-        {
             IsAnimationLocked = true;
-        }
         
-        // Character Switch InputDetection
         if (input.GetSwitchCharacterInput)
         {
-            // Event for animations
             OnCharacterSwitch?.Invoke();
             SwitchStart();
         }
-
-        // Interaction input detection
+        
         if (input.GetInteractInput && IsInInteractRange)
         {
             OnCharacterInteract?.Invoke();
             CharacterInteraction();
         }
         
-        // Pause menu input detection
         if (Input.GetPauseInput)
-        {
             OnCharacterPause?.Invoke();
-        }
-
+        
         // Death Test
         if (UnityEngine.Input.GetKeyDown(KeyCode.L))
-        {
             health.TakeDamage(9999);
-        }
     }
 
     public void OrbAcquisition()

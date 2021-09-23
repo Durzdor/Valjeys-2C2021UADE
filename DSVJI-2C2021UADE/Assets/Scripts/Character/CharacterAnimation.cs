@@ -37,7 +37,7 @@ public class CharacterAnimation : MonoBehaviour
 
     private void Update()
     {
-        if (character.IsAnimationLocked) return;
+        //if (character.IsAnimationLocked) return; VOS ERAS EL QUE ROMPIA
         // character.Controller.velocity.magnitude < 0.001f
         if (character.Controller.isGrounded) // character.Controller.isGrounded
         {
@@ -89,28 +89,15 @@ public class CharacterAnimation : MonoBehaviour
     private void DeathHandler()
     {
         character.Animator.SetTrigger(DeathTrigger);
-        StartCoroutine(WaitForDeath());
     }
     
-    private IEnumerator WaitForDeath()
+    // RDeath Animation event uses this method
+    public void DeathAnimationEndedEvent()
     {
-        yield return new WaitForSeconds(0.2f);
-        var currAnim = character.Animator.GetCurrentAnimatorClipInfo(0);
-        var clipLength = currAnim[0].clip.length;
-        while (clipLength > 0)
-        {
-            clipLength -= Time.deltaTime;
-            yield return null;
-        }
-
-        if (clipLength <= 0)
-        {
-            character.Animator.ResetTrigger(DeathTrigger);
-            OnDeathComplete?.Invoke();
-            character.Animator.Play("Idle");
-        }
+        character.Animator.ResetTrigger(DeathTrigger);
+        OnDeathComplete?.Invoke();
     }
-
+    
     private void JumpHandler()
     {
         character.Animator.SetTrigger(JumpTrigger);
