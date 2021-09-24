@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -18,9 +19,17 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject helpWindow;
     [SerializeField] private GameObject creditsWindow;
     [SerializeField] private Button goBackButton;
+    //[SerializeField] private TextMeshProUGUI controlsText;
 #pragma warning restore 649
     #endregion
-    
+
+    private CharacterInput _input;
+
+    private void OnEnable()
+    {
+        _input = GetComponent<CharacterInput>();
+    }
+
     private void Start()
     {
         ShowMainWindow();
@@ -33,7 +42,7 @@ public class MainMenuManager : MonoBehaviour
         switch ((ButtonSwitch) num)
         {
            case ButtonSwitch.PlayButton:
-               SceneManager.LoadScene("TutorialLevel");
+               SceneManager.LoadScene("Level1");
                return;
            case ButtonSwitch.HelpButton:
                ShowHelpWindow();
@@ -79,4 +88,16 @@ public class MainMenuManager : MonoBehaviour
         ShowMainWindow();
         goBackButton.gameObject.SetActive(false);
     }
+
+    // private void ControlsTextUpdate()
+    // {
+    //     var title = "Controls\n\n";
+    //     var movement = "WASD - Movement\n";
+    //     var jump = $"{_input.Jump} - Jump\n";
+    //     var run = $"{_input.ChangeSpeed} - Run\n";
+    //     var swap = $"{_input.SwitchCharacter} - Switch Character\n";
+    //     var interact = $"{_input.Interact} - Interact\n";
+    //     var pause = $"{_input.Pause} - Pause\n";
+    //     controlsText.text = $"{title}{movement}{jump}{run}{swap}{interact}{pause}";
+    // }
 }

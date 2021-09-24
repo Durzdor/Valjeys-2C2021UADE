@@ -3,7 +3,11 @@ guid: e9744d5b02d57bd4d8b836f5d64156d4
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - data: {fileID: 11400000, guid: aa571dc2ed207834a8d6d163ca2c7586, type: 2}
+  - projectileGameObject: {instanceID: 0}
+  - fireballParticles: {instanceID: 0}
+  - projectileSpawnPoint: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -8,7 +8,7 @@ public class NaomiSkill3 : Skill
 #pragma warning restore 649
     #endregion
     
-    private void Start()
+    private void OnEnable()
     {
         Data = data;
     }

@@ -48,7 +48,6 @@ public class CharacterSkillController : MonoBehaviour
         _character.Animation.OnSwitchComplete += SwapSkillList;
         SwapSkillList();
         CooldownFirstLoad();
-        SkillIconUpdate();
         SkillHotkeysDisplay(_character.Input.SkillHotkeys);
     }
 

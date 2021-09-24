@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,6 +11,8 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject menuGameObject;
     [SerializeField] private List<Button> menuButtons;
     [SerializeField] private List<GameObject> menuScreens;
+    [SerializeField] private TextMeshProUGUI controlsText;
+    
 #pragma warning restore 649
     #endregion
 
@@ -21,6 +24,7 @@ public class PauseMenu : MonoBehaviour
         _character = GetComponentInParent<Character>();
         _character.OnCharacterPause += PauseMenuActivation;
         ButtonListeners();
+        ControlsTextUpdate();
     }
     
     private void ButtonListeners()
@@ -33,6 +37,18 @@ public class PauseMenu : MonoBehaviour
         menuButtons[4].onClick.AddListener(QuitToMenu);
         menuButtons[5].onClick.AddListener(QuitToDesktop);
         menuButtons[6].onClick.AddListener(delegate { SwitchPauseMenuScreen(0); });
+    }
+
+    private void ControlsTextUpdate()
+    {
+        var title = "Controls\n\n";
+        var movement = "WASD - Movement\n";
+        var jump = $"{_character.Input.Jump} - Jump\n";
+        var run = $"{_character.Input.ChangeSpeed} - Run\n";
+        var swap = $"{_character.Input.SwitchCharacter} - Switch Character\n";
+        var interact = $"{_character.Input.Interact} - Interact\n";
+        var pause = $"{_character.Input.Pause} - Pause\n";
+        controlsText.text = $"{title}{movement}{jump}{run}{swap}{interact}{pause}";
     }
     
     private void PauseMenuActivation()

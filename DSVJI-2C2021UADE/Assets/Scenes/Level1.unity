@@ -6920,6 +6920,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 160947735}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &161275033 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1270698037, guid: fb209869d42d51f47b194f290c424bd3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1362897513}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &161457024
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51760,6 +51772,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1270698037, guid: fb209869d42d51f47b194f290c424bd3, type: 3}
+      propertyPath: m_text
+      value: 'Controls go here
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447529826, guid: fb209869d42d51f47b194f290c424bd3, type: 3}
+      propertyPath: controlsText
+      value: 
+      objectReference: {fileID: 161275033}
+    - target: {fileID: 1501781265, guid: fb209869d42d51f47b194f290c424bd3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6044810825460919648, guid: fb209869d42d51f47b194f290c424bd3,
         type: 3}
       propertyPath: m_LocalPosition.x
