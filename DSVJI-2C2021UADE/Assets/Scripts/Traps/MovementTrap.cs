@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MovementTrap : MonoBehaviour
@@ -7,7 +6,7 @@ public class MovementTrap : MonoBehaviour
     #region SerializedFields
 #pragma warning disable 649
     [Header("Movement Trap Settings")] [Space(5)]
-    [SerializeField] private bool canMoveBack = false;
+    [SerializeField] private bool canMoveBack;
     [SerializeField] private Transform targetPosition;
     [SerializeField] private float moveDuration = 2f;
     [SerializeField] private float moveBackInterval = 1f;
@@ -16,7 +15,7 @@ public class MovementTrap : MonoBehaviour
 #pragma warning restore 649
     #endregion
     
-    private bool isMovementActive = false;
+    private bool _isMovementActive;
 
     private void Update()
     {
@@ -25,9 +24,9 @@ public class MovementTrap : MonoBehaviour
     
     private IEnumerator ObjectMovement()
     {
-        if (isMovementActive)
+        if (_isMovementActive)
             yield break;
-        isMovementActive = true;
+        _isMovementActive = true;
         float counter = 0;
         Vector3 defaultPosition = movePivot.position;
         Vector3 maxPosition = targetPosition.position; // transform.position + targetPosition
@@ -53,7 +52,7 @@ public class MovementTrap : MonoBehaviour
             yield return new WaitForSeconds(moveStartInterval);
         }
 
-        isMovementActive = false;
+        _isMovementActive = false;
     }
     
     private void LerpPos(Vector3 defaultValue, Vector3 targetValue, float counter)

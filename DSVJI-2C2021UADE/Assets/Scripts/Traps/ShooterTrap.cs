@@ -7,7 +7,7 @@ public class ShooterTrap : MonoBehaviour
     #region SerializedFields
 #pragma warning disable 649
     [Header("Shooter Trap Settings")] [Space(5)]
-    [SerializeField] private bool canShootInBursts = false;
+    [SerializeField] private bool canShootInBursts;
     [SerializeField] private float shootInterval = 1f;
     [SerializeField] private float burstObjectAmount = 3f;
     [SerializeField] private float burstShootInterval = 0.3f;
@@ -16,8 +16,8 @@ public class ShooterTrap : MonoBehaviour
 #pragma warning restore 649
     #endregion
     
-    private bool isShooterActive = false;
-    private int listPosition = 0;
+    private bool _isShooterActive;
+    private int _listPosition;
 
     private void Update()
     {
@@ -26,9 +26,9 @@ public class ShooterTrap : MonoBehaviour
     
     private IEnumerator ObjectShooter()
     {
-        if (isShooterActive)
+        if (_isShooterActive)
             yield break;
-        isShooterActive = true;
+        _isShooterActive = true;
         var counter = 0;
 
         if (canShootInBursts)
@@ -58,16 +58,16 @@ public class ShooterTrap : MonoBehaviour
         }
         else
         {
-            ShootObject(objectToShoot, shooterTransform[listPosition]);
-            listPosition++;
-            if (listPosition >= shooterTransform.Count)
+            ShootObject(objectToShoot, shooterTransform[_listPosition]);
+            _listPosition++;
+            if (_listPosition >= shooterTransform.Count)
             {
-                listPosition = 0;
+                _listPosition = 0;
             }
         }
 
         yield return new WaitForSeconds(shootInterval);
-        isShooterActive = false;
+        _isShooterActive = false;
     }
     
     private void ShootObject(GameObject shotObject, Transform shootLocation)

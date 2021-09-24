@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GasTrap : MonoBehaviour
@@ -13,7 +12,7 @@ public class GasTrap : MonoBehaviour
 #pragma warning restore 649
     #endregion
     
-    private bool isGasActive = false;
+    private bool _isGasActive;
 
     private void Update()
     {
@@ -22,9 +21,9 @@ public class GasTrap : MonoBehaviour
     
     private IEnumerator ObjectGas()
     {
-        if (isGasActive)
+        if (_isGasActive)
             yield break;
-        isGasActive = true;
+        _isGasActive = true;
         float counter = 0;
         
         yield return new WaitForSeconds(gasInterval);
@@ -37,6 +36,6 @@ public class GasTrap : MonoBehaviour
         }
         
         gasGameObject.SetActive(false);
-        isGasActive = false;
+        _isGasActive = false;
     }
 }

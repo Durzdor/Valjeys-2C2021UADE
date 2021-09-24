@@ -10,11 +10,6 @@ public class CharacterUI : MonoBehaviour
     #region SerializedFields
 
 #pragma warning disable 649
-    [Header("Lists")] [Space(5)]
-    [SerializeField] private List<Image> skillIcons;
-    [SerializeField] private List<Image> skillCooldownFill;
-    [SerializeField] private List<TextMeshProUGUI> skillHotkeys;
-
     [Header("GameObjects to activate")] [Space(5)]
     [SerializeField] private Image damageTakenPlateVFX;
     [SerializeField] private Image checkpointUsed;
@@ -35,14 +30,14 @@ public class CharacterUI : MonoBehaviour
 
     #endregion
     
-    private Character character;
-    private float characterMaxHp;
-    private float characterMaxMana;
-    private float characterExpToLevel;
+    private Character _character;
+    private float _characterMaxHp;
+    private float _characterMaxMana;
+    private float _characterExpToLevel;
 
     private void Awake()
     {
-        character = GetComponent<Character>();
+        _character = GetComponent<Character>();
     }
 
     private void Start()
@@ -66,17 +61,14 @@ public class CharacterUI : MonoBehaviour
 
     private void FirstLoad()
     {
-        characterMaxHp = character.Health.MaxHealth;
-        characterMaxMana = character.Mana.MaxMana;
-        characterExpToLevel = character.Experience.MaxExp;
-        HealthBarUpdate(character.Health.CurrentHealth, character.Health.GetRatio);
-        ManaBarUpdate(character.Mana.CurrentMana, character.Mana.GetRatio);
-        ExperienceBarUpdate(character.Experience.CurrentExp, character.Experience.GetRatio);
-        SkillHotkeysDisplay(character.Input.SkillHotkeys);
-        NameChange(character.IsNaomi ? "Naomi" : "Ruth");
+        _characterMaxHp = _character.Health.MaxHealth;
+        _characterMaxMana = _character.Mana.MaxMana;
+        _characterExpToLevel = _character.Experience.MaxExp;
+        HealthBarUpdate(_character.Health.CurrentHealth, _character.Health.GetRatio);
+        ManaBarUpdate(_character.Mana.CurrentMana, _character.Mana.GetRatio);
+        ExperienceBarUpdate(_character.Experience.CurrentExp, _character.Experience.GetRatio);
+        NameChange(_character.IsNaomi ? "Naomi" : "Ruth");
         LevelUpUpdate();
-        SkillSwitch(character.IsNaomi ? character.Naomi.NaomiSkillImages : character.Ruth.RuthSkillImages);
-        CooldownFirstLoad();
     }
 
     private void CheckpointFeedback()
@@ -112,62 +104,42 @@ public class CharacterUI : MonoBehaviour
         checkpointUsed.gameObject.SetActive(false);
         checkpointUsed.color = Color.clear;
     }
-
-    private void CooldownFirstLoad()
-    {
-        foreach (var t in skillCooldownFill)
-        {
-            SkillCooldownUpdate(t, 0);
-        }
-    }
-
+    
     private void CharacterEventSubscriptions()
     {
-        character.Health.OnDamaged += delegate
+        _character.Health.OnDamaged += delegate
         {
             DamageTakenVFX();
-            HealthBarUpdate(character.Health.CurrentHealth, character.Health.GetRatio);
+            HealthBarUpdate(_character.Health.CurrentHealth, _character.Health.GetRatio);
         };
-        character.Health.OnHealed += delegate
+        _character.Health.OnHealed += delegate
         {
-            HealthBarUpdate(character.Health.CurrentHealth, character.Health.GetRatio);
+            HealthBarUpdate(_character.Health.CurrentHealth, _character.Health.GetRatio);
         };
-        character.Mana.OnConsumed += delegate { ManaBarUpdate(character.Mana.CurrentMana, character.Mana.GetRatio); };
-        character.Mana.OnGained += delegate { ManaBarUpdate(character.Mana.CurrentMana, character.Mana.GetRatio); };
-        character.Ruth.OnRuthEnable += delegate
+        _character.Mana.OnConsumed += delegate { ManaBarUpdate(_character.Mana.CurrentMana, _character.Mana.GetRatio); };
+        _character.Mana.OnGained += delegate { ManaBarUpdate(_character.Mana.CurrentMana, _character.Mana.GetRatio); };
+        _character.Ruth.OnRuthEnable += delegate
         {
             NameChange("Ruth");
-            SkillSwitch(character.Ruth.RuthSkillImages);
         };
-        character.Naomi.OnNaomiEnable += delegate
+        _character.Naomi.OnNaomiEnable += delegate
         {
             NameChange("Naomi");
-            SkillSwitch(character.Naomi.NaomiSkillImages);
         };
-        character.Experience.OnExpGained += delegate
+        _character.Experience.OnExpGained += delegate
         {
-            ExperienceBarUpdate(character.Experience.CurrentExp, character.Experience.GetRatio);
+            ExperienceBarUpdate(_character.Experience.CurrentExp, _character.Experience.GetRatio);
         };
-        character.Experience.OnLevelUp += LevelUpUpdate;
-        character.SkillController.OnSkill1Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[0], f); };
-        character.SkillController.OnSkill2Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[1], f); };
-        character.SkillController.OnSkill3Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[2], f); };
-        character.SkillController.OnSkill4Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[3], f); };
-        character.SkillController.OnSkill5Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[4], f); };
-        character.OnCharacterInteractRange += delegate(string s) { InteractTextHandler(s); };
-        character.OnCharacterCheckpointUsed += CheckpointFeedback;
-    }
-    
-    private void SkillCooldownUpdate(Image cooldownFill, float cooldownRatio)
-    {
-        cooldownFill.fillAmount = cooldownRatio;
+        _character.Experience.OnLevelUp += LevelUpUpdate;
+        _character.OnCharacterInteractRange += InteractTextHandler;
+        _character.OnCharacterCheckpointUsed += CheckpointFeedback;
     }
 
     private void LevelUpUpdate()
     {
-        characterExpToLevel = character.Experience.MaxExp;
-        levelText.text = character.Experience.CurrentLevel.ToString();
-        if (Mathf.Approximately(characterExpToLevel, float.MaxValue))
+        _characterExpToLevel = _character.Experience.MaxExp;
+        levelText.text = _character.Experience.CurrentLevel.ToString();
+        if (Mathf.Approximately(_characterExpToLevel, float.MaxValue))
         {
             experienceText.gameObject.SetActive(false);
         }
@@ -189,44 +161,22 @@ public class CharacterUI : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         damageTakenPlateVFX.gameObject.SetActive(false);
     }
-
-    private void SkillHotkeysDisplay(List<string> newHotkeys)
-    {
-        for (int i = 0; i < skillHotkeys.Count; i++)
-        {
-            skillHotkeys[i].text = newHotkeys[i];
-        }
-    }
-
-    private void SkillSwitch(List<Sprite> newIcons)
-    {
-        for (int i = 0; i < newIcons.Count; i++)
-        {
-            skillIcons[i].gameObject.SetActive(true);
-            skillIcons[i].sprite = newIcons[i];
-        }
-
-        for (int i = newIcons.Count; i < skillIcons.Count; i++)
-        {
-            skillIcons[i].gameObject.SetActive(false);
-        }
-    }
-
+    
     private void ExperienceBarUpdate(float currExp, float expPercent)
     {
         experienceBarFilling.fillAmount = expPercent;
-        experienceText.text = $"{currExp} / {characterExpToLevel}";
+        experienceText.text = $"{currExp} / {_characterExpToLevel}";
     }
 
     private void ManaBarUpdate(float currMana, float manaPercent)
     {
         manaBarFilling.fillAmount = manaPercent;
-        manaText.text = $"{currMana} / {characterMaxMana}";
+        manaText.text = $"{currMana} / {_characterMaxMana}";
     }
 
     private void HealthBarUpdate(float currHp, float hpPercent)
     {
         healthBarFilling.fillAmount = hpPercent;
-        healthText.text = $"{currHp} / {characterMaxHp}";
+        healthText.text = $"{currHp} / {_characterMaxHp}";
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RotationTrap : MonoBehaviour
@@ -7,7 +6,7 @@ public class RotationTrap : MonoBehaviour
     #region SerializedFields
 #pragma warning disable 649
     [Header("Rotation Trap Settings")] [Space(5)]
-    [SerializeField] private bool canRotateBack = false;
+    [SerializeField] private bool canRotateBack;
     [SerializeField] private Vector3 targetRotation = new Vector3(0f,-90f,0f);
     [SerializeField] private float rotationDuration = 2f;
     [SerializeField] private float rotationBackInterval = 1f;
@@ -16,7 +15,7 @@ public class RotationTrap : MonoBehaviour
 #pragma warning restore 649
     #endregion
     
-    private bool isRotationActive = false;
+    private bool _isRotationActive;
 
     private void Update()
     { 
@@ -25,9 +24,9 @@ public class RotationTrap : MonoBehaviour
     
     private IEnumerator ObjectRotation()
     {
-        if (isRotationActive)
+        if (_isRotationActive)
             yield break;
-        isRotationActive = true;
+        _isRotationActive = true;
         float counter = 0;
         Vector3 defaultAngles = rotationPivot.eulerAngles;
         Vector3 maxRotation = transform.eulerAngles + targetRotation;
@@ -53,7 +52,7 @@ public class RotationTrap : MonoBehaviour
             yield return new WaitForSeconds(rotationStartInterval);
         }
 
-        isRotationActive = false;
+        _isRotationActive = false;
     }
     
     private void LerpRot(Vector3 defaultValue, Vector3 targetValue, float counter)

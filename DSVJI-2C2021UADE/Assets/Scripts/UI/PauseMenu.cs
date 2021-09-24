@@ -13,13 +13,13 @@ public class PauseMenu : MonoBehaviour
 #pragma warning restore 649
     #endregion
 
-    private Character character;
+    private Character _character;
     private const string MenuScene = "MainMenu"; // menu scene name
 
     private void Start()
     {
-        character = GetComponentInParent<Character>();
-        character.OnCharacterPause += PauseMenuActivation;
+        _character = GetComponentInParent<Character>();
+        _character.OnCharacterPause += PauseMenuActivation;
         ButtonListeners();
     }
     
@@ -40,7 +40,7 @@ public class PauseMenu : MonoBehaviour
         var currentState = menuGameObject.activeInHierarchy;
         menuGameObject.SetActive(!currentState);
         GameStatus.ChangeGameStatus(!currentState ? GameState.Paused : GameState.Playing);
-        character.IsAnimationLocked = !currentState;
+        _character.IsAnimationLocked = !currentState;
     }
     
     private void SwitchPauseMenuScreen(int screenToShow)

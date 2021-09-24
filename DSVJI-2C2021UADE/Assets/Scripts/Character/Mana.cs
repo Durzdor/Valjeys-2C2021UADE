@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Mana : MonoBehaviour
 {
+    #region SerializedFields
+#pragma warning disable 649
     [Header("Max Stats")] [Space(5)] 
     [SerializeField] private float maxMana = 100f;
-
     [Header("Mana Regen")] [Space(5)] 
-    [SerializeField] private bool passiveManaRegenPossible = false;
+    [SerializeField] private bool passiveManaRegenPossible;
     [SerializeField] private float manaRegenAmount = 1f;
     [SerializeField] private float manaRegenRate = 1f;
-    private bool isManaRegenerating;
+#pragma warning restore 649
+    #endregion
+    
+    private bool _isManaRegenerating;
 
     public event Action OnConsumed;
     public event Action OnGained;
@@ -25,23 +29,23 @@ public class Mana : MonoBehaviour
         CurrentMana = maxMana;
     }
     
-    void Update()
+    private void Update()
     {
         if (!passiveManaRegenPossible) return;
-        if(CurrentMana != MaxMana && !isManaRegenerating) 
+        if(CurrentMana != MaxMana && !_isManaRegenerating) 
         {
-            StartCoroutine(RegainHealthOverTime());
+            StartCoroutine(RegainManaOverTime());
         }
     }
-    private IEnumerator RegainHealthOverTime() 
+    private IEnumerator RegainManaOverTime() 
     {
-        isManaRegenerating = true;
+        _isManaRegenerating = true;
         while (CurrentMana < MaxMana) 
         {
             GainMana(manaRegenAmount);
             yield return new WaitForSeconds (manaRegenRate);
         }
-        isManaRegenerating = false;
+        _isManaRegenerating = false;
     }
     
     public void GainMana(float manaAmount)

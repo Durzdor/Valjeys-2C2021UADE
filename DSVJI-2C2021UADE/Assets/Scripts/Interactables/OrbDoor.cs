@@ -2,12 +2,24 @@
 
 public class OrbDoor : Door
 {
+    #region SerializedFields
+#pragma warning disable 649
     [SerializeField] private string doorName = "Door to altar";
-    [SerializeField] private bool needCustomOrbAmount = false;
+    [SerializeField] private bool needCustomOrbAmount;
     [SerializeField] private int orbCustomAmount = 1;
+#pragma warning restore 649
+    #endregion
     
+    private int OrbsRequired
+    {
+        get
+        {
+            if (!(Character is null))
+                return (needCustomOrbAmount ? orbCustomAmount : Character.OrbsNeeded) - Character.OrbsObtained;
+            return 0;
+        }
+    }
 
-    private int OrbsRequired => (needCustomOrbAmount ? orbCustomAmount : Character.OrbsNeeded) - Character.OrbsObtained;
     protected override void Start()
     {
         base.Start();

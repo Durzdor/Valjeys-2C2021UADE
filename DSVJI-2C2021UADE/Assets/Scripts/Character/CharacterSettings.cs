@@ -14,18 +14,15 @@ public class CharacterSettings : MonoBehaviour
 #pragma warning restore 649
     #endregion
     
-    private bool invertMouseY;
-    private bool invertMouseX;
-    private bool adStrafe;
-    public bool InvertMouseY => invertMouseY;
-    public bool InvertMouseX => invertMouseX;
-    public bool AdStrafe => adStrafe;
+    private bool _invertMouseY;
+    private bool _invertMouseX;
+    public bool InvertMouseY => _invertMouseY;
+    public bool InvertMouseX => _invertMouseX;
 
     private void Start()
     {
         invertMouseYToggle.onValueChanged.AddListener(delegate { InvertYToggle(invertMouseYToggle); });
         invertMouseXToggle.onValueChanged.AddListener(delegate { InvertXToggle(invertMouseXToggle); });
-        strafeToggle.onValueChanged.AddListener(delegate { StrafeToggle(strafeToggle); });
         ReadInitialValues();
     }
 
@@ -33,19 +30,14 @@ public class CharacterSettings : MonoBehaviour
     {
         InvertYToggle(invertMouseYToggle);
         InvertXToggle(invertMouseXToggle);
-        StrafeToggle(strafeToggle);
     }
 
     private void InvertYToggle(Toggle check)
     {
-        invertMouseY = check.isOn;
+        _invertMouseY = check.isOn;
     }
     private void InvertXToggle(Toggle check)
     {
-        invertMouseX = check.isOn;
-    }
-    private void StrafeToggle(Toggle check)
-    {
-        adStrafe = check.isOn;
+        _invertMouseX = check.isOn;
     }
 }

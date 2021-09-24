@@ -6,13 +6,13 @@ public class Door : Interactable
 {
     #region SerializedFields
 #pragma warning disable 649
-    [SerializeField][Range(3,6)] private float waitInterval = 4f;
+    [SerializeField][Range(3,30)] private float waitInterval = 4f;
 #pragma warning restore 649
     #endregion
     
-    private bool isActive = false;
-    private Transform playerTransform;
-    private Animator animator;
+    private bool _isActive;
+    private Transform _playerTransform;
+    private Animator _animator;
     
     private static readonly int OpenPositiveZTrigger = Animator.StringToHash("OpenPositiveZ");
     private static readonly int OpenNegativeZTrigger = Animator.StringToHash("OpenNegativeZ");
@@ -21,35 +21,35 @@ public class Door : Interactable
     
     protected virtual void Start()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         InteractableName = "Door";
     }
     
     private IEnumerator DoorRotation()
     {
-        if (isActive)
+        if (_isActive)
             yield break;
-        isActive = true;
+        _isActive = true;
 
         var openedFrom = PlayerIsBehindDoor() ? OpenPositiveZTrigger : OpenNegativeZTrigger;
-        animator.SetTrigger(openedFrom);
+        _animator.SetTrigger(openedFrom);
         yield return new WaitForSeconds(waitInterval);
-        animator.SetTrigger((openedFrom == OpenPositiveZTrigger) ? ClosePositiveZTrigger : CloseNegativeZTrigger);
+        _animator.SetTrigger((openedFrom == OpenPositiveZTrigger) ? ClosePositiveZTrigger : CloseNegativeZTrigger);
        
-        isActive = false;
+        _isActive = false;
     }
     
     private bool PlayerIsBehindDoor()
     {
-        Vector3 doorTransformDirection = transform.TransformDirection(Vector3.forward);
-        Vector3 playerTransformDirection = playerTransform.position - transform.position;
+        var doorTransformDirection = transform.TransformDirection(Vector3.forward);
+        var playerTransformDirection = _playerTransform.position - transform.position;
         return Vector3.Dot(doorTransformDirection, playerTransformDirection) < 0;
     }
     
     public override void Interaction()
     {
         if (Character is null) return;
-        playerTransform = Character.transform;
+        _playerTransform = Character.transform;
         StartCoroutine(DoorRotation());
     }
 }

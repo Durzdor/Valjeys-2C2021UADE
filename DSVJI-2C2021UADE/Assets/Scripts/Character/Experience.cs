@@ -4,20 +4,24 @@ using UnityEngine;
 
 public class Experience : MonoBehaviour
 {
+    #region SerializedFields
+#pragma warning disable 649
     [Header("Starting Stats")] [Space(5)]
-    [SerializeField] private int startingLevel = 0;
-    [SerializeField] private int maxLevel = 0;
-    [SerializeField] private List<int> expRequirements = null;
+    [SerializeField] private int startingLevel;
+    [SerializeField] private int maxLevel;
+    [SerializeField] private List<int> expRequirements;
+#pragma warning restore 649
+    #endregion
     
-    private bool maxLevelReached;
-    private float currMaxExp;
+    private bool _maxLevelReached;
+    private float _currMaxExp;
 
     public event Action OnExpGained;
     public event Action OnLevelUp;
     
     public float CurrentExp { get; private set; }
 
-    public float MaxExp => maxLevelReached ? float.MaxValue : expRequirements[CurrentLevel];
+    public float MaxExp => _maxLevelReached ? float.MaxValue : expRequirements[CurrentLevel];
 
     public int CurrentLevel { get; private set; }
     public int MaxLevel => maxLevel;
@@ -32,7 +36,7 @@ public class Experience : MonoBehaviour
 
     public void GainExp(float expAmount)
     {
-        if (maxLevelReached) return;
+        if (_maxLevelReached) return;
         var expBefore = CurrentExp;
         CurrentExp += expAmount;
         CurrentExp = Mathf.Clamp(CurrentExp, 0, MaxExp);
@@ -60,7 +64,7 @@ public class Experience : MonoBehaviour
        if (CurrentLevel > MaxLevel)
        {
            CurrentLevel = MaxLevel;
-           maxLevelReached = true;
+           _maxLevelReached = true;
        }
        OnLevelUp?.Invoke();
    }

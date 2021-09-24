@@ -1,6 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
-using TMPro;
+﻿using JetBrains.Annotations;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -34,18 +32,20 @@ public abstract class Interactable : MonoBehaviour, IInteractable
     {
         if (other.CompareTag("Player"))
         {
-            if (Character == null) return;
-            Character.Interactable = null;
-            Character.IsInInteractRange = false;
-            Character = null;
+            CharacterClear();
         } 
     }
 
-    private void OnDisable()
+    private void CharacterClear()
     {
         if (Character == null) return;
         Character.Interactable = null;
         Character.IsInInteractRange = false;
         Character = null;
+    }
+    
+    private void OnDisable()
+    {
+        CharacterClear();
     }
 }

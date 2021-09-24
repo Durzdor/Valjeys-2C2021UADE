@@ -6,11 +6,14 @@ public class SkillData : ScriptableObject
     #region SerializedFields
 #pragma warning disable 649
     [Header("Skill properties")] [Space(5)]
-    [SerializeField] private float skillCooldown;
-    [SerializeField] private float skillCost;
+    [SerializeField] private float cooldown;
+    [SerializeField] private float useCost;
+    [SerializeField] private Sprite image;
+    
 #pragma warning restore 649
     #endregion
 
-    public float SkillCooldown => skillCooldown;
-    public float SkillCost => skillCost;
+    public float Cooldown => cooldown;
+    public float UseCost => useCost;
+    public Sprite Image => image;
 }

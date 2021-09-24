@@ -1,146 +1,192 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterSkillController : MonoBehaviour
 {
+    #region SerializedFields
+#pragma warning disable 649
+    [Header("Skill Containers")] [Space(5)] 
+    [SerializeField] private GameObject ruthSkillContainer;
+    [SerializeField] private GameObject naomiSkillContainer;
+    [Header("Skill Lists")] [Space(5)] 
+    [SerializeField] private List<Image> skillIcons;
+    [SerializeField] private List<Image> skillCooldownFill;
+    [SerializeField] private List<TextMeshProUGUI> skillHotkeys;
+    [Header("Error Message")] [Space(5)] 
+    [SerializeField] private GameObject errorMessageContainer;
+    [SerializeField] private TextMeshProUGUI errorText;
+#pragma warning restore 649
+    #endregion
+    
     private const float GlobalCooldown = 0.2f;
-    private Character character;
-    private bool canUseSkills = true;
-    private bool isSkill1Available = true;
-    private bool isSkill2Available = true;
-    private bool isSkill3Available = true;
-    private bool isSkill4Available = true;
-    private bool isSkill5Available = true;
+    private Character _character;
+    private bool _canUseSkills = true;
+    private Skill[] _currentSkillList = new Skill[5];
+    private List<Skill> _ruthSkillList;
+    private List<Skill> _naomiSkillList;
+    private bool _isErrorDisplaying;
+    
+    private static readonly int Skill1Trigger = Animator.StringToHash("Skill1Trigger");
+    private static readonly int Skill2Trigger = Animator.StringToHash("Skill2Trigger");
+    private static readonly int Skill3Trigger = Animator.StringToHash("Skill3Trigger");
+    private static readonly int Skill4Trigger = Animator.StringToHash("Skill4Trigger");
+    private static readonly int Skill5Trigger = Animator.StringToHash("Skill5Trigger");
 
-    public event Action<float> OnSkill1Use;
-    public event Action Skill1;
-    public event Action Skill2;
-    public event Action Skill3;
-    public event Action Skill4;
-    public event Action Skill5;
-    public event Action<float> OnSkill2Use;
-    public event Action<float> OnSkill3Use;
-    public event Action<float> OnSkill4Use;
-    public event Action<float> OnSkill5Use;
 
     private void Awake()
     {
-        character = GetComponent<Character>();
+        _character = GetComponent<Character>();
+        _ruthSkillList = new List<Skill>(ruthSkillContainer.GetComponents<Skill>());
+        _naomiSkillList= new List<Skill>(naomiSkillContainer.GetComponents<Skill>());
+    }
+
+    private void Start()
+    {
+        _character.Animation.OnSwitchComplete += SwapSkillList;
+        SwapSkillList();
+        CooldownFirstLoad();
+        SkillIconUpdate();
+        SkillHotkeysDisplay(_character.Input.SkillHotkeys);
     }
 
     private void Update()
     {
-        if (character.IsAnimationLocked) return;
-        if (!canUseSkills) return;
+        if (_character.IsAnimationLocked) return;
+        if (!_canUseSkills) return;
         // starts at 0
-        if (character.Input.GetSkillHotkeyInput(0) && isSkill1Available)
+        if (_character.Input.GetSkillHotkeyInput(0))
         {
+            _currentSkillList[0].UseSkill();
+            if (_currentSkillList[0].WasSkillUsed)
+            {
+                _character.Animator.SetTrigger(Skill1Trigger);
+            }
             StartCoroutine(GlobalSkillCooldown());
-            StartCoroutine(Skill1Cd(character.IsNaomi ? character.Naomi.NaomiSkillData[0].SkillCooldown: character.Ruth.RuthSkillData[0].SkillCooldown));
-            print("Skill 1");
-            Skill1?.Invoke();
         }
 
-        if (character.Input.GetSkillHotkeyInput(1) && isSkill2Available)
+        if (_character.Input.GetSkillHotkeyInput(1))
         {
+            _currentSkillList[1].UseSkill();
+            if (_currentSkillList[1].WasSkillUsed)
+            {
+                _character.Animator.SetTrigger(Skill2Trigger);
+            }
             StartCoroutine(GlobalSkillCooldown());
-            StartCoroutine(Skill2Cd(character.IsNaomi ? character.Naomi.NaomiSkillData[1].SkillCooldown: character.Ruth.RuthSkillData[1].SkillCooldown));
-            print("Skill 2");
-            Skill2?.Invoke();
         }
 
-        if (character.Input.GetSkillHotkeyInput(2) && isSkill3Available)
+        if (_character.Input.GetSkillHotkeyInput(2))
         {
+            _currentSkillList[2].UseSkill();
+            if (_currentSkillList[2].WasSkillUsed)
+            {
+                _character.Animator.SetTrigger(Skill3Trigger);
+            }
             StartCoroutine(GlobalSkillCooldown());
-            StartCoroutine(Skill3Cd(character.IsNaomi ? character.Naomi.NaomiSkillData[2].SkillCooldown: character.Ruth.RuthSkillData[2].SkillCooldown));
-            print("Skill 3");
-            Skill3?.Invoke();
         }
 
-        if (character.Input.GetSkillHotkeyInput(3) && isSkill4Available)
+        if (_character.Input.GetSkillHotkeyInput(3))
         {
+            _currentSkillList[3].UseSkill();
+            if (_currentSkillList[3].WasSkillUsed)
+            {
+                _character.Animator.SetTrigger(Skill4Trigger);
+            }
             StartCoroutine(GlobalSkillCooldown());
-            StartCoroutine(Skill4Cd(character.IsNaomi ? character.Naomi.NaomiSkillData[3].SkillCooldown: character.Ruth.RuthSkillData[3].SkillCooldown));
-            print("Skill 4");
-            Skill4?.Invoke();
         }
 
-        if (character.Input.GetSkillHotkeyInput(4) && isSkill5Available)
+        if (_character.Input.GetSkillHotkeyInput(4))
         {
+            _currentSkillList[4].UseSkill();
+            if (_currentSkillList[4].WasSkillUsed)
+            {
+                _character.Animator.SetTrigger(Skill5Trigger);
+            }
             StartCoroutine(GlobalSkillCooldown());
-            StartCoroutine(Skill5Cd(character.IsNaomi ? character.Naomi.NaomiSkillData[4].SkillCooldown: character.Ruth.RuthSkillData[4].SkillCooldown));
-            print("Skill 5");
-            Skill5?.Invoke();
         }
     }
     
     private IEnumerator GlobalSkillCooldown()
     {
-        canUseSkills = false;
+        _canUseSkills = false;
         yield return new WaitForSeconds(GlobalCooldown);
-        canUseSkills = true;
+        _canUseSkills = true;
+    }
+
+    private void SwapSkillList()
+    {
+        var copiedList = _character.IsNaomi ? _naomiSkillList : _ruthSkillList;
+        copiedList.CopyTo(_currentSkillList);
+        SkillIconUpdate();
+        SkillEventSubscription();
+    }
+
+    private void SkillEventSubscription()
+    {
+        for (int i = 0; i < _currentSkillList.Length; i++)
+        {
+            var index = i;
+            _currentSkillList[index].OnCooldownUpdate += delegate(float cooldownRatio) { SkillCooldownUpdate(skillCooldownFill[index],cooldownRatio); };
+            _currentSkillList[index].OnSkillNotUsable += ErrorMessageDisplay;
+        }
+    }
+
+    private void CooldownFirstLoad()
+    {
+        foreach (var t in skillCooldownFill)
+        {
+            SkillCooldownUpdate(t, 0);
+        }
     }
     
-    private IEnumerator Skill1Cd(float cooldown)
+    private void SkillCooldownUpdate(Image cooldownFill, float cooldownRatio)
     {
-        isSkill1Available = false;
-        var i = cooldown;
-        while (i > 0)
-        {
-            i -= Time.deltaTime;
-            OnSkill1Use?.Invoke(i/cooldown);
-            yield return null;
-        }
-        isSkill1Available = true;
+        cooldownFill.fillAmount = cooldownRatio;
     }
-    private IEnumerator Skill2Cd(float cooldown)
+    
+    private void SkillHotkeysDisplay(List<string> newHotkeys)
     {
-        isSkill2Available = false;
-        var i = cooldown;
-        while (i > 0)
+        for (int i = 0; i < skillHotkeys.Count; i++)
         {
-            i -= Time.deltaTime;
-            OnSkill2Use?.Invoke(i/cooldown);
-            yield return null;
+            skillHotkeys[i].text = newHotkeys[i];
         }
-        isSkill2Available = true;
     }
-    private IEnumerator Skill3Cd(float cooldown)
+    
+    private void SkillIconUpdate()
     {
-        isSkill3Available = false;
-        var i = cooldown;
-        while (i > 0)
+        for (int i = 0; i < skillIcons.Count; i++)
         {
-            i -= Time.deltaTime;
-            OnSkill3Use?.Invoke(i/cooldown);
-            yield return null;
+            skillIcons[i].sprite = _currentSkillList[i].SkillData.Image;
         }
-        isSkill3Available = true;
     }
-    private IEnumerator Skill4Cd(float cooldown)
+
+    private void ErrorMessageDisplay(string message)
     {
-        isSkill4Available = false;
-        var i = cooldown;
-        while (i > 0)
+        if (!_isErrorDisplaying)
         {
-            i -= Time.deltaTime;
-            OnSkill4Use?.Invoke(i/cooldown);
-            yield return null;
+            StartCoroutine(TextFade(message));
         }
-        isSkill4Available = true;
     }
-    private IEnumerator Skill5Cd(float cooldown)
+
+    private IEnumerator TextFade(string message)
     {
-        isSkill5Available = false;
-        var i = cooldown;
-        while (i > 0)
+        _isErrorDisplaying = true;
+        errorText.text = message;
+        errorMessageContainer.SetActive(true);
+        var timeElapsed = 0f;
+        var lerpDuration = 1f;
+        var prevColor = errorText.color;
+        while (timeElapsed < lerpDuration)
         {
-            i -= Time.deltaTime;
-            OnSkill5Use?.Invoke(i/cooldown);
+            timeElapsed += Time.deltaTime;
+            var lerp = Color.Lerp(errorText.color,Color.clear, Time.deltaTime);
+            errorText.color = lerp;
             yield return null;
         }
-        isSkill5Available = true;
+        errorMessageContainer.SetActive(false);
+        errorText.color = prevColor;
+        _isErrorDisplaying = false;
     }
 }

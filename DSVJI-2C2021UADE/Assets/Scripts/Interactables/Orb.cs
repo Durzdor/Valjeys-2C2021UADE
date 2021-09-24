@@ -11,23 +11,23 @@ public class Orb : Interactable
 #pragma warning restore 649
     #endregion
 
-    private Vector3 posOffset;
-    private Vector3 tempPos;
+    private Vector3 _posOffset;
+    private Vector3 _tempPos;
     
     private void Start ()
     {
         InteractableName = orbName;
-        posOffset = transform.position;
+        _posOffset = transform.position;
     }
     private 
     void Update () 
     {
         transform.Rotate(new Vector3(0f, Time.deltaTime * degreesPerSecond, 0f), Space.World);
         
-        tempPos = posOffset;
-        tempPos.y += Mathf.Lerp(tempPos.y, (Mathf.Sin(Time.fixedTime * Mathf.PI * frequency) * amplitude), 10f / 2f);
+        _tempPos = _posOffset;
+        _tempPos.y += Mathf.Lerp(_tempPos.y, (Mathf.Sin(Time.fixedTime * Mathf.PI * frequency) * amplitude), 10f / 2f);
  
-        transform.position = tempPos;
+        transform.position = _tempPos;
     }
 
     public override void Interaction()

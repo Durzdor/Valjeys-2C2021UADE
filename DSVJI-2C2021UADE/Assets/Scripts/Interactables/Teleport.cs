@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Teleport : Interactable
 {
     #region SerializedFields
 #pragma warning disable 649
-    [SerializeField] private bool isSceneTeleport = false;
-    [SerializeField] private bool isEndGameTeleport = false;
+    [SerializeField] private bool isSceneTeleport;
+    [SerializeField] private bool isEndGameTeleport;
     [SerializeField] private string sceneToLoad = "TutorialLevel";
     [SerializeField] private Transform teleportLocation;
     [SerializeField] private string teleportName = "Tp to location";

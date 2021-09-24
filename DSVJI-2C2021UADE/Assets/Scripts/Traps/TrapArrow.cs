@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TrapArrow : MonoBehaviour
 {
@@ -16,6 +14,6 @@ public class TrapArrow : MonoBehaviour
 
         lifespan -= Time.deltaTime;
         
-        transform.Translate(transform.forward * speed * Time.deltaTime, Space.World);
+        transform.Translate(transform.forward * (speed * Time.deltaTime), Space.World);
     }
 }

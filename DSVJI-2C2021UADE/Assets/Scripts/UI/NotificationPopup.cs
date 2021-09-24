@@ -13,19 +13,19 @@ public class NotificationPopup : MonoBehaviour
 #pragma warning restore 649
     #endregion
     
-    private Character character;
+    private Character _character;
 
     private void Start()
     {
-        character = GetComponentInParent<Character>();
-        character.OnCharacterOrbAcquired += SetMessage;
+        _character = GetComponentInParent<Character>();
+        _character.OnCharacterOrbAcquired += SetMessage;
         closeButton.onClick.AddListener(CloseMessagePopup);
     }
     
     public void SetMessage(string title, string body)
     {
         notificationGameObject.SetActive(true);
-        character.IsAnimationLocked = true;
+        _character.IsAnimationLocked = true;
         notificationTitleText.text = title;
         notificationBodyText.text = body;
         GameStatus.ChangeGameStatus(GameState.Paused);
@@ -34,7 +34,7 @@ public class NotificationPopup : MonoBehaviour
     private void CloseMessagePopup()
     {
         notificationGameObject.SetActive(false);
-        character.IsAnimationLocked = false;
+        _character.IsAnimationLocked = false;
         GameStatus.ChangeGameStatus(GameState.Playing);
     }
 }
