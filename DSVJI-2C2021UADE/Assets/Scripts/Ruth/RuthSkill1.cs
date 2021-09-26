@@ -27,6 +27,6 @@ public class RuthSkill1 : Skill
     private void SkillAction()
     {
         if (!Character.Ruth.WeaponController.drawn) Character.Ruth.WeaponController.DrawSaveWeapon();
-        weaponCollider.OnAttack(animationDuration);    
+        weaponCollider.OnAttack(animationDuration); 
     }
 }

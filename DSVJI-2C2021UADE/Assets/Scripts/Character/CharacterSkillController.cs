@@ -25,6 +25,7 @@ public class CharacterSkillController : MonoBehaviour
     private Character _character;
     private bool _canUseSkills = true;
     private Skill[] _currentSkillList = new Skill[5];
+    // TODO: lista de skills actualmente desbloqueadas por separado de las referencias para saber cuales estan
     private List<Skill> _ruthSkillList;
     private List<Skill> _naomiSkillList;
     private bool _isErrorDisplaying;
