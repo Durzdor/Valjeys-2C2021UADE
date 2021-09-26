@@ -14,6 +14,8 @@ public class Character : MonoBehaviour
     [SerializeField] private GameObject ruthGo;
     [SerializeField] private GameObject naomiGo;
     [SerializeField] private int orbsNeeded;
+    [SerializeField] private Transform defaultCheckpoint;
+    
 #pragma warning restore 649
 
     #endregion

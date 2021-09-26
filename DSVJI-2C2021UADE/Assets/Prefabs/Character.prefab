@@ -2282,26 +2282,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Controls
-
-
-    WASD - Movement
-
-    Space - Jump
-
-    Shift - Run
-
-    Skills
-    - 1,2,3,4,5
-
-    R - Switch character
-
-    F - Interact
-
-    LMB, RMB - Control
-    camera
-
-    Escape - pause
+  m_text: 'Controls go here
 
 '
   m_isRightToLeft: 0
@@ -2923,6 +2904,7 @@ MonoBehaviour:
   - {fileID: 1302843301}
   - {fileID: 712880826}
   - {fileID: 1159315841}
+  controlsText: {fileID: 1270698037}
 --- !u!114 &1124590792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3971,9 +3953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: aa571dc2ed207834a8d6d163ca2c7586, type: 2}
-  projectileGameObject: {fileID: 4322855827107924235, guid: 90b0e837f6be2ef449da90bc7f0b221e,
-    type: 3}
-  fireballParticles: {fileID: 3608704946320966735, guid: 6861bbb7a92946942be402c8612a7b45,
+  projectileGameObject: {fileID: 2498271218091616008, guid: 6861bbb7a92946942be402c8612a7b45,
     type: 3}
   projectileSpawnPoint: {fileID: 5563869921076256871}
 --- !u!114 &1841132050
@@ -5348,7 +5328,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4111914436022437658, guid: 04877395df7d9d94db3d567808c52775, type: 3}
+  - {fileID: 2100000, guid: 98b7d7bd39e224d4196cd467e3131baa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6533,6 +6513,7 @@ MonoBehaviour:
   ruthGo: {fileID: 6044810825756175712}
   naomiGo: {fileID: 5253581186140358763}
   orbsNeeded: 3
+  defaultCheckpoint: {fileID: 0}
 --- !u!114 &6044810825460919643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6801,8 +6782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c108665df826b04a9e10d2e9cb9faa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ruthMaterial: {fileID: -4111914436022437658, guid: 04877395df7d9d94db3d567808c52775,
-    type: 3}
+  ruthMaterial: {fileID: 2100000, guid: 98b7d7bd39e224d4196cd467e3131baa, type: 2}
 --- !u!114 &6044810825756175710
 MonoBehaviour:
   m_ObjectHideFlags: 0
