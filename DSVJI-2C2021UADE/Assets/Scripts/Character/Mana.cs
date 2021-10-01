@@ -8,8 +8,8 @@ public class Mana : MonoBehaviour
 #pragma warning disable 649
     [Header("Max Stats")] [Space(5)] 
     [SerializeField] private float maxMana = 100f;
-    [Header("Mana Regen")] [Space(5)] 
-    [SerializeField] private bool passiveManaRegenPossible;
+    [Header("Passive Regen")] [Space(5)] 
+    [SerializeField] private bool passiveRegenPossible;
     [SerializeField] private float manaRegenAmount = 1f;
     [SerializeField] private float manaRegenRate = 1f;
 #pragma warning restore 649
@@ -31,7 +31,7 @@ public class Mana : MonoBehaviour
     
     private void Update()
     {
-        if (!passiveManaRegenPossible) return;
+        if (!passiveRegenPossible) return;
         if(CurrentMana != MaxMana && !_isManaRegenerating) 
         {
             StartCoroutine(RegainManaOverTime());

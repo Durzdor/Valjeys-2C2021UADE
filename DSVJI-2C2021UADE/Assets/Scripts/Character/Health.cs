@@ -8,8 +8,8 @@ public class Health : MonoBehaviour
     
     private bool _isDead;
     
-    public event Action OnDamaged;
-    public event Action OnHealed;
+    public event Action OnConsumed;
+    public event Action OnGained;
     public event Action OnDeath;
     
     public float CurrentHealth { get; private set; }
@@ -34,7 +34,7 @@ public class Health : MonoBehaviour
         if (trueHealAmount > 0f)
         {
             // use this to display amount healed on screen
-            OnHealed?.Invoke();
+            OnGained?.Invoke();
         }
     }
    
@@ -50,7 +50,7 @@ public class Health : MonoBehaviour
         if (trueDamageAmount > 0f)
         {
             // use this to display on screen
-            OnDamaged?.Invoke();
+            OnConsumed?.Invoke();
         }
 
         HandleDeath();

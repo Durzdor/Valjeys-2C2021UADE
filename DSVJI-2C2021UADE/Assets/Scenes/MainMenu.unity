@@ -696,7 +696,7 @@ GameObject:
   m_Component:
   - component: {fileID: 183031522}
   m_Layer: 5
-  m_Name: HelpWindow
+  m_Name: ControlsWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2894,7 +2894,8 @@ MonoBehaviour:
   helpWindow: {fileID: 183031521}
   creditsWindow: {fileID: 2090538794}
   goBackButton: {fileID: 1022685099}
-  controlsText: {fileID: 0}
+  controlsText: {fileID: 1589691842}
+  inputData: {fileID: 11400000, guid: e24b514765e4b584eb5811cfbcda410a, type: 2}
 --- !u!1001 &702224711
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5457,7 +5458,7 @@ GameObject:
   - component: {fileID: 1304285450}
   - component: {fileID: 1304285449}
   m_Layer: 5
-  m_Name: HelpBackground
+  m_Name: ControlsBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6989,7 +6990,7 @@ GameObject:
   - component: {fileID: 1589691843}
   - component: {fileID: 1589691842}
   m_Layer: 5
-  m_Name: HelpText
+  m_Name: ControlsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7033,28 +7034,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Controls
-
-
-    WASD - Movement
-
-    Space - Jump
-
-    Shift - Run
-
-    Skills
-    - 1,2,3,4,5
-
-    R - Switch character
-
-    F - Interact
-
-    LMB, RMB - Control
-    camera
-
-    Escape - pause
-
-'
+  m_text: Controls go here
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10ea730949b144e4398a8009c5cf78cd, type: 2}
   m_sharedMaterial: {fileID: -1702864651181147668, guid: 10ea730949b144e4398a8009c5cf78cd,

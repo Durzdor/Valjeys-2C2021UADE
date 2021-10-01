@@ -1,9 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class CharacterUI : MonoBehaviour
@@ -13,16 +11,19 @@ public class CharacterUI : MonoBehaviour
 #pragma warning disable 649
     [Header("GameObjects to activate")] [Space(5)]
     [SerializeField] private Image damageTakenPlateVFX;
+    [SerializeField] private Image damageTakenOverlayVFX;
     [SerializeField] private Image checkpointUsed;
 
     [Header("Images")] [Space(5)] 
     [SerializeField] private Image healthBarFilling;
     [SerializeField] private Image manaBarFilling;
+    [SerializeField] private Image staminaBarFilling;
     [SerializeField] private Image experienceBarFilling;
 
     [Header("Texts")] [Space(5)] 
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI manaText;
+    [SerializeField] private TextMeshProUGUI staminaText;
     [SerializeField] private TextMeshProUGUI experienceText;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI levelText;
@@ -34,6 +35,7 @@ public class CharacterUI : MonoBehaviour
     private Character _character;
     private float _characterMaxHp;
     private float _characterMaxMana;
+    private float _characterMaxStamina;
     private float _characterExpToLevel;
 
     private void Awake()
@@ -64,9 +66,11 @@ public class CharacterUI : MonoBehaviour
     {
         _characterMaxHp = _character.Health.MaxHealth;
         _characterMaxMana = _character.Mana.MaxMana;
+        _characterMaxStamina = _character.Stamina.MaxStamina;
         _characterExpToLevel = _character.Experience.MaxExp;
         HealthBarUpdate(_character.Health.CurrentHealth, _character.Health.GetRatio);
         ManaBarUpdate(_character.Mana.CurrentMana, _character.Mana.GetRatio);
+        StaminaBarUpdate(_character.Stamina.CurrentStamina, _character.Stamina.GetRatio);
         ExperienceBarUpdate(_character.Experience.CurrentExp, _character.Experience.GetRatio);
         NameChange(_character.IsNaomi ? "Naomi" : "Ruth");
         LevelUpUpdate();
@@ -108,17 +112,19 @@ public class CharacterUI : MonoBehaviour
     
     private void CharacterEventSubscriptions()
     {
-        _character.Health.OnDamaged += delegate
+        _character.Health.OnConsumed += delegate
         {
             DamageTakenVFX();
             HealthBarUpdate(_character.Health.CurrentHealth, _character.Health.GetRatio);
         };
-        _character.Health.OnHealed += delegate
+        _character.Health.OnGained += delegate
         {
             HealthBarUpdate(_character.Health.CurrentHealth, _character.Health.GetRatio);
         };
         _character.Mana.OnConsumed += delegate { ManaBarUpdate(_character.Mana.CurrentMana, _character.Mana.GetRatio); };
         _character.Mana.OnGained += delegate { ManaBarUpdate(_character.Mana.CurrentMana, _character.Mana.GetRatio); };
+        _character.Stamina.OnGained += delegate {StaminaBarUpdate(_character.Stamina.CurrentStamina, _character.Stamina.GetRatio); };
+        _character.Stamina.OnConsumed += delegate { StaminaBarUpdate(_character.Stamina.CurrentStamina, _character.Stamina.GetRatio); };
         _character.Ruth.OnRuthEnable += delegate
         {
             NameChange("Ruth");
@@ -159,8 +165,10 @@ public class CharacterUI : MonoBehaviour
     private IEnumerator DamageVFXWait()
     {
         damageTakenPlateVFX.gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
+        damageTakenOverlayVFX.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
         damageTakenPlateVFX.gameObject.SetActive(false);
+        damageTakenOverlayVFX.gameObject.SetActive(false);
     }
     
     private void ExperienceBarUpdate(float currExp, float expPercent)
@@ -169,6 +177,12 @@ public class CharacterUI : MonoBehaviour
         experienceText.text = $"{currExp} / {_characterExpToLevel}";
     }
 
+    private void StaminaBarUpdate(float currStamina, float staminaPercent)
+    {
+        staminaBarFilling.fillAmount = staminaPercent;
+        staminaText.text = $"{currStamina} / {_characterMaxStamina}";
+    }
+    
     private void ManaBarUpdate(float currMana, float manaPercent)
     {
         manaBarFilling.fillAmount = manaPercent;

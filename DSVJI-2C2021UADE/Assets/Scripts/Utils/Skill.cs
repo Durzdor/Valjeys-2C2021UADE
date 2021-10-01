@@ -3,13 +3,23 @@ using System.Collections;
 using UnityEngine;
 
 public abstract class Skill : MonoBehaviour, ISkill
-{   
+{
+    #region SerializedFields
+
+#pragma warning disable 649
+    [SerializeField] protected bool useMana = true;
+    
+#pragma warning restore 649
+
+    #endregion
     protected SkillData Data;
     protected bool CanUseSkill;
     protected Character Character;
     private float _currentCooldown;
     private float CooldownRatio => _currentCooldown / Data.Cooldown;
     private bool HasRequiredMana => Data.UseCost < Character.Mana.CurrentMana;
+    private bool HasRequiredStamina => Data.UseCost < Character.Stamina.CurrentStamina;
+    private bool HasResource => useMana ? HasRequiredMana : HasRequiredStamina;
     
     public SkillData SkillData => Data;
     public bool IsOffCooldown { get; private set; } = true;
@@ -27,15 +37,18 @@ public abstract class Skill : MonoBehaviour, ISkill
     {
         if (IsOffCooldown)
         {
-            if (HasRequiredMana)
+            if (HasResource)
             {
                 StartCoroutine(CooldownTracker());
-                Character.Mana.ConsumeMana(Data.UseCost);
+                if (useMana)
+                    Character.Mana.ConsumeMana(Data.UseCost);
+                else
+                    Character.Stamina.ConsumeStamina(Data.UseCost);
                 CanUseSkill = true;
             }
             else
             {
-                OnSkillNotUsable?.Invoke("Not enough mana.");
+                OnSkillNotUsable?.Invoke($"Not enough {(useMana? "mana":"stamina")}.");
                 CanUseSkill = false;
             }
         }

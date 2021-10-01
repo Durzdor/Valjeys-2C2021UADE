@@ -19,7 +19,9 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject helpWindow;
     [SerializeField] private GameObject creditsWindow;
     [SerializeField] private Button goBackButton;
-    //[SerializeField] private TextMeshProUGUI controlsText;
+    [SerializeField] private TextMeshProUGUI controlsText;
+    [SerializeField] private InputData inputData;
+    
 #pragma warning restore 649
     #endregion
 
@@ -36,7 +38,21 @@ public class MainMenuManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         Time.timeScale = 1f;
+        ControlsTextUpdate();
     }
+    
+    private void ControlsTextUpdate()
+    {
+        var title = "Controls\n\n";
+        var movement = "WASD - Movement\n";
+        var jump = $"{inputData.jump} - Jump\n";
+        var run = $"{inputData.changeSpeed} - Run\n";
+        var swap = $"{inputData.switchCharacter} - Switch Character\n";
+        var interact = $"{inputData.interact} - Interact\n";
+        var pause = $"{inputData.pause} - Pause\n";
+        controlsText.text = $"{title}{movement}{jump}{run}{swap}{interact}{pause}";
+    }
+    
     public void ButtonAssign(int num)
     {
         switch ((ButtonSwitch) num)

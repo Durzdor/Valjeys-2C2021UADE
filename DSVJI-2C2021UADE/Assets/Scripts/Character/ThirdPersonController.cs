@@ -134,7 +134,6 @@ public class ThirdPersonController : MonoBehaviour
         CoyoteTime();
         var h = _character.Input.HorizontalAxis;
         var v = _character.Input.VerticalAxis;
-        var strafeAxis = _character.Input.StrafeAxis;
 
         if (h != 0 || v != 0)
         {
@@ -146,7 +145,7 @@ public class ThirdPersonController : MonoBehaviour
         }
 
         // Have camera follow if moving
-        if (!_lerpYaw && (h != 0 || v != 0) || strafeAxis != 0)
+        if (!_lerpYaw && (h != 0 || v != 0))
             _lerpYaw = true;
 
 
