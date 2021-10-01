@@ -31,18 +31,20 @@ public class CharacterInput : MonoBehaviour
     
     #region Bool Getters
 
-    public float HorizontalAxis => character.IsAnimationLocked ? 0 : Input.GetAxis("Horizontal");
-    public float VerticalAxis => character.IsAnimationLocked ? 0 : Input.GetAxis("Vertical");
-    public float StrafeAxis => character.IsAnimationLocked ? 0 : Input.GetAxis("SecondaryHorizontal");
-    public float ZoomAxis => character.IsAnimationLocked ? 0 : Input.GetAxis("Mouse ScrollWheel");
+    public float HorizontalAxis => _character.IsAnimationLocked ? 0 : Input.GetAxis("Horizontal");
+    public float VerticalAxis => _character.IsAnimationLocked ? 0 : Input.GetAxis("Vertical");
+    public float StrafeAxis => _character.IsAnimationLocked ? 0 : Input.GetAxis("SecondaryHorizontal");
+    public float ZoomAxis => _character.IsAnimationLocked ? 0 : Input.GetAxis("Mouse ScrollWheel");
+    public float MouseXAxis => _character.IsAnimationLocked ? 0 : Input.GetAxis("Mouse X");
+    public float MouseYAxis => _character.IsAnimationLocked ? 0 : Input.GetAxis("Mouse Y");
     public List<string> SkillHotkeys => skillHotkeys; // saves all the skill hotkeys together
-    public bool GetJumpInput => !character.IsAnimationLocked && Input.GetKeyDown(jump);
-    public bool GetChangeSpeedInput => !character.IsAnimationLocked && Input.GetKey(changeSpeed);
-    public bool GetSwitchCharacterInput => !character.IsAnimationLocked && Input.GetKeyDown(switchCharacter);
-    public bool GetInteractInput => !character.IsAnimationLocked && Input.GetKeyDown(interact);
+    public bool GetJumpInput => !_character.IsAnimationLocked && Input.GetKeyDown(jump);
+    public bool GetChangeSpeedInput => !_character.IsAnimationLocked && Input.GetKey(changeSpeed);
+    public bool GetSwitchCharacterInput => !_character.IsAnimationLocked && Input.GetKeyDown(switchCharacter);
+    public bool GetInteractInput => !_character.IsAnimationLocked && Input.GetKeyDown(interact);
     public bool GetPauseInput => Input.GetKeyDown(pause);
-    public bool GetCameraPlayerControlInput =>!character.IsAnimationLocked && Input.GetKey(cameraPlayerControl);
-    public bool GetCameraLookAroundInput =>!character.IsAnimationLocked && Input.GetKey(cameraLookAround);
+    public bool GetCameraPlayerControlInput =>!_character.IsAnimationLocked && Input.GetKey(cameraPlayerControl);
+    public bool GetCameraLookAroundInput =>!_character.IsAnimationLocked && Input.GetKey(cameraLookAround);
 
     #endregion
 
@@ -58,21 +60,21 @@ public class CharacterInput : MonoBehaviour
 
     #endregion
 
-    private Character character;
+    private Character _character;
 
     private void Awake()
     {
-        character = GetComponent<Character>();
+        _character = GetComponent<Character>();
     }
 
     private void Start()
     {
-        Cursor.visible = false;
+        GameStatus.ChangeGameStatus(GameState.Playing);
     }
     
     public bool GetSkillHotkeyInput(int skill)
     {
-        if (character.IsAnimationLocked) return false;
+        if (_character.IsAnimationLocked) return false;
         if (skill >= skillHotkeys.Count || skill < 0) return false;
         return Input.GetKeyDown(skillHotkeys[skill]);
     }

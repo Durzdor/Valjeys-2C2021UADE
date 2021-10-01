@@ -1,25 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class CharacterUI : MonoBehaviour
 {
-
     #region SerializedFields
-#pragma warning disable 649
-    [Header("Lists")] [Space(5)]
-    [SerializeField] private List<GameObject> pauseMenuScreens; // order: default, controls, options, help
-    [SerializeField] private List<Button> uiButtons; // order: resume, controls, options, help, menu, quit, return, close
-    [SerializeField] private List<Image> skillIcons;
-    [SerializeField] private List<Image> skillCooldownFill;
-    [SerializeField] private List<TextMeshProUGUI> skillHotkeys;
 
-    [Header("GameObjects to activate")] [Space(5)] 
-    [SerializeField] private GameObject messagePopup;
-    [SerializeField] private GameObject pauseMenu;
+#pragma warning disable 649
+    [Header("GameObjects to activate")] [Space(5)]
     [SerializeField] private Image damageTakenPlateVFX;
     [SerializeField] private Image checkpointUsed;
 
@@ -36,63 +28,57 @@ public class CharacterUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI interactText;
 #pragma warning restore 649
+
     #endregion
     
-    private const string menuScene = "MainMenu"; // menu scene name
-
-    private Character character;
-    private float characterMaxHp;
-    private float characterMaxMana;
-    private float characterExpToLevel;
-
+    private Character _character;
+    private float _characterMaxHp;
+    private float _characterMaxMana;
+    private float _characterExpToLevel;
 
     private void Awake()
     {
-        character = GetComponent<Character>();
+        _character = GetComponent<Character>();
     }
 
     private void Start()
     {
         FirstLoad();
         CharacterEventSubscriptions();
-        ButtonListeners();
     }
-    
-    private void Update()
+
+    private void InteractTextHandler([CanBeNull] string text)
     {
-        if (character.CharacterInput.GetPauseInput)
+        if (text != null)
         {
-            PauseMenuActivation();
+            interactText.gameObject.SetActive(true);
+            interactText.text = text;
+        }
+        else
+        {
+            interactText.gameObject.SetActive(false);
         }
     }
 
-    private void InteractTextHandler()
-    {
-        
-    }
-    
     private void FirstLoad()
     {
-        characterMaxHp = character.CharacterHealth.MaxHealth;
-        characterMaxMana = character.CharacterMana.MaxMana;
-        characterExpToLevel = character.CharacterExperience.MaxExp;
-        HealthBarUpdate(character.CharacterHealth.CurrentHealth, character.CharacterHealth.GetRatio);
-        ManaBarUpdate(character.CharacterMana.CurrentMana,character.CharacterMana.GetRatio);
-        ExperienceBarUpdate(character.CharacterExperience.CurrentExp, character.CharacterExperience.GetRatio);
-        SkillHotkeysDisplay(character.CharacterInput.SkillHotkeys);
-        NameChange(character.IsNaomi ? "Naomi" : "Ruth");
+        _characterMaxHp = _character.Health.MaxHealth;
+        _characterMaxMana = _character.Mana.MaxMana;
+        _characterExpToLevel = _character.Experience.MaxExp;
+        HealthBarUpdate(_character.Health.CurrentHealth, _character.Health.GetRatio);
+        ManaBarUpdate(_character.Mana.CurrentMana, _character.Mana.GetRatio);
+        ExperienceBarUpdate(_character.Experience.CurrentExp, _character.Experience.GetRatio);
+        NameChange(_character.IsNaomi ? "Naomi" : "Ruth");
         LevelUpUpdate();
-        SkillSwitch(character.IsNaomi ? character.CharacterNaomi.NaomiSkillImages : character.CharacterRuth.RuthSkillImages);
-        CooldownFirstLoad();
     }
 
     private void CheckpointFeedback()
     {
         if (checkpointUsed.gameObject.activeInHierarchy) return;
-        StartCoroutine(ImageFade(0.8f));
+        StartCoroutine(ImageBlink());
     }
 
-    private IEnumerator ImageFade(float secondsToFade)
+    private IEnumerator ImageBlink()
     {
         var timeElapsed = 0f;
         var lerpDuration = 0.5f;
@@ -100,7 +86,8 @@ public class CharacterUI : MonoBehaviour
         var blinkTimes = 3f;
         var nextColor = Color.white;
         checkpointUsed.gameObject.SetActive(true);
-        while (timeElapsed<lerpDuration && currBlinks <= blinkTimes)
+        
+        while (timeElapsed < lerpDuration && currBlinks <= blinkTimes)
         {
             var lerp = Color.Lerp(checkpointUsed.color, nextColor, timeElapsed / lerpDuration);
             checkpointUsed.color = lerp;
@@ -111,59 +98,49 @@ public class CharacterUI : MonoBehaviour
                 timeElapsed = 0f;
                 nextColor = checkpointUsed.color == Color.white ? Color.clear : Color.white;
             }
+
             yield return null;
         }
+
         checkpointUsed.gameObject.SetActive(false);
-        checkpointUsed.color=Color.clear;
+        checkpointUsed.color = Color.clear;
     }
     
-    private void CooldownFirstLoad()
-    {
-        for (int i = 0; i < skillCooldownFill.Count; i++)
-        {
-            SkillCooldownUpdate(skillCooldownFill[i],0);
-        }
-    }
     private void CharacterEventSubscriptions()
     {
-        character.CharacterHealth.OnDamaged += delegate { DamageTakenVFX(); HealthBarUpdate(character.CharacterHealth.CurrentHealth, character.CharacterHealth.GetRatio); };
-        character.CharacterHealth.OnHealed += delegate { HealthBarUpdate(character.CharacterHealth.CurrentHealth, character.CharacterHealth.GetRatio); };
-        character.CharacterMana.OnConsumed += delegate { ManaBarUpdate(character.CharacterMana.CurrentMana,character.CharacterMana.GetRatio); };
-        character.CharacterMana.OnGained += delegate { ManaBarUpdate(character.CharacterMana.CurrentMana,character.CharacterMana.GetRatio); };
-        character.CharacterRuth.OnRuthEnable += delegate { NameChange("Ruth"); SkillSwitch(character.CharacterRuth.RuthSkillImages); }; 
-        character.CharacterNaomi.OnNaomiEnable += delegate { NameChange("Naomi"); SkillSwitch(character.CharacterNaomi.NaomiSkillImages); };
-        character.CharacterExperience.OnExpGained += delegate { ExperienceBarUpdate(character.CharacterExperience.CurrentExp, character.CharacterExperience.GetRatio); };
-        character.CharacterExperience.OnLevelUp += LevelUpUpdate;
-        character.CharacterSkillController.OnSkill1Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[0],f); };
-        character.CharacterSkillController.OnSkill2Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[1],f); };
-        character.CharacterSkillController.OnSkill3Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[2],f); };
-        character.CharacterSkillController.OnSkill4Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[3],f); };
-        character.CharacterSkillController.OnSkill5Use += delegate(float f) { SkillCooldownUpdate(skillCooldownFill[4],f); };
-        character.OnCharacterCheckpointUsed += CheckpointFeedback;
+        _character.Health.OnDamaged += delegate
+        {
+            DamageTakenVFX();
+            HealthBarUpdate(_character.Health.CurrentHealth, _character.Health.GetRatio);
+        };
+        _character.Health.OnHealed += delegate
+        {
+            HealthBarUpdate(_character.Health.CurrentHealth, _character.Health.GetRatio);
+        };
+        _character.Mana.OnConsumed += delegate { ManaBarUpdate(_character.Mana.CurrentMana, _character.Mana.GetRatio); };
+        _character.Mana.OnGained += delegate { ManaBarUpdate(_character.Mana.CurrentMana, _character.Mana.GetRatio); };
+        _character.Ruth.OnRuthEnable += delegate
+        {
+            NameChange("Ruth");
+        };
+        _character.Naomi.OnNaomiEnable += delegate
+        {
+            NameChange("Naomi");
+        };
+        _character.Experience.OnExpGained += delegate
+        {
+            ExperienceBarUpdate(_character.Experience.CurrentExp, _character.Experience.GetRatio);
+        };
+        _character.Experience.OnLevelUp += LevelUpUpdate;
+        _character.OnCharacterInteractRange += InteractTextHandler;
+        _character.OnCharacterCheckpointUsed += CheckpointFeedback;
     }
 
-    private void ButtonListeners()
-    {
-        // button order: resume, controls, options, help, quit menu, quit app, return
-        uiButtons[0].onClick.AddListener(PauseMenuActivation);
-        uiButtons[1].onClick.AddListener(delegate{SwitchPauseMenuScreen(1);});
-        uiButtons[2].onClick.AddListener(delegate{SwitchPauseMenuScreen(2);});
-        uiButtons[3].onClick.AddListener(delegate{SwitchPauseMenuScreen(3);});
-        uiButtons[4].onClick.AddListener(QuitToMenu);
-        uiButtons[5].onClick.AddListener(QuitToDesktop);
-        uiButtons[6].onClick.AddListener(delegate{SwitchPauseMenuScreen(0);});
-        uiButtons[7].onClick.AddListener(CloseMessagePopup);
-    }
-
-    private void SkillCooldownUpdate(Image cooldownFill, float cooldownRatio)
-    {
-        cooldownFill.fillAmount = cooldownRatio;
-    }
     private void LevelUpUpdate()
     {
-        characterExpToLevel = character.CharacterExperience.MaxExp;
-        levelText.text = character.CharacterExperience.CurrentLevel.ToString();
-        if (Mathf.Approximately(characterExpToLevel, float.MaxValue))
+        _characterExpToLevel = _character.Experience.MaxExp;
+        levelText.text = _character.Experience.CurrentLevel.ToString();
+        if (Mathf.Approximately(_characterExpToLevel, float.MaxValue))
         {
             experienceText.gameObject.SetActive(false);
         }
@@ -173,7 +150,7 @@ public class CharacterUI : MonoBehaviour
     {
         nameText.text = newName;
     }
-    
+
     private void DamageTakenVFX()
     {
         StartCoroutine(DamageVFXWait());
@@ -186,80 +163,21 @@ public class CharacterUI : MonoBehaviour
         damageTakenPlateVFX.gameObject.SetActive(false);
     }
     
-    private void SkillHotkeysDisplay(List<string> newHotkeys)
-    {
-        for (int i = 0; i < skillHotkeys.Count; i++)
-        {
-            skillHotkeys[i].text = newHotkeys[i];
-        }
-    }
-    
-    private void SkillSwitch(List<Sprite> newIcons)
-    {
-        for (int i = 0; i < newIcons.Count; i++)
-        {
-            skillIcons[i].gameObject.SetActive(true);
-            skillIcons[i].sprite = newIcons[i];
-        }
-
-        for (int i = newIcons.Count; i < skillIcons.Count; i++)
-        {
-            skillIcons[i].gameObject.SetActive(false);
-        }
-    }
-
     private void ExperienceBarUpdate(float currExp, float expPercent)
     {
         experienceBarFilling.fillAmount = expPercent;
-        experienceText.text = $"{currExp} / {characterExpToLevel}";
+        experienceText.text = $"{currExp} / {_characterExpToLevel}";
     }
 
     private void ManaBarUpdate(float currMana, float manaPercent)
     {
         manaBarFilling.fillAmount = manaPercent;
-        manaText.text = $"{currMana} / {characterMaxMana}";
+        manaText.text = $"{currMana} / {_characterMaxMana}";
     }
 
     private void HealthBarUpdate(float currHp, float hpPercent)
     {
         healthBarFilling.fillAmount = hpPercent;
-        healthText.text = $"{currHp} / {characterMaxHp}";
-    }
-
-    private void PauseMenuActivation()
-    {
-        var currentState = pauseMenu.activeInHierarchy;
-        pauseMenu.SetActive(!currentState);
-        Cursor.visible = !currentState;
-        Time.timeScale = !currentState ? 0f : 1f;
-    }
-
-    private void CloseMessagePopup()
-    {
-        messagePopup.SetActive(false);
-        Cursor.visible = false;
-    }
-
-    private void SwitchPauseMenuScreen(int screenToShow)
-    {
-        for (int i = 0; i < pauseMenuScreens.Count; i++)
-        {
-            pauseMenuScreens[i].gameObject.SetActive(i == screenToShow);
-        }
-    }
-
-    private void QuitToMenu()
-    {
-        SceneManager.LoadScene(menuScene);
-    }
-
-    private void QuitToDesktop()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
-#if UNITY_STANDALONE_WIN
-        Application.Quit();
-#endif
+        healthText.text = $"{currHp} / {_characterMaxHp}";
     }
 }

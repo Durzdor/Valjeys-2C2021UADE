@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 563616222524610123}
+  - component: {fileID: 7270057727552385511}
   m_Layer: 0
-  m_Name: RotPivot
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,6 +32,20 @@ Transform:
   m_Father: {fileID: 563616222963659959}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!64 &7270057727552385511
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563616222524610122}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300002, guid: 7c51ea8d174ca2b43a9d4c94ddfd49d8, type: 3}
 --- !u!1 &563616222963395197
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,7 +57,8 @@ GameObject:
   - component: {fileID: 563616222963651055}
   - component: {fileID: 563616222962361135}
   - component: {fileID: 563616222961240529}
-  - component: {fileID: 563616222963395194}
+  - component: {fileID: 3200001973874958407}
+  - component: {fileID: 4833342853651358563}
   m_Layer: 0
   m_Name: SwingingAxe
   m_TagString: Untagged
@@ -111,20 +127,32 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &563616222963395194
-MeshCollider:
+--- !u!65 &3200001973874958407
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 563616222963395197}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: 7c51ea8d174ca2b43a9d4c94ddfd49d8, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 4.5, y: 1.5, z: 0.5}
+  m_Center: {x: 0, y: -5.9, z: 0}
+--- !u!114 &4833342853651358563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563616222963395197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e968f651a509d4f97aceacf1c51883, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
 --- !u!1 &563616222963405783
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,15 +164,14 @@ GameObject:
   - component: {fileID: 563616222963659959}
   - component: {fileID: 563616222962362449}
   - component: {fileID: 563616222961698259}
-  - component: {fileID: 563616222972903731}
   - component: {fileID: 520088329343834399}
-  - component: {fileID: 563616222963405780}
+  - component: {fileID: 2186705939865511744}
   m_Layer: 0
   m_Name: AxeTrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &563616222963659959
 Transform:
@@ -208,25 +235,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!95 &563616222972903731
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 563616222963405783}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 7c51ea8d174ca2b43a9d4c94ddfd49d8, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!64 &520088329343834399
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -241,7 +249,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43363364321703400, guid: 22effdb9ddbb01b44823666486ce08e1, type: 2}
---- !u!114 &563616222963405780
+--- !u!114 &2186705939865511744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,17 +258,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 563616222963405783}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 869c814bebb84614aa3043edba70c23a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2314584e8e0748f4a8cc70af7804e09f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRotationTrap: 1
   canRotateBack: 1
   targetRotation: {x: 0, y: 0, z: -90}
   rotationDuration: 2
-  rotationWaitInterval: 0
+  rotationBackInterval: 1
+  rotationStartInterval: 1
   rotationPivot: {fileID: 563616222524610123}
-  isMovementTrap: 0
-  targetPosition: {x: 0, y: 0, z: 0}
-  movementDuration: 0
-  movementWaitInterval: 0
-  movementPivot: {fileID: 0}
