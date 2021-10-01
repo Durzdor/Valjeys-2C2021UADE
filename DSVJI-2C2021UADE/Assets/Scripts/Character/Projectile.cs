@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float _lifespan = 3f;
     [SerializeField] private float _speed = 8f;
+    public int _powerLevel;
     
     private Vector3 _direction;
     

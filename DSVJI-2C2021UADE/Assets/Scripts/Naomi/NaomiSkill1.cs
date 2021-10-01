@@ -14,6 +14,7 @@ public class NaomiSkill1 : Skill
     private void OnEnable()
     {
         Data = data;
+        projectileGameObject._powerLevel = 1;
     }
     
     public override void UseSkill()
