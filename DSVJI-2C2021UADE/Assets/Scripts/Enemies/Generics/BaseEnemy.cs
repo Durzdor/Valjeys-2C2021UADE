@@ -25,29 +25,24 @@ public class BaseEnemy : MonoBehaviour
         _ts = new TimeSpan(0, 0, 0, 1);
         _sw.Start();
     }
-
-    private void Update()
+    
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    private void OnCollisionEnter(Collision collision)
+        if ((other.CompareTag("PlayerWeapon") || other.CompareTag("PlayerProjectile")) && _sw.Elapsed > _ts)
         {
-            if (collision.collider.CompareTag("PlayerWeapon") && _sw.Elapsed > _ts)
+            if (_hp == 1)
+                Die();
+            else
             {
-                if (_hp == 1)
-                    Die();
-                else
-                {
-                    //_hp--;
-                    _anim.SetTrigger("TakeDamage");
-                    DamageDisplay(_damageHandler.TotalDamageTaken);
-                    _sw.Restart();
-                }
+                _hp--;
+                _anim.SetTrigger("TakeDamage");
+                DamageDisplay(_damageHandler.TotalDamageTaken);
+                _sw.Restart();
             }
         }
+    }
 
-        #endregion
+    #endregion
 
         private void Die()
         {

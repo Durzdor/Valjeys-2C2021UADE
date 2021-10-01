@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!136 &178690744089869984
+--- !u!136 &317754115
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,6 +9,20 @@ CapsuleCollider:
   m_GameObject: {fileID: 1061652801331741684}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.45261094
+  m_Height: 1.1464492
+  m_Direction: 1
+  m_Center: {x: -0.013804376, y: 0.46320945, z: -0.056978315}
+--- !u!136 &178690744089869984
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061652801331741684}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.45261094
   m_Height: 1.1464492
@@ -80,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bacea0b13e582fd478c2deb1727c3955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hp: 1
+  _hp: 10
   _dmgPopup: {fileID: 5850617534964350593, guid: 47f69fc66604dd541a5a5a3717c998b5,
     type: 3}
   _damageHandler: {fileID: 6021398350948903190}
