@@ -27,15 +27,13 @@ public class ThirdPersonController : MonoBehaviour
     #region SerializedFields
 
 #pragma warning disable 649
-    [Header("References")] [Space(2)] [SerializeField]
-    private Transform cameraTarget;
-
+    [Header("References")] [Space(2)] 
+    [SerializeField] private Transform cameraTarget;
     [SerializeField] private Transform mainCamera;
     [SerializeField] private LayerMask cameraCollisionLayers;
 
-    [Header("Velocities")] [Space(2)] [SerializeField]
-    private float moveDirectionSpeed = 6f;
-
+    [Header("Velocities")] [Space(2)] 
+    [SerializeField] private float moveDirectionSpeed = 6f;
     [SerializeField] private float jumpSpeed = 10f;
     [SerializeField] private float sprintSpeed = 2f;
     [SerializeField] private float rotationLerpSpeed = 10f;
@@ -62,14 +60,10 @@ public class ThirdPersonController : MonoBehaviour
     private void CoyoteTime()
     {
         if (_character.Controller.isGrounded)
-        {
             _lastGroundedTime = Time.time;
-        }
 
         if (_character.Input.GetJumpInput)
-        {
             _jumpButtonPressedTime = Time.time;
-        }
     }
 
     #endregion
@@ -83,11 +77,13 @@ public class ThirdPersonController : MonoBehaviour
     {
         // If mouse button down then allow user to look around
 
-        _cameraPitch += _character.Settings.InvertMouseY ? 
-            _character.Input.MouseYAxis : (_character.Input.MouseYAxis * -1f) * _cameraPitchSpeed;
+        _cameraPitch += _character.Settings.InvertMouseY
+            ? _character.Input.MouseYAxis
+            : (_character.Input.MouseYAxis * -1f) * _cameraPitchSpeed;
         _cameraPitch = Mathf.Clamp(_cameraPitch, _cameraPitchMin, _cameraPitchMax);
-        _cameraYaw += _character.Settings.InvertMouseX ? 
-            (_character.Input.MouseXAxis * -1f) : _character.Input.MouseXAxis * _cameraYawSpeed;
+        _cameraYaw += _character.Settings.InvertMouseX
+            ? (_character.Input.MouseXAxis * -1f)
+            : _character.Input.MouseXAxis * _cameraYawSpeed;
         _cameraYaw %= 360.0f;
         _lerpYaw = false;
 
@@ -136,31 +132,23 @@ public class ThirdPersonController : MonoBehaviour
         var v = _character.Input.VerticalAxis;
 
         if (h != 0 || v != 0)
-        {
             _isInputMoving = true;
-        }
         else
-        {
             _isInputMoving = false;
-        }
 
         // Have camera follow if moving
         if (!_lerpYaw && (h != 0 || v != 0))
             _lerpYaw = true;
-
-
+        
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, _cameraYaw, 0),
             Time.deltaTime * rotationLerpSpeed); // Face camera
-
-
+        
         _moveDirection = new Vector3(h, 0, v).normalized; // Strafe
-
-
         _moveDirection = transform.TransformDirection(_moveDirection);
-
+        
         if (GroundedBonusTime) // character.Controller.isGrounded
         {
-            _moveDirection *= moveDirectionSpeed;
+            _moveDirection *= moveDirectionSpeed; // Si esto se pone afuera de grounded, no pierde vel en el aire
             if (_character.Input.GetChangeSpeedInput && _isInputMoving)
             {
                 _isSprinting = true;

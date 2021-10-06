@@ -6866,7 +6866,7 @@ CharacterController:
   m_Height: 1.8
   m_Radius: 0.2
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.5
   m_SkinWidth: 0.001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
@@ -7018,19 +7018,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c360b47c3daed0249a4be7dd0ce40ed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillHotkeys:
-  - q
-  - e
-  - r
-  - f
-  - g
-  jump: space
-  changeSpeed: left shift
-  switchCharacter: x
-  pause: escape
-  cameraLookAround: mouse 0
-  cameraPlayerControl: mouse 1
-  interact: v
+  keyBindData: {fileID: 11400000, guid: e24b514765e4b584eb5811cfbcda410a, type: 2}
+  skillKeyCodes: 
 --- !u!114 &1506548852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7176,7 +7165,7 @@ GameObject:
   - component: {fileID: 6044810825756175710}
   m_Layer: 8
   m_Name: Ruth
-  m_TagString: Untagged
+  m_TagString: PlayerWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
