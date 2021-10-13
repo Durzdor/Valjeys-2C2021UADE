@@ -43,11 +43,11 @@ public class PauseMenu : MonoBehaviour
     {
         var title = "Controls\n\n";
         var movement = "WASD - Movement\n";
-        var jump = $"{_character.Input.Jump} - Jump\n";
-        var run = $"{_character.Input.ChangeSpeed} - Run\n";
-        var swap = $"{_character.Input.SwitchCharacter} - Switch Character\n";
-        var interact = $"{_character.Input.Interact} - Interact\n";
-        var pause = $"{_character.Input.Pause} - Pause\n";
+        var jump = $"{_character.Input.KeyBindData.jump} - Jump\n";
+        var run = $"{_character.Input.KeyBindData.changeSpeed} - Run\n";
+        var swap = $"{_character.Input.KeyBindData.switchCharacter} - Switch Character\n";
+        var interact = $"{_character.Input.KeyBindData.interact} - Interact\n";
+        var pause = $"{_character.Input.KeyBindData.pause} - Pause\n";
         controlsText.text = $"{title}{movement}{jump}{run}{swap}{interact}{pause}";
     }
     

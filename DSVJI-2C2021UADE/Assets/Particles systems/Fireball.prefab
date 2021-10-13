@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3608704944813215895}
   - component: {fileID: 3608704944813215892}
   - component: {fileID: 3608704944813215893}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4765,7 +4765,7 @@ GameObject:
   - component: {fileID: 3608704945419339920}
   - component: {fileID: 3608704945419339922}
   - component: {fileID: 3608704945419339923}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9520,7 +9520,7 @@ GameObject:
   - component: {fileID: 2498271218091616008}
   - component: {fileID: 6827794878013467544}
   - component: {fileID: 5786627219557536106}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Fireball
   m_TagString: PlayerProjectile
   m_Icon: {fileID: 0}
@@ -9557,6 +9557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lifespan: 3
   _speed: 8
+  _powerLevel: 1
 --- !u!135 &6827794878013467544
 SphereCollider:
   m_ObjectHideFlags: 0

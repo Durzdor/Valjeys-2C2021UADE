@@ -49,7 +49,7 @@ public class CharacterSkillController : MonoBehaviour
         _character.Animation.OnSwitchComplete += SwapSkillList;
         SwapSkillList();
         CooldownFirstLoad();
-        SkillHotkeysDisplay(_character.Input.SkillHotkeys);
+        SkillHotkeysDisplay(_character.Input.skillKeyCodes);
     }
 
     private void Update()
@@ -57,7 +57,7 @@ public class CharacterSkillController : MonoBehaviour
         if (_character.IsAnimationLocked) return;
         if (!_canUseSkills) return;
         // starts at 0
-        if (_character.Input.GetSkillHotkeyInput(0))
+        if (_character.Input.GetSkill1Input)
         {
             _currentSkillList[0].UseSkill();
             if (_currentSkillList[0].WasSkillUsed)
@@ -67,7 +67,7 @@ public class CharacterSkillController : MonoBehaviour
             StartCoroutine(GlobalSkillCooldown());
         }
 
-        if (_character.Input.GetSkillHotkeyInput(1))
+        if (_character.Input.GetSkill2Input)
         {
             _currentSkillList[1].UseSkill();
             if (_currentSkillList[1].WasSkillUsed)
@@ -77,7 +77,7 @@ public class CharacterSkillController : MonoBehaviour
             StartCoroutine(GlobalSkillCooldown());
         }
 
-        if (_character.Input.GetSkillHotkeyInput(2))
+        if (_character.Input.GetSkill3Input)
         {
             _currentSkillList[2].UseSkill();
             if (_currentSkillList[2].WasSkillUsed)
@@ -87,7 +87,7 @@ public class CharacterSkillController : MonoBehaviour
             StartCoroutine(GlobalSkillCooldown());
         }
 
-        if (_character.Input.GetSkillHotkeyInput(3))
+        if (_character.Input.GetSkill4Input)
         {
             _currentSkillList[3].UseSkill();
             if (_currentSkillList[3].WasSkillUsed)
@@ -97,7 +97,7 @@ public class CharacterSkillController : MonoBehaviour
             StartCoroutine(GlobalSkillCooldown());
         }
 
-        if (_character.Input.GetSkillHotkeyInput(4))
+        if (_character.Input.GetSkill5Input)
         {
             _currentSkillList[4].UseSkill();
             if (_currentSkillList[4].WasSkillUsed)
@@ -146,11 +146,21 @@ public class CharacterSkillController : MonoBehaviour
         cooldownFill.fillAmount = cooldownRatio;
     }
     
-    private void SkillHotkeysDisplay(List<string> newHotkeys)
+    private void SkillHotkeysDisplay(List<KeyCode> newHotkeys)
     {
         for (int i = 0; i < skillHotkeys.Count; i++)
         {
-            skillHotkeys[i].text = newHotkeys[i];
+            var keyBind = "";
+            keyBind = newHotkeys[i].ToString();
+            if (newHotkeys[i] == KeyCode.Mouse0)
+            {
+                keyBind = "MB0";
+            }
+            if (newHotkeys[i] == KeyCode.Mouse1)
+            {
+                keyBind = "MB1";
+            }
+            skillHotkeys[i].text = keyBind;
         }
     }
     

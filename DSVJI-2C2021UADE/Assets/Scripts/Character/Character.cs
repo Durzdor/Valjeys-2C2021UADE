@@ -30,6 +30,7 @@ public class Character : MonoBehaviour
     public CharacterSettings Settings { get; private set; }
     public Health Health { get; private set; }
     public Mana Mana { get; private set; }
+    public Stamina Stamina { get; private set; }
     public Ruth Ruth { get; private set; }
     public Naomi Naomi { get; private set; }
     public Experience Experience { get; private set; }
@@ -50,7 +51,7 @@ public class Character : MonoBehaviour
         {
             _isInInteractRange = value;
             OnCharacterInteractRange?.Invoke(!(Interactable is null)
-                ? $"Press {Input.Interact} to use {Interactable.Name}"
+                ? $"Press {Input.KeyBindData.interact} to use {Interactable.Name}"
                 : null);
         } 
     }
@@ -111,6 +112,7 @@ public class Character : MonoBehaviour
         Settings = GetComponent<CharacterSettings>();
         Health = GetComponent<Health>();
         Mana = GetComponent<Mana>();
+        Stamina = GetComponent<Stamina>();
         Ruth = ruthGo.GetComponent<Ruth>();
         Naomi = naomiGo.GetComponent<Naomi>();
         Experience = GetComponent<Experience>();
@@ -127,7 +129,7 @@ public class Character : MonoBehaviour
         Animation.OnSwitchComplete += OnSwitchCompleteHandler;
         Animation.OnDeathComplete += OnDeathCompleteHandler;
         
-        CheckpointRespawn = transform;
+        CheckpointRespawn = defaultCheckpoint;
         _orbsObtained = 0;
     }
 
