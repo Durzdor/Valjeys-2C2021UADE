@@ -20,15 +20,18 @@ public class BetaAIController : MonoBehaviour
     [SerializeField]
     private LayerMask _obstacle;
     
+    
     private Transform _target;
     private Rigidbody _rb;
     private Stopwatch _sw;
-    private TimeSpan _ts = new TimeSpan(0, 0, 1);
+    private TimeSpan _ts = new TimeSpan(0, 0, 2);
     private Vector3 _moveDirection;
+    private AudioSource _attackSound;
 
     // Start is called before the first frame update
     void Start()
     {
+        _attackSound = GetComponent<AudioSource>();
         _rb = GetComponent<Rigidbody>();
         _sw = new Stopwatch();
         _sw.Start();
@@ -41,11 +44,11 @@ public class BetaAIController : MonoBehaviour
         if (_attackArea.Length > 0)
         {
             if (_sw.Elapsed > _ts)
-            { 
+            {
                 _animator.SetBool("PlayerOnAttackRange", true);
                 print("attack!");
                 _target = _attackArea[0].transform;
-                Attack();
+                Attack(_target.GetComponent<Health>());
             }
         }
         else
@@ -65,21 +68,25 @@ public class BetaAIController : MonoBehaviour
         }
     }
 
-    private void Attack()
+    private void Attack(Health player)
     {
         _animator.SetBool("Walking", false);
         _animator.SetTrigger("CanAttack");
+        _attackSound.Play();
+        transform.LookAt(_target);
+        player.TakeDamage(1);
         _sw.Restart();
     }
 
     private void Pursuit()
     {
-        _moveDirection = _target.position - transform.position;
         if (CanPursuit())
         {
+            _moveDirection = (_target.position - transform.position).normalized * _speed; 
+            _moveDirection.y = _rb.velocity.y;
             transform.LookAt(_target);
             _animator.SetBool("Walking", true);
-            _rb.velocity = _moveDirection.normalized * _speed;
+            _rb.velocity = _moveDirection;
         }
         else
         {
