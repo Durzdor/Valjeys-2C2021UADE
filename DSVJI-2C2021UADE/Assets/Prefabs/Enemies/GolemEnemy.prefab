@@ -47,9 +47,10 @@ GameObject:
   - component: {fileID: 2148687461659745878}
   - component: {fileID: 2148687461659745897}
   - component: {fileID: 681845517062781666}
+  - component: {fileID: 8541782487180923287}
   m_Layer: 0
   m_Name: GolemEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -232,6 +233,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!136 &8541782487180923287
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5293584256866075465}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.45261094
+  m_Height: 1.0511628
+  m_Direction: 1
+  m_Center: {x: -0.013804376, y: 0.51085263, z: -0.056978315}
 --- !u!1001 &2282055711937585358
 PrefabInstance:
   m_ObjectHideFlags: 0
