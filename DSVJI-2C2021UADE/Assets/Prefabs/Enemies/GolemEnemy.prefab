@@ -137,6 +137,7 @@ MonoBehaviour:
   _obstacle:
     serializedVersion: 2
     m_Bits: 1024
+  _damageOutput: 10
 --- !u!82 &681845517062781666
 AudioSource:
   m_ObjectHideFlags: 0

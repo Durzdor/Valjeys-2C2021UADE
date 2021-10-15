@@ -18,6 +18,11 @@ public class CharacterSkillController : MonoBehaviour
     [Header("Error Message")] [Space(5)] 
     [SerializeField] private GameObject errorMessageContainer;
     [SerializeField] private TextMeshProUGUI errorText;
+    [SerializeField] private AudioSource _audioSkill1Melee;
+    [SerializeField] private AudioSource _audioSkill1Magic;
+    [SerializeField] private AudioSource _audioSkill2Melee;
+    [SerializeField] private AudioSource _audioSkill2Magic;
+
 #pragma warning restore 649
     #endregion
     
@@ -63,6 +68,10 @@ public class CharacterSkillController : MonoBehaviour
             if (_currentSkillList[0].WasSkillUsed)
             {
                 _character.Animator.SetTrigger(Skill1Trigger);
+                if (_character.IsNaomi)
+                    _audioSkill1Magic.Play();
+                else
+                    _audioSkill1Melee.Play();
             }
             StartCoroutine(GlobalSkillCooldown());
         }
@@ -73,6 +82,10 @@ public class CharacterSkillController : MonoBehaviour
             if (_currentSkillList[1].WasSkillUsed)
             {
                 _character.Animator.SetTrigger(Skill2Trigger);
+                if (_character.IsNaomi)
+                    _audioSkill2Magic.Play();
+                else
+                    _audioSkill2Melee.Play();
             }
             StartCoroutine(GlobalSkillCooldown());
         }

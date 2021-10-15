@@ -19,6 +19,9 @@ public class BetaAIController : MonoBehaviour
     private float _speed;
     [SerializeField]
     private LayerMask _obstacle;
+    [SerializeField]
+    [Range(5, 30)]
+    private int _damageOutput;
     
     
     private Transform _target;
@@ -74,7 +77,7 @@ public class BetaAIController : MonoBehaviour
         _animator.SetTrigger("CanAttack");
         _attackSound.Play();
         transform.LookAt(_target);
-        player.TakeDamage(1);
+        player.TakeDamage(_damageOutput);
         _sw.Restart();
     }
 

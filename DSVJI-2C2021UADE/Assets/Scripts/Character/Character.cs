@@ -15,6 +15,14 @@ public class Character : MonoBehaviour
     [SerializeField] private GameObject naomiGo;
     [SerializeField] private int orbsNeeded;
     [SerializeField] private Transform defaultCheckpoint;
+
+    [Header("Sounds")]
+    [Space(5)]
+    [SerializeField]
+    private AudioSource _audioSwitchCharacter;
+    [SerializeField]
+    private AudioSource _audioDeathCharacter;
+
     
 #pragma warning restore 649
 
@@ -179,6 +187,7 @@ public class Character : MonoBehaviour
     private void OnDeathHandler()
     {
         IsAnimationLocked = true;
+        _audioDeathCharacter.Play();
     }
 
     private void OnDeathCompleteHandler()
@@ -225,6 +234,7 @@ public class Character : MonoBehaviour
     private void OnSwitchCompleteHandler()
     {
         IsAnimationLocked = false;
+        _audioSwitchCharacter.Play();
         if (IsNaomi)
         {
             ruthGo.SetActive(false);
