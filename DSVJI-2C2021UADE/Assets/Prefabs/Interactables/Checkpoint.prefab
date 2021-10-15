@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6019690129101258085}
   - component: {fileID: 6019690129101258083}
   - component: {fileID: 6019690129101258084}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 6019690129428161994}
   - component: {fileID: 6019690129428161995}
   - component: {fileID: 6019690129428161996}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Checkpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6019690129428161997}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.974636, y: 1.312, z: 23}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6019690129101258085}
@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f740a50f93536040be9462103b772dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkpointName: Brazier of Lost Souls
 --- !u!1001 &6019690128068827520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -148,6 +149,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: fabff3cbe4a4be24a90f7b23e155e025, type: 3}
       propertyPath: m_Name
       value: FX_Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: fabff3cbe4a4be24a90f7b23e155e025, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fabff3cbe4a4be24a90f7b23e155e025, type: 3}
       propertyPath: m_LocalPosition.x

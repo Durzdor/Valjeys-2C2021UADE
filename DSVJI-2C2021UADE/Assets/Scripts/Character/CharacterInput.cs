@@ -14,11 +14,11 @@ public class CharacterInput : MonoBehaviour
 
     public InputData KeyBindData => keyBindData;
     public List<KeyCode> skillKeyCodes = new List<KeyCode>(5);
-    public float HorizontalAxis => _character.IsAnimationLocked ? 0 : Input.GetAxis(keyBindData.horizontalAxis);
-    public float VerticalAxis => _character.IsAnimationLocked ? 0 : Input.GetAxis(keyBindData.verticalAxis);
-    public float ZoomAxis => _character.IsAnimationLocked ? 0 : Input.GetAxis(keyBindData.mouseWheelAxis);
-    public float MouseXAxis => _character.IsAnimationLocked ? 0 : Input.GetAxis(keyBindData.mouseXAxis);
-    public float MouseYAxis => _character.IsAnimationLocked ? 0 : Input.GetAxis(keyBindData.mouseYAxis);
+    public float HorizontalAxis => _character.IsAnimationLocked ? 0 : Input.GetAxisRaw(keyBindData.horizontalAxis);
+    public float VerticalAxis => _character.IsAnimationLocked ? 0 : Input.GetAxisRaw(keyBindData.verticalAxis);
+    public float ZoomAxis => _character.IsAnimationLocked ? 0 : Input.GetAxisRaw(keyBindData.mouseWheelAxis);
+    public float MouseXAxis => _character.IsAnimationLocked ? 0 : Input.GetAxisRaw(keyBindData.mouseXAxis);
+    public float MouseYAxis => _character.IsAnimationLocked ? 0 : Input.GetAxisRaw(keyBindData.mouseYAxis);
     public bool GetJumpInput => !_character.IsAnimationLocked && Input.GetKeyDown(keyBindData.jump);
     public bool GetChangeSpeedInput => !_character.IsAnimationLocked && Input.GetKey(keyBindData.changeSpeed);
     public bool GetSwitchCharacterInput => !_character.IsAnimationLocked && Input.GetKeyDown(keyBindData.switchCharacter);
