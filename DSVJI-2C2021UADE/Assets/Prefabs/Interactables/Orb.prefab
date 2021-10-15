@@ -873,7 +873,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4898727575121095009}
   - component: {fileID: 5237711015385281497}
-  - component: {fileID: 5237711015385281496}
+  - component: {fileID: 2474492529075122993}
   m_Layer: 0
   m_Name: Orb
   m_TagString: Untagged
@@ -889,7 +889,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5237711015385281499}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7, y: 1, z: 26.61}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5170597265144127367}
@@ -910,7 +910,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5237711015385281496
+--- !u!114 &2474492529075122993
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -919,13 +919,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5237711015385281499}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ad0d7f577be54589d5f5d0faf1ed0, type: 3}
+  m_Script: {fileID: 11500000, guid: c2fa654cdd8c175438afc58dca9493fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  degreesPerSecond: 100
-  amplitude: 0.05
-  frequency: 0.5
-  orbName: Orb supremo de la destruccion
+  degreesPerSecond: 15
+  amplitude: 0.5
+  frequency: 1
+  orbName: Orb
 --- !u!1 &5304668257662683936
 GameObject:
   m_ObjectHideFlags: 0

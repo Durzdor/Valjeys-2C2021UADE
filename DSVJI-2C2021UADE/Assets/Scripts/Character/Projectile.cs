@@ -44,4 +44,10 @@ public class Projectile : MonoBehaviour
         Gizmos.DrawWireSphere(collider.transform.position, 1);
             
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        print("collision");
+        Destroy(gameObject);
+    }
 }
