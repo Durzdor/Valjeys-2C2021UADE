@@ -100,7 +100,7 @@ public class BetaAIController : MonoBehaviour
 
     private bool CanPursuit()
     {
-        if (Physics.Raycast(transform.position, _moveDirection, Vector3.Distance(transform.position, _moveDirection), _obstacle))
+        if (Physics.Raycast(transform.position, _moveDirection, Vector3.Distance(transform.position, _target.position), _obstacle))
         {
             print("Cannot pursuit");
             _animator.SetBool("Walking", false);

@@ -294,7 +294,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.067, y: 0.066}
   m_AnchorMax: {x: 0.9254797, y: 0.94500005}
-  m_AnchoredPosition: {x: -0.099975586, y: -0.8000488}
+  m_AnchoredPosition: {x: -0.099975586, y: -0.79992676}
   m_SizeDelta: {x: -0.98791504, y: -0.35473633}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &167538723
@@ -1259,7 +1259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.067, y: 0.066}
   m_AnchorMax: {x: 0.9254797, y: 0.94500005}
-  m_AnchoredPosition: {x: 0.9000244, y: -0.8000488}
+  m_AnchoredPosition: {x: 0.9000244, y: -0.79992676}
   m_SizeDelta: {x: -0.98791504, y: -0.35473633}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &755194667
@@ -2082,7 +2082,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.067, y: 0.066}
   m_AnchorMax: {x: 0.9254797, y: 0.94500005}
-  m_AnchoredPosition: {x: 0.9000244, y: -0.8000488}
+  m_AnchoredPosition: {x: 0.9000244, y: -0.79992676}
   m_SizeDelta: {x: -0.98791504, y: -0.35473633}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1217717083
@@ -2389,7 +2389,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.067, y: 0.066}
   m_AnchorMax: {x: 0.9254797, y: 0.94500005}
-  m_AnchoredPosition: {x: 0.9000244, y: -0.8000488}
+  m_AnchoredPosition: {x: 0.9000244, y: -0.79992676}
   m_SizeDelta: {x: -0.98791504, y: -0.35473633}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1344103437
@@ -4037,7 +4037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useMana: 1
   data: {fileID: 11400000, guid: aa571dc2ed207834a8d6d163ca2c7586, type: 2}
-  projectileGameObject: {fileID: 4322855827107924235, guid: 90b0e837f6be2ef449da90bc7f0b221e,
+  projectileGameObject: {fileID: 2498271218091616008, guid: 6861bbb7a92946942be402c8612a7b45,
     type: 3}
   projectileSpawnPoint: {fileID: 5563869921076256871}
 --- !u!114 &1841132050
@@ -5222,7 +5222,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3160b4cd177020543b1cc2d5e398062f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -5570,7 +5570,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: fc620146d5ebe6447a2105397b8922c8, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -7212,7 +7212,7 @@ MonoBehaviour:
   mainCamera: {fileID: 6044810825532052938}
   cameraCollisionLayers:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 1075
   moveDirectionSpeed: 3
   jumpSpeed: 10
   sprintSpeed: 2.4
@@ -7246,6 +7246,8 @@ MonoBehaviour:
   naomiGo: {fileID: 5253581186140358763}
   orbsNeeded: 3
   defaultCheckpoint: {fileID: 0}
+  _audioSwitchCharacter: {fileID: 1381937933874216877}
+  _audioDeathCharacter: {fileID: 2409076293470978719}
 --- !u!114 &6044810825460919643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7395,6 +7397,10 @@ MonoBehaviour:
   - {fileID: 4847383546779624197}
   errorMessageContainer: {fileID: 1871841828}
   errorText: {fileID: 1344103439}
+  _audioSkill1Melee: {fileID: 3235019413075513876}
+  _audioSkill1Magic: {fileID: 2963742651086063244}
+  _audioSkill2Melee: {fileID: 3235019413075513876}
+  _audioSkill2Magic: {fileID: 9189117178983061717}
 --- !u!1 &6044810825532052943
 GameObject:
   m_ObjectHideFlags: 0
@@ -7880,7 +7886,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 076c85470e1dea645848fa9e6aaf18a0, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -8098,7 +8104,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 41c221df3b0837b48a0de4d258c32b6f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -8622,7 +8628,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 331b8e75e7278bd448372b282c684755, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

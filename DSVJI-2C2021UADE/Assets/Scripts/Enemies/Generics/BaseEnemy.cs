@@ -36,7 +36,7 @@ public class BaseEnemy : MonoBehaviour
             {
                 _hp--;
                 _anim.SetTrigger("TakeDamage");
-                DamageDisplay(_damageHandler.TotalDamageTaken);
+                DamageDisplay(1); // _damageHandler.TotalDamageTaken
                 _sw.Restart();
             }
         }

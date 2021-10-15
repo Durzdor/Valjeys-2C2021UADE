@@ -36081,6 +36081,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8345821}
     m_Modifications:
+    - target: {fileID: 5321514292509554727, guid: 40e3478de38db534684edfc52ac58284,
+        type: 3}
+      propertyPath: isEndGameTeleport
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5321514292509554727, guid: 40e3478de38db534684edfc52ac58284,
+        type: 3}
+      propertyPath: sceneToLoad
+      value: Valjeys
+      objectReference: {fileID: 0}
+    - target: {fileID: 5321514292509554727, guid: 40e3478de38db534684edfc52ac58284,
+        type: 3}
+      propertyPath: teleportName
+      value: Level
+      objectReference: {fileID: 0}
     - target: {fileID: 6887745675917629845, guid: 40e3478de38db534684edfc52ac58284,
         type: 3}
       propertyPath: m_Name

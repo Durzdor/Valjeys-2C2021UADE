@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8865919327930026460}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hinge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 3111747025377969411}
   - component: {fileID: 1914876530974301006}
   - component: {fileID: 6282081604785147206}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DoorWooden
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 6282081604782040301}
   - component: {fileID: 6282081604783148079}
   - component: {fileID: 3111747024565661821}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}

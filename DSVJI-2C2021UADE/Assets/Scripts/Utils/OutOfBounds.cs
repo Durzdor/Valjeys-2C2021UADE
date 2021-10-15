@@ -2,11 +2,11 @@
 
 public class OutOfBounds : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            var player = GetComponent<Character>();
+            var player = other.GetComponent<Character>();
             var teleportPos = player.CheckpointRespawn;
             player.Teleport(teleportPos);
         }

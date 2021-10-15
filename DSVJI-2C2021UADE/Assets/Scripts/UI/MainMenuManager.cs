@@ -58,7 +58,7 @@ public class MainMenuManager : MonoBehaviour
         switch ((ButtonSwitch) num)
         {
            case ButtonSwitch.PlayButton:
-               SceneManager.LoadScene("Level1");
+               SceneManager.LoadScene("Valjeys");
                return;
            case ButtonSwitch.HelpButton:
                ShowHelpWindow();
