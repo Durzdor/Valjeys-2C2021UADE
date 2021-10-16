@@ -6,7 +6,12 @@ ModelImporter:
   - first:
       74: -203655887218126122
     second: TPose
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PolyVikings_Character_Mat_White
+    second: {fileID: 2100000, guid: 98b7d7bd39e224d4196cd467e3131baa, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

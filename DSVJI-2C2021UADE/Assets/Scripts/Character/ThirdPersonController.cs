@@ -4,127 +4,182 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class ThirdPersonController : MonoBehaviour
 {
-    private Character character;
-    private Vector3 moveDirection = Vector3.zero;
-    
-    private float cameraPitch = 40.0f;
-    private float cameraYaw = 0;
-    private float cameraDistance = 5.0f;
-    private bool lerpYaw = false;
-    private bool lerpDistance = false;
-    private float cameraPitchSpeed = 2.0f;
-    private float cameraPitchMin = -10.0f;
-    private float cameraPitchMax = 80.0f;
-    private float cameraYawSpeed = 5.0f;
-    private float cameraDistanceSpeed = 5.0f;
-    private float cameraDistanceMin = 2.0f;
-    private float cameraDistanceMax = 12.0f;
-    private float turnSpeed = 3.0f;
-    private float gravitySpeed = 20.0f;
-    
-    [Header("References")][Space(2)]
+    private Character _character;
+    private Vector3 _moveDirection = Vector3.zero;
+    private Vector3 _jumpVelocity = Vector3.zero;
+    private bool _isInputMoving;
+    private bool _isSprinting;
+
+    private float _cameraPitch = 15f; // starting angle downwards
+    private float _cameraYaw; // starting angle sideways
+    private float _cameraDistance = 5.0f;
+    private bool _lerpYaw;
+    private bool _lerpDistance;
+    private float _cameraPitchSpeed = 2.0f;
+    private float _cameraPitchMin = -10.0f;
+    private float _cameraPitchMax = 80.0f;
+    private float _cameraYawSpeed = 5.0f;
+    private float _cameraDistanceSpeed = 5.0f;
+    private float _cameraDistanceMin = 2.0f;
+    private float _cameraDistanceMax = 12.0f;
+    private float _gravitySpeed = 20.0f;
+
+    #region SerializedFields
+
+#pragma warning disable 649
+    [Header("References")] [Space(2)] 
     [SerializeField] private Transform cameraTarget;
     [SerializeField] private Transform mainCamera;
-    [Header("Velocities")][Space(2)]
+    [SerializeField] private LayerMask cameraCollisionLayers;
+
+    [Header("Velocities")] [Space(2)] 
     [SerializeField] private float moveDirectionSpeed = 6f;
     [SerializeField] private float jumpSpeed = 10f;
-    [SerializeField][Tooltip("Multipler of moveDirectionSpeed")] private float sprintSpeed = 2f;
+    [SerializeField] private float sprintSpeed = 2f;
+    [SerializeField] private float rotationLerpSpeed = 10f;
+#pragma warning restore 649
+
+    #endregion
 
     public event Action OnJump;
+    public event Action OnSprint;
 
-    public Vector3 MoveDirection => moveDirection;
+    public Vector3 MoveDirection => _moveDirection;
+    public bool IsInputMoving => _isInputMoving;
+    public bool IsSprinting => _isSprinting;
+
+    #region CoyoteJump
+
+    private float _jumpButtonGracePeriod = 0.1f;
+    private float? _lastGroundedTime;
+    private float? _jumpButtonPressedTime;
+
+    public bool GroundedBonusTime => Time.time - _lastGroundedTime <= _jumpButtonGracePeriod;
+    public bool CanJump => Time.time - _jumpButtonPressedTime <= _jumpButtonGracePeriod;
+
+    private void CoyoteTime()
+    {
+        if (_character.Controller.isGrounded)
+            _lastGroundedTime = Time.time;
+
+        if (_character.Input.GetJumpInput)
+            _jumpButtonPressedTime = Time.time;
+    }
+
+    #endregion
 
     private void Awake()
     {
-        character = GetComponent<Character>();
+        _character = GetComponent<Character>();
     }
 
     public void LateUpdate()
     {
         // If mouse button down then allow user to look around
-        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
-        {
-            cameraPitch += Input.GetAxis("Mouse Y") * cameraPitchSpeed;
-            cameraPitch = Mathf.Clamp(cameraPitch, cameraPitchMin, cameraPitchMax);
-            cameraYaw += Input.GetAxis("Mouse X") * cameraYawSpeed;
-            cameraYaw %= 360.0f;
-            lerpYaw = false;
-        }
-        else
-        {
-            // If moving then make camera follow
-            if (lerpYaw)
-                cameraYaw = Mathf.LerpAngle(cameraYaw, cameraTarget.eulerAngles.y, 5.0f * Time.deltaTime);
-        }
+
+        _cameraPitch += _character.Settings.InvertMouseY
+            ? _character.Input.MouseYAxis
+            : (_character.Input.MouseYAxis * -1f) * _cameraPitchSpeed;
+        _cameraPitch = Mathf.Clamp(_cameraPitch, _cameraPitchMin, _cameraPitchMax);
+        _cameraYaw += _character.Settings.InvertMouseX
+            ? (_character.Input.MouseXAxis * -1f)
+            : _character.Input.MouseXAxis * _cameraYawSpeed;
+        _cameraYaw %= 360.0f;
+        _lerpYaw = false;
+
+        // If moving then make camera follow
+        if (_lerpYaw)
+            _cameraYaw = Mathf.LerpAngle(_cameraYaw, cameraTarget.eulerAngles.y, 5.0f * Time.deltaTime);
 
         // Zoom
-        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        if (_character.Input.ZoomAxis != 0)
         {
-            cameraDistance -= Input.GetAxis("Mouse ScrollWheel") * cameraDistanceSpeed;
-            cameraDistance = Mathf.Clamp(cameraDistance, cameraDistanceMin, cameraDistanceMax);
-            lerpDistance = false;
+            _cameraDistance -= _character.Input.ZoomAxis * _cameraDistanceSpeed;
+            _cameraDistance = Mathf.Clamp(_cameraDistance, _cameraDistanceMin, _cameraDistanceMax);
+            _lerpDistance = false;
         }
 
         // Calculate camera position
-        Vector3 newCameraPosition = cameraTarget.position + (Quaternion.Euler(cameraPitch, cameraYaw, 0) * Vector3.back * cameraDistance);
+        Vector3 newCameraPosition = cameraTarget.position +
+                                    (Quaternion.Euler(_cameraPitch, _cameraYaw, 0) * Vector3.back * _cameraDistance);
 
         // Does new position put us inside anything?
-        RaycastHit hitInfo;
-        if (Physics.Linecast(cameraTarget.position, newCameraPosition, out hitInfo))
+        if (Physics.Linecast(cameraTarget.position, newCameraPosition, out var hitInfo, cameraCollisionLayers))
         {
             newCameraPosition = hitInfo.point;
-            lerpDistance = true;
+            _lerpDistance = true;
         }
         else
         {
-            if (lerpDistance)
+            if (_lerpDistance)
             {
-                float newCameraDistance = Mathf.Lerp(Vector3.Distance(cameraTarget.position, mainCamera.transform.position), cameraDistance, 5.0f * Time.deltaTime);
-                newCameraPosition = cameraTarget.position + (Quaternion.Euler(cameraPitch, cameraYaw, 0) * Vector3.back * newCameraDistance);
+                float newCameraDistance =
+                    Mathf.Lerp(Vector3.Distance(cameraTarget.position, mainCamera.transform.position), _cameraDistance,
+                        5.0f * Time.deltaTime);
+                newCameraPosition = cameraTarget.position +
+                                    (Quaternion.Euler(_cameraPitch, _cameraYaw, 0) * Vector3.back * newCameraDistance);
             }
         }
 
         mainCamera.transform.position = newCameraPosition;
         mainCamera.transform.LookAt(cameraTarget.position);
     }
-    
+
     public void FixedUpdate()
     {
+        CoyoteTime();
+        var h = _character.Input.HorizontalAxis;
+        var v = _character.Input.VerticalAxis;
 
-        var h = Input.GetAxis("Horizontal");
-        var v = Input.GetAxis("Vertical");
+        if (h != 0 || v != 0)
+            _isInputMoving = true;
+        else
+            _isInputMoving = false;
 
         // Have camera follow if moving
-        if (!lerpYaw && (h != 0 || v != 0))
-            lerpYaw = true;
-
-        if (Input.GetMouseButton(1))
-            transform.rotation = Quaternion.Euler(0, cameraYaw, 0); // Face camera
-        else
-            transform.Rotate(0, h * turnSpeed, 0); // Turn left/right
-
-        // Only allow user control when on ground
-        if (character.Controller.isGrounded)
+        if (!_lerpYaw && (h != 0 || v != 0))
+            _lerpYaw = true;
+        
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, _cameraYaw, 0),
+            Time.deltaTime * rotationLerpSpeed); // Face camera
+        
+        _moveDirection = new Vector3(h, 0, v).normalized; // Strafe
+        _moveDirection = transform.TransformDirection(_moveDirection);
+        
+        if (GroundedBonusTime) // character.Controller.isGrounded
         {
-            if (Input.GetMouseButton(1))
-                moveDirection = new Vector3(h, 0, v).normalized; // Strafe
-            else
-                moveDirection = Vector3.forward * v; // Move forward/backward
-
-            moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= moveDirectionSpeed;
-            if (Input.GetKey(KeyCode.LeftShift))
+            _moveDirection *= moveDirectionSpeed; // Si esto se pone afuera de grounded, no pierde vel en el aire
+            if (_character.Input.GetChangeSpeedInput && _isInputMoving)
             {
-                 moveDirection *= sprintSpeed;
+                _isSprinting = true;
+                _moveDirection = new Vector3(_moveDirection.x * sprintSpeed, _jumpVelocity.y,
+                    _moveDirection.z * sprintSpeed);
+                OnSprint?.Invoke();
             }
-            if (Input.GetButton("Jump"))
+            else
             {
-                moveDirection.y = jumpSpeed;
+                _isSprinting = false;
+                OnSprint?.Invoke();
+            }
+
+            if (CanJump) // character.CharacterInput.GetJumpInput
+            {
+                _jumpButtonPressedTime = null;
+                _lastGroundedTime = null; // Coyote
+                _jumpVelocity.y = jumpSpeed;
                 OnJump?.Invoke();
             }
+            else
+            {
+                _jumpVelocity = Vector3.zero;
+            }
+        }
+        else
+        {
+            _moveDirection *= moveDirectionSpeed;
+            _jumpVelocity.y -= _gravitySpeed * Time.deltaTime;
         }
 
-        moveDirection.y -= gravitySpeed * Time.deltaTime; // Apply gravity
-        character.Controller.Move(moveDirection * Time.deltaTime);
+        _character.Controller.Move((_moveDirection + _jumpVelocity) * Time.deltaTime);
     }
 }
