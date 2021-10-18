@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 3
   useCost: 5
-  image: {fileID: 21300000, guid: de17e7032076df54f9f8588d8137ac8e, type: 3}
+  image: {fileID: 21300000, guid: 4e674465769424744a8198c9602b0cf9, type: 3}

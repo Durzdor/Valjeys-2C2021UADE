@@ -4,6 +4,7 @@ public class RuthSkill2 : Skill
 {
     #region SerializedFields
 #pragma warning disable 649
+    [Header("Skill Specific")][Space(5)]
     [SerializeField] private SkillData data;
     [SerializeField] private WeaponCollider weaponCollider;
     [SerializeField] private float animationDuration;

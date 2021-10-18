@@ -4,6 +4,7 @@ public class NaomiSkill3 : Skill
 {
     #region SerializedFields
 #pragma warning disable 649
+    [Header("Skill Specific")][Space(5)]
     [SerializeField] private SkillData data;
 #pragma warning restore 649
     #endregion

@@ -4,8 +4,8 @@ public class NaomiSkill1 : Skill
 {
     #region SerializedFields
 #pragma warning disable 649
+    [Header("Skill Specific")][Space(5)]
     [SerializeField] private SkillData data;
-    [Header("FireBall")] [Space(5)]
     [SerializeField] private Projectile projectileGameObject;
     [SerializeField] private Transform projectileSpawnPoint;
 #pragma warning restore 649
