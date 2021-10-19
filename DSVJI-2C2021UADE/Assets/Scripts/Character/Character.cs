@@ -8,22 +8,15 @@ public class Character : MonoBehaviour
     #region SerializedFields
 
 #pragma warning disable 649
-    [Header("Switch")] [Space(5)] [SerializeField]
-    private SkinnedMeshRenderer playerMesh;
-
+    [Header("Switch")] [Space(5)] 
+    [SerializeField] private SkinnedMeshRenderer playerMesh;
     [SerializeField] private GameObject ruthGo;
     [SerializeField] private GameObject naomiGo;
     [SerializeField] private int orbsNeeded;
     [SerializeField] private Transform defaultCheckpoint;
-
-    [Header("Sounds")]
-    [Space(5)]
-    [SerializeField]
-    private AudioSource _audioSwitchCharacter;
-    [SerializeField]
-    private AudioSource _audioDeathCharacter;
-
-    
+    [Header("Sounds")] [Space(5)]
+    [SerializeField] private AudioSource audioSwitchCharacter;
+    [SerializeField] private AudioSource audioDeathCharacter;
 #pragma warning restore 649
 
     #endregion
@@ -155,6 +148,7 @@ public class Character : MonoBehaviour
         if (Input.GetInteractInput && IsInInteractRange)
         {
             OnCharacterInteract?.Invoke();
+            // TODO: Animacion que lockea el movimiento
             CharacterInteraction();
         }
         
@@ -187,7 +181,7 @@ public class Character : MonoBehaviour
     private void OnDeathHandler()
     {
         IsAnimationLocked = true;
-        _audioDeathCharacter.Play();
+        audioDeathCharacter.Play();
     }
 
     private void OnDeathCompleteHandler()
@@ -201,6 +195,7 @@ public class Character : MonoBehaviour
     {
         Mana.ResetToMax();
         Health.ResetToMax();
+        Stamina.ResetToMax();
     }
 
     public void Teleport(Transform pos)
@@ -234,7 +229,7 @@ public class Character : MonoBehaviour
     private void OnSwitchCompleteHandler()
     {
         IsAnimationLocked = false;
-        _audioSwitchCharacter.Play();
+        audioSwitchCharacter.Play();
         if (IsNaomi)
         {
             ruthGo.SetActive(false);

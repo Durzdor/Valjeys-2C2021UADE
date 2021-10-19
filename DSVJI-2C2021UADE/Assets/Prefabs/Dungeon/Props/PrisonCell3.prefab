@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 550327095609303377}
   - component: {fileID: 550327095610630513}
   - component: {fileID: 550327095611728817}
+  - component: {fileID: 1633297453288826755}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -79,6 +80,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &1633297453288826755
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550327095609736561}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.0937214, y: 3.0741262, z: 0.30487546}
+  m_Center: {x: -1.5468607, y: 0, z: 0}
 --- !u!1 &550327095609736563
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +104,7 @@ GameObject:
   - component: {fileID: 550327095609303379}
   - component: {fileID: 550327095610630515}
   - component: {fileID: 550327095611728819}
+  - component: {fileID: 7355926506141460376}
   m_Layer: 0
   m_Name: CellDoor
   m_TagString: Untagged
@@ -159,6 +174,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &7355926506141460376
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550327095609736563}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 77d720b7a195c354ea94abf340802be9, type: 3}
 --- !u!1 &2132201432055458668
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,6 +199,7 @@ GameObject:
   - component: {fileID: 2390897827804822250}
   - component: {fileID: 1004942895397071140}
   - component: {fileID: 8874564989548094515}
+  - component: {fileID: 5414702931515194872}
   m_Layer: 0
   m_Name: CellWall (1)
   m_TagString: Untagged
@@ -238,6 +268,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &5414702931515194872
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132201432055458668}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.000001, y: 5.0137777, z: 0.22845083}
+  m_Center: {x: 0, y: 2.5068889, z: 0}
 --- !u!1 &7134369436537123073
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,6 +292,7 @@ GameObject:
   - component: {fileID: 7134369436537285921}
   - component: {fileID: 7134369436533861633}
   - component: {fileID: 7134369436534861761}
+  - component: {fileID: 1840355065845966944}
   m_Layer: 0
   m_Name: CellWall
   m_TagString: Untagged
@@ -317,6 +361,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &1840355065845966944
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7134369436537123073}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.000001, y: 5.0137777, z: 0.22845083}
+  m_Center: {x: 0, y: 2.5068889, z: 0}
 --- !u!1 &7558484771981803111
 GameObject:
   m_ObjectHideFlags: 0
