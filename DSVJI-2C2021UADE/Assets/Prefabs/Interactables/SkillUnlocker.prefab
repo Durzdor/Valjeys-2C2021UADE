@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 8038595823826174408}
   - component: {fileID: 8038595823827448926}
   - component: {fileID: 8038595823828398212}
+  - component: {fileID: 2373969800994188121}
   m_Layer: 0
   m_Name: Chest_Lid
   m_TagString: Untagged
@@ -220,6 +221,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &2373969800994188121
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8038595823826411394}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8926411, y: 0.5064404, z: 1.1028757}
+  m_Center: {x: -0.00000011920929, y: 0.24633586, z: 0.52011013}
 --- !u!1 &8038595823826411814
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,9 +246,9 @@ GameObject:
   - component: {fileID: 8038595823827526154}
   - component: {fileID: 8038595823828546410}
   - component: {fileID: 8038595823833764572}
-  - component: {fileID: 8029169765457396604}
   - component: {fileID: 8038595823826411808}
   - component: {fileID: 8038595823826411809}
+  - component: {fileID: 9021109619733234970}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -324,20 +338,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!64 &8029169765457396604
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8038595823826411814}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 00fadbbc52faaba46bfb523ad3b0727d, type: 3}
 --- !u!135 &8038595823826411808
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -349,7 +349,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &8038595823826411809
 MonoBehaviour:
@@ -364,5 +364,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unlockNaomiSkill: 0
-  skillName: Skill Unlocker
+  skillName: 
   skillIndex: 0
+--- !u!65 &9021109619733234970
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8038595823826411814}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8420367, y: 0.5792312, z: 1}
+  m_Center: {x: 0, y: 0.2896156, z: 0}

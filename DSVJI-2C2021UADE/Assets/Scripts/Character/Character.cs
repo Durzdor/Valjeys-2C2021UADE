@@ -129,6 +129,7 @@ public class Character : MonoBehaviour
         Health.OnDeath += OnDeathHandler;
         Animation.OnSwitchComplete += OnSwitchCompleteHandler;
         Animation.OnDeathComplete += OnDeathCompleteHandler;
+        Animation.OnInteractionComplete += CharacterInteraction;
         
         CheckpointRespawn = defaultCheckpoint;
         _orbsObtained = 0;
@@ -148,8 +149,6 @@ public class Character : MonoBehaviour
         if (Input.GetInteractInput && IsInInteractRange)
         {
             OnCharacterInteract?.Invoke();
-            // TODO: Animacion que lockea el movimiento
-            CharacterInteraction();
         }
         
         if (Input.GetPauseInput)

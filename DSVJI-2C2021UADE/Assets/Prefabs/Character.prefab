@@ -7271,8 +7271,8 @@ MonoBehaviour:
   naomiGo: {fileID: 5253581186140358763}
   orbsNeeded: 3
   defaultCheckpoint: {fileID: 0}
-  audioSwitchCharacter: {fileID: 0}
-  audioDeathCharacter: {fileID: 0}
+  audioSwitchCharacter: {fileID: 1381937933874216877}
+  audioDeathCharacter: {fileID: 2409076293470978719}
 --- !u!114 &6044810825460919643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11607,6 +11607,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 325935445011839837, guid: 6ecf6457dfb769848804ddaa01f4e430,
+        type: 3}
+      propertyPath: m_MinValue
+      value: 0.001
+      objectReference: {fileID: 0}
     - target: {fileID: 3420462616431202213, guid: 6ecf6457dfb769848804ddaa01f4e430,
         type: 3}
       propertyPath: m_text
@@ -11675,12 +11680,12 @@ PrefabInstance:
     - target: {fileID: 8697903509753562097, guid: 6ecf6457dfb769848804ddaa01f4e430,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00030517578
+      value: 0.00024414062
       objectReference: {fileID: 0}
     - target: {fileID: 8697903509753562097, guid: 6ecf6457dfb769848804ddaa01f4e430,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50.000004
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 8697903509753562097, guid: 6ecf6457dfb769848804ddaa01f4e430,
         type: 3}
@@ -12249,6 +12254,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 325935445011839837, guid: 6ecf6457dfb769848804ddaa01f4e430,
+        type: 3}
+      propertyPath: m_MinValue
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 3420462616431202213, guid: 6ecf6457dfb769848804ddaa01f4e430,
         type: 3}

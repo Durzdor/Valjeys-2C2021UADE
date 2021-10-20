@@ -14,35 +14,48 @@ public class SkillUnLocker : Interactable
 
     #endregion
 
-    private bool _isOpen;
-    private int _waitInterval = 1;
+    private bool _isOpening;
+    private bool _openComplete;
+    private float _waitInterval = 6.45f;
     private Animator _animator;
     private static readonly int OpenChest = Animator.StringToHash("OpenTrigger");
     
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        InteractableName = skillName;
+        InteractableName = "Chest";
     }
     
     public override void Interaction()
     {
-        if (_isOpen) return;
-        if (Character is null) return;
-        if (unlockNaomiSkill)
-            Character.SkillController.UnlockNaomiSkill(skillIndex);
+        if (_openComplete)
+        {
+            if (Character is null) return;
+            if (unlockNaomiSkill)
+                Character.SkillController.UnlockNaomiSkill(skillIndex);
+            else
+                Character.SkillController.UnlockRuthSkill(skillIndex);
+        }
         else
-            Character.SkillController.UnlockRuthSkill(skillIndex);
-        StartCoroutine(ChestOpening());
+        {
+            StartCoroutine(ChestOpening());
+        }
     }
     
     private IEnumerator ChestOpening()
     {
-        if (_isOpen)
+        if (_isOpening)
             yield break;
-        _isOpen = true;
+        _isOpening = true;
         _animator.SetTrigger(OpenChest);
         yield return new WaitForSeconds(_waitInterval);
         _animator.ResetTrigger(OpenChest);
+        _openComplete = true;
+        InteractableName = skillName;
+        if (!(Character is null))
+        {
+            Character.IsInInteractRange = false;
+            Character.IsInInteractRange = true;
+        }
     }
 }

@@ -11,6 +11,8 @@ public class CharacterAnimation : MonoBehaviour
     private static readonly int LandTrigger = Animator.StringToHash("LandingTrigger");
     private static readonly int SwitchTrigger = Animator.StringToHash("SwitchTrigger");
     private static readonly int DeathTrigger = Animator.StringToHash("DeathTrigger");
+    private static readonly int ChestTrigger = Animator.StringToHash("ChestTrigger");
+    private static readonly int InteractTrigger = Animator.StringToHash("InteractTrigger");
     private static readonly int GroundFloat = Animator.StringToHash("GroundFloat");
     private static readonly int AirFloat = Animator.StringToHash("AirFloat");
     private static readonly int GoingForwardBool = Animator.StringToHash("IsGoingForward");
@@ -18,6 +20,7 @@ public class CharacterAnimation : MonoBehaviour
     private static readonly int SprintBool = Animator.StringToHash("IsSprinting");
     public event Action OnSwitchComplete;
     public event Action OnDeathComplete;
+    public event Action OnInteractionComplete;
 
     private void Awake()
     {
@@ -30,16 +33,14 @@ public class CharacterAnimation : MonoBehaviour
         _character.ThirdPersonController.OnSprint += SprintHandler;
         _character.OnCharacterSwitch += SwitchHandler;
         _character.Health.OnDeath += DeathHandler;
+        _character.OnCharacterInteract += InteractHandler;
     }
 
     private void Update()
     {
-        //if (character.IsAnimationLocked) return; VOS ERAS EL QUE ROMPIA
-        // character.Controller.velocity.magnitude < 0.001f
-        if (_character.Controller.isGrounded) // character.Controller.isGrounded
+        if (_character.Controller.isGrounded) 
         {
             Landing();
-            // moving
             if (_character.ThirdPersonController.IsInputMoving)
             {
                 _character.Animator.SetBool(IdleBool, false);
@@ -66,16 +67,21 @@ public class CharacterAnimation : MonoBehaviour
             }
         }
 
-        if (!_character.Controller.isGrounded) // !character.Controller.isGrounded / !character.ThirdPersonController.CoyoteGrounded
+        if (!_character.Controller.isGrounded) 
         {
             NotGrounded();
-            //character.Animator.SetFloat(AirFloat, Mathf.Abs(character.Controller.velocity.y) + 0.1f);
             
             if (_character.Controller.velocity.y < 0.1f)
             {
                 _character.Animator.SetFloat(AirFloat, Mathf.Abs(_character.Controller.velocity.y) + 0.1f);
             }
         }
+    }
+
+    // Event to unlock the animations
+    public void AnimationUnLocker()
+    {
+        _character.IsAnimationLocked = false;
     }
     
     private void DeathHandler()
@@ -88,6 +94,13 @@ public class CharacterAnimation : MonoBehaviour
     {
         _character.Animator.ResetTrigger(DeathTrigger);
         OnDeathComplete?.Invoke();
+    }
+
+    // Chest Animation event uses this method
+    public void ChestAnimationOpenEvent()
+    {
+        _character.Animator.ResetTrigger(ChestTrigger);
+        OnInteractionComplete?.Invoke();
     }
     
     private void JumpHandler()
@@ -122,6 +135,19 @@ public class CharacterAnimation : MonoBehaviour
         StartCoroutine(WaitForSwitch());
     }
 
+    private void InteractHandler()
+    {
+        if (!(_character.Interactable is null) && _character.Interactable.name == "Chest")
+        {
+            _character.IsAnimationLocked = true;
+            _character.Animator.SetTrigger(ChestTrigger);
+        }
+        else
+        {
+            _character.Animator.SetTrigger(InteractTrigger);
+            OnInteractionComplete?.Invoke();
+        }
+    }
     
     private IEnumerator WaitForSwitch()
     {

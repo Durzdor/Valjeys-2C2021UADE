@@ -53,6 +53,7 @@ public class PauseMenu : MonoBehaviour
     
     private void PauseMenuActivation()
     {
+        SwitchPauseMenuScreen(0);
         var currentState = menuGameObject.activeInHierarchy;
         menuGameObject.SetActive(!currentState);
         GameStatus.ChangeGameStatus(!currentState ? GameState.Paused : GameState.Playing);

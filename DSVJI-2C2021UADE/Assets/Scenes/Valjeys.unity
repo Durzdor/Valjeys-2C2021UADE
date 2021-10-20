@@ -7885,6 +7885,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1324127323}
     m_Modifications:
+    - target: {fileID: 396349291819845598, guid: 596241cf40cb4a94f8bbe720164aac7c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.0001
+      objectReference: {fileID: 0}
     - target: {fileID: 396349292609338788, guid: 596241cf40cb4a94f8bbe720164aac7c,
         type: 3}
       propertyPath: m_Name
@@ -33004,7 +33009,7 @@ GameObject:
   m_Layer: 0
   m_Name: TestPosition
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -33016,7 +33021,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1701035415}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.12, y: 3.508, z: 35.863}
+  m_LocalPosition: {x: 0, y: 5, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -37269,15 +37274,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3917733170498267523, guid: fb209869d42d51f47b194f290c424bd3,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.00024414062
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917733170498267523, guid: fb209869d42d51f47b194f290c424bd3,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -50
+    - target: {fileID: 1501781265, guid: fb209869d42d51f47b194f290c424bd3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6044810825460919648, guid: fb209869d42d51f47b194f290c424bd3,
         type: 3}
@@ -40614,21 +40613,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1509102815}
     m_Modifications:
-    - target: {fileID: 1079609255322384637, guid: 408328ee25d3b4147a87462bafc2f7cf,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1079609255322384637, guid: 408328ee25d3b4147a87462bafc2f7cf,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1079609255322384637, guid: 408328ee25d3b4147a87462bafc2f7cf,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1079609255991573330, guid: 408328ee25d3b4147a87462bafc2f7cf,
         type: 3}
       propertyPath: m_Name
@@ -40689,20 +40673,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8038595823826170696, guid: 408328ee25d3b4147a87462bafc2f7cf,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8038595823826411809, guid: 408328ee25d3b4147a87462bafc2f7cf,
-        type: 3}
-      propertyPath: unlockNaomiSkill
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8038595823826411809, guid: 408328ee25d3b4147a87462bafc2f7cf,
         type: 3}
       propertyPath: skillName
-      value: Basic Melee Skill Unlocker
+      value: Basic Melee Unlocker
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 408328ee25d3b4147a87462bafc2f7cf, type: 3}
