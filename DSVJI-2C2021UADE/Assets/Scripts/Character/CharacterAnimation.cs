@@ -41,7 +41,7 @@ public class CharacterAnimation : MonoBehaviour
         if (_character.Controller.isGrounded) 
         {
             Landing();
-            if (_character.ThirdPersonController.IsInputMoving)
+            if (_character.Input.IsInputMoving)
             {
                 _character.Animator.SetBool(IdleBool, false);
                 // Forward
@@ -60,7 +60,7 @@ public class CharacterAnimation : MonoBehaviour
             }
 
             // if not moving idle
-            if (!_character.ThirdPersonController.IsInputMoving)
+            if (!_character.Input.IsInputMoving)
             {
                 _character.Animator.SetBool(IdleBool, true);
                 _character.Animator.SetFloat(GroundFloat, 0f);

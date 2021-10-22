@@ -38,6 +38,7 @@ public class Character : MonoBehaviour
     public CharacterSkillController SkillController { get; private set; }
     public CharacterUI Ui { get; private set; }
     public NotificationPopup NotificationPopup { get; private set; }
+    public CharacterCamera Camera { get; private set; }
 
     #endregion
 
@@ -120,6 +121,7 @@ public class Character : MonoBehaviour
         SkillController = GetComponent<CharacterSkillController>();
         Ui = GetComponent<CharacterUI>();
         NotificationPopup = GetComponentInChildren<NotificationPopup>();
+        Camera = GetComponent<CharacterCamera>();
 
         #endregion
     }

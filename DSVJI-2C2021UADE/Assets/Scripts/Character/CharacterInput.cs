@@ -16,6 +16,7 @@ public class CharacterInput : MonoBehaviour
     public List<KeyCode> skillKeyCodes = new List<KeyCode>(5);
     public float HorizontalAxis => _character.IsAnimationLocked ? 0 : Input.GetAxisRaw(keyBindData.horizontalAxis);
     public float VerticalAxis => _character.IsAnimationLocked ? 0 : Input.GetAxisRaw(keyBindData.verticalAxis);
+    public bool IsInputMoving => HorizontalAxis != 0 || VerticalAxis != 0;
     public float ZoomAxis => _character.IsAnimationLocked ? 0 : Input.GetAxisRaw(keyBindData.mouseWheelAxis);
     public float MouseXAxis => _character.IsAnimationLocked ? 0 : Input.GetAxisRaw(keyBindData.mouseXAxis);
     public float MouseYAxis => _character.IsAnimationLocked ? 0 : Input.GetAxisRaw(keyBindData.mouseYAxis);
