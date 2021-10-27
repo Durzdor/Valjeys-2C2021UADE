@@ -16,13 +16,16 @@ public class SkillUnLocker : Interactable
 
     private bool _isOpening;
     private bool _openComplete;
+    private bool _skillAcquired;
     private float _waitInterval = 6.45f;
     private Animator _animator;
+    private AudioSource _audioSource;
     private static readonly int OpenChest = Animator.StringToHash("OpenTrigger");
     
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
         InteractableName = "Chest";
     }
     
@@ -32,9 +35,14 @@ public class SkillUnLocker : Interactable
         {
             if (Character is null) return;
             if (unlockNaomiSkill)
+            {
                 Character.SkillController.UnlockNaomiSkill(skillIndex);
+            }
             else
+            {
                 Character.SkillController.UnlockRuthSkill(skillIndex);
+            }
+            SkillAcquired();
         }
         else
         {
@@ -54,8 +62,18 @@ public class SkillUnLocker : Interactable
         InteractableName = skillName;
         if (!(Character is null))
         {
+            Character.Interactable = this;
             Character.IsInInteractRange = false;
             Character.IsInInteractRange = true;
         }
+    }
+
+    private void SkillAcquired()
+    {
+        if (_skillAcquired) return;
+        if (_audioSource.clip == null) return;
+        _audioSource.Play();
+        _skillAcquired = true;
+        InteractableName = "Skill Acquired";
     }
 }

@@ -25,7 +25,7 @@ public class CharacterSkillController : MonoBehaviour
 #pragma warning restore 649
     #endregion
     
-    private const float GlobalCooldown = 0.2f;
+    private const float GLOBAL_COOLDOWN = 0.2f;
     private Character _character;
     private bool _canUseSkills = true;
     private Skill[] _currentSkillList = new Skill[5];
@@ -119,7 +119,7 @@ public class CharacterSkillController : MonoBehaviour
     private IEnumerator GlobalSkillCooldown()
     {
         _canUseSkills = false;
-        yield return new WaitForSeconds(GlobalCooldown);
+        yield return new WaitForSeconds(GLOBAL_COOLDOWN);
         _canUseSkills = true;
     }
 
@@ -144,7 +144,7 @@ public class CharacterSkillController : MonoBehaviour
         for (int i = 0; i < _currentSkillList.Length; i++)
         {
             var index = i;
-            if (_currentSkillList[index] == null) return;
+            if (_currentSkillList[index] == null) continue;
             _currentSkillList[index].OnCooldownUpdate += delegate(float cooldownRatio) { SkillCooldownUpdate(skillCooldownFill[index],cooldownRatio); };
             _currentSkillList[index].OnSkillNotUsable += ErrorMessageDisplay;
         }

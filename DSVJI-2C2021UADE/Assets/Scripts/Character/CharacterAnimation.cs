@@ -137,7 +137,8 @@ public class CharacterAnimation : MonoBehaviour
 
     private void InteractHandler()
     {
-        if (!(_character.Interactable is null) && _character.Interactable.name == "Chest")
+        if (_character.Interactable is null || _character.Interactable.Name == "Skill Acquired") return;
+        if (_character.Interactable.Name == "Chest")
         {
             _character.IsAnimationLocked = true;
             _character.Animator.SetTrigger(ChestTrigger);

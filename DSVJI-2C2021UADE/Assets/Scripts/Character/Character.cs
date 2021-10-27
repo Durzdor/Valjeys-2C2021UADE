@@ -135,6 +135,8 @@ public class Character : MonoBehaviour
         
         CheckpointRespawn = defaultCheckpoint;
         _orbsObtained = 0;
+        IsNaomi = false;
+        SwitchToRuth();
     }
 
     private void Update()
@@ -224,7 +226,6 @@ public class Character : MonoBehaviour
         // turn on/off the required components for the switch
         IsAnimationLocked = true;
         IsNaomi = !IsNaomi;
-        Animator.SetBool(NaomiBool,IsNaomi);
     }
 
     private void OnSwitchCompleteHandler()
@@ -232,16 +233,24 @@ public class Character : MonoBehaviour
         IsAnimationLocked = false;
         audioSwitchCharacter.Play();
         if (IsNaomi)
-        {
-            ruthGo.SetActive(false);
-            naomiGo.SetActive(true);
-            playerMesh.material = Naomi.NaomiMaterial;
-        }
+            SwitchToNaomi();
         else
-        {
-            ruthGo.SetActive(true);
-            naomiGo.SetActive(false);
-            playerMesh.material = Ruth.RuthMaterial;
-        }
+            SwitchToRuth();
+    }
+
+    private void SwitchToNaomi()
+    {
+        ruthGo.SetActive(false);
+        naomiGo.SetActive(true);
+        playerMesh.material = Naomi.NaomiMaterial;
+        Animator.SetBool(NaomiBool,true);
+    }
+
+    private void SwitchToRuth()
+    {
+        ruthGo.SetActive(true);
+        naomiGo.SetActive(false);
+        playerMesh.material = Ruth.RuthMaterial;
+        Animator.SetBool(NaomiBool,false);
     }
 }
