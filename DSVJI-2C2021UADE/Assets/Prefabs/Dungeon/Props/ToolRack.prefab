@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2256547052424781431}
   - component: {fileID: 2256547052423727167}
   - component: {fileID: 2256547052421571708}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Toolrack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3624140446892567566}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ToolRack
   m_TagString: Untagged
   m_Icon: {fileID: 0}

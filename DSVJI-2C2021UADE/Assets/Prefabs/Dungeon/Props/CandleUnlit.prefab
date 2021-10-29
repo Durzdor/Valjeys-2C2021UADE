@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5138925493318765201}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CandleUnlit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 7662829133481767124}
   - component: {fileID: 7662829133480702982}
   - component: {fileID: 7688030125553712692}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Candle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

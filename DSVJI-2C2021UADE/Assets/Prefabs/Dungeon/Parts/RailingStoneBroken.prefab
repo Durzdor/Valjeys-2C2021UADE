@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 3382412}
   - component: {fileID: 2369324}
   - component: {fileID: 64256375250821430}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RailingStoneBroken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &428614
 Transform:

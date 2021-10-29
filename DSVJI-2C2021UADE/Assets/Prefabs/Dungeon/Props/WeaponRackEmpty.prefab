@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2654481982738711246}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: WeaponRackEmpty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2916939707416558865}
   - component: {fileID: 2916939707417613981}
   - component: {fileID: 2926661399867469499}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: WeaponRack
   m_TagString: Untagged
   m_Icon: {fileID: 0}

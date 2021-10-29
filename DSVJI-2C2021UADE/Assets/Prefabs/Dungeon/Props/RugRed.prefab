@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 559339753506427268}
   - component: {fileID: 559339753507832860}
   - component: {fileID: 559339753509538535}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RugRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5009622164971220194}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RugRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}

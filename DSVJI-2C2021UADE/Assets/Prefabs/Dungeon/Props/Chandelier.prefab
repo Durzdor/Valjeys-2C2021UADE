@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 500436193252235467}
   - component: {fileID: 500436193253276329}
   - component: {fileID: 438117940882428253}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chandelier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3810120988660338219}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Chandelier
   m_TagString: Untagged
   m_Icon: {fileID: 0}

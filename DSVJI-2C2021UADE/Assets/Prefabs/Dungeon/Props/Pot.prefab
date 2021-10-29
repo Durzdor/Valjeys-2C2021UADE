@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 882564268779709979}
   - component: {fileID: 882564268778700219}
   - component: {fileID: 926001557480708151}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6984902061414043637}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

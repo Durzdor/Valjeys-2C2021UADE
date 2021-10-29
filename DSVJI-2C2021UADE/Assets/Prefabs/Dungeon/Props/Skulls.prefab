@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2522936500928400110}
   - component: {fileID: 2522936500927243238}
   - component: {fileID: 2586711497008878602}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SkullPile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9169112549875969978}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Skulls
   m_TagString: Untagged
   m_Icon: {fileID: 0}

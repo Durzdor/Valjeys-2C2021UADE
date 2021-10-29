@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 345536003164386428}
-  m_Layer: 0
-  m_Name: CurvedStair360
+  m_Layer: 11
+  m_Name: StairStoneCurved360
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &345536003164386428
 Transform:
@@ -46,12 +46,12 @@ GameObject:
   - component: {fileID: 5041487460604027602}
   - component: {fileID: 5041487460605026322}
   - component: {fileID: 3312869066647089923}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CurvedStairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5041487460603257586
 Transform:
@@ -140,12 +140,12 @@ GameObject:
   - component: {fileID: 6154866443884929225}
   - component: {fileID: 6154866443883831817}
   - component: {fileID: 2967532164250390556}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CurvedStairs (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6154866443882062057
 Transform:
@@ -234,12 +234,12 @@ GameObject:
   - component: {fileID: 6154866444158900625}
   - component: {fileID: 6154866444157934417}
   - component: {fileID: 395729776916932773}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CurvedStairs (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6154866444160227761
 Transform:
@@ -328,12 +328,12 @@ GameObject:
   - component: {fileID: 6154866445018236674}
   - component: {fileID: 6154866445019366850}
   - component: {fileID: 5983807906599025947}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CurvedStairs (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6154866445021660962
 Transform:

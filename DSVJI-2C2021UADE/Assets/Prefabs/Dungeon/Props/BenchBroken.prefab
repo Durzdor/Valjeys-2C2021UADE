@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3794680705869158541}
   - component: {fileID: 3794680705868095895}
   - component: {fileID: 3769284736710836369}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Brokenbench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5926111176076759934}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BenchBroken
   m_TagString: Untagged
   m_Icon: {fileID: 0}

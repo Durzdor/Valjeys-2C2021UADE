@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 316360441638434271}
   - component: {fileID: 316360441637411885}
   - component: {fileID: 326491233666120645}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2631398319295631062}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AlchemyTable
   m_TagString: Untagged
   m_Icon: {fileID: 0}

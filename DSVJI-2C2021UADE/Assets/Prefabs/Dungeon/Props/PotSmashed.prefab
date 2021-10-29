@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7076488087048598045}
   - component: {fileID: 7076488087047548213}
   - component: {fileID: 7122269637331885671}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Smashed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7559157516239972514}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PotSmashed
   m_TagString: Untagged
   m_Icon: {fileID: 0}

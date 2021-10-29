@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3808707678129412499}
   - component: {fileID: 3808707678128307113}
   - component: {fileID: 3808707678126333156}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Shelf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6348905672531473212}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ShelfEmpty2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

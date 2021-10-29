@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4172214195704228883}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DaisStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 6958014018833950819}
   - component: {fileID: 6958014018834950819}
   - component: {fileID: 6958014018827814819}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Dais
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -33,13 +34,15 @@ public class CharacterSkillController : MonoBehaviour
     private List<Skill> _naomiSkillList;
     private bool _isErrorDisplaying;
     
-    private static readonly int Skill1Trigger = Animator.StringToHash("Skill1Trigger");
-    private static readonly int Skill2Trigger = Animator.StringToHash("Skill2Trigger");
-    private static readonly int Skill3Trigger = Animator.StringToHash("Skill3Trigger");
-    private static readonly int Skill4Trigger = Animator.StringToHash("Skill4Trigger");
-    private static readonly int Skill5Trigger = Animator.StringToHash("Skill5Trigger");
+    public event Action OnSkill1;
+    public event Action OnSkill2;
+    public event Action OnSkill3;
+    public event Action OnSkill4;
+    public event Action OnSkill5;
 
-
+    public List<bool> NaomiUnlockedSkillList => naomiUnlockedSkillList;
+    public List<bool> RuthUnlockedSkillList => ruthUnlockedSkillList;
+    
     private void Awake()
     {
         _character = GetComponent<Character>();
@@ -66,7 +69,7 @@ public class CharacterSkillController : MonoBehaviour
             _currentSkillList[0].UseSkill();
             if (_currentSkillList[0].WasSkillUsed)
             {
-                _character.Animator.SetTrigger(Skill1Trigger);
+                OnSkill1?.Invoke();
             }
             StartCoroutine(GlobalSkillCooldown());
         }
@@ -77,7 +80,7 @@ public class CharacterSkillController : MonoBehaviour
             _currentSkillList[1].UseSkill();
             if (_currentSkillList[1].WasSkillUsed)
             {
-                _character.Animator.SetTrigger(Skill2Trigger);
+                OnSkill2?.Invoke();
             }
             StartCoroutine(GlobalSkillCooldown());
         }
@@ -88,7 +91,7 @@ public class CharacterSkillController : MonoBehaviour
             _currentSkillList[2].UseSkill();
             if (_currentSkillList[2].WasSkillUsed)
             {
-                _character.Animator.SetTrigger(Skill3Trigger);
+                OnSkill3?.Invoke();
             }
             StartCoroutine(GlobalSkillCooldown());
         }
@@ -99,7 +102,7 @@ public class CharacterSkillController : MonoBehaviour
             _currentSkillList[3].UseSkill();
             if (_currentSkillList[3].WasSkillUsed)
             {
-                _character.Animator.SetTrigger(Skill4Trigger);
+                OnSkill4?.Invoke();
             }
             StartCoroutine(GlobalSkillCooldown());
         }
@@ -110,7 +113,7 @@ public class CharacterSkillController : MonoBehaviour
             _currentSkillList[4].UseSkill();
             if (_currentSkillList[4].WasSkillUsed)
             {
-                _character.Animator.SetTrigger(Skill5Trigger);
+                OnSkill5?.Invoke();
             }
             StartCoroutine(GlobalSkillCooldown());
         }
@@ -167,8 +170,7 @@ public class CharacterSkillController : MonoBehaviour
     {
         for (int i = 0; i < skillHotkeys.Count; i++)
         {
-            var keyBind = "";
-            keyBind = newHotkeys[i].ToString();
+            var keyBind = newHotkeys[i].ToString();
             if (newHotkeys[i] == KeyCode.Mouse0)
             {
                 keyBind = "MB0";

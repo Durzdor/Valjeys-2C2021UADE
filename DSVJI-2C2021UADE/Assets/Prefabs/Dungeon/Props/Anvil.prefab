@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 646092482372408087}
   - component: {fileID: 646092482371310039}
   - component: {fileID: 4356185802679967100}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Anvil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6444425350298948872}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Anvil
   m_TagString: Untagged
   m_Icon: {fileID: 0}

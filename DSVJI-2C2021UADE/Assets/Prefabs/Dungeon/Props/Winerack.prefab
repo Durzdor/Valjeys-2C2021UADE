@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 422742845246141238}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Winerack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4558112407128179246}
   - component: {fileID: 4558112407129256458}
   - component: {fileID: 4585291670965577236}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Winerack
   m_TagString: Untagged
   m_Icon: {fileID: 0}

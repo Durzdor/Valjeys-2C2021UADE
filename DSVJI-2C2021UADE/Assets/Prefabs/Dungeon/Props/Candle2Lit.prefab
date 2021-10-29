@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4270913775481754718}
   - component: {fileID: 4270913775482813166}
   - component: {fileID: 4296936966633064312}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Candle2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 6033871635202929492}
   - component: {fileID: 6033871635204248722}
   - component: {fileID: 6033871635204882226}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 7324071559113052426}
   - component: {fileID: 7324071559113052428}
   - component: {fileID: 7324071559113052427}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flame (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7324071560021242678}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Candle2Lit
   m_TagString: Untagged
   m_Icon: {fileID: 0}

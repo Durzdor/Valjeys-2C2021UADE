@@ -20,8 +20,9 @@ public class CharacterCamera : MonoBehaviour
     [SerializeField] private float cameraPitchMax = 80.0f;
     [SerializeField] private float cameraYawSpeed = 5.0f;
     [SerializeField] private float cameraDistanceSpeed = 5.0f;
-    [SerializeField] private float cameraDistanceMin = 0f;
+    [SerializeField] private float cameraDistanceMin = 0.001f;
     [SerializeField] private float cameraDistanceMax = 12.0f;
+    [SerializeField] private float rotationLerpSpeed = 10f;
 #pragma warning restore 649
 
     #endregion
@@ -44,6 +45,9 @@ public class CharacterCamera : MonoBehaviour
     {
         if (!_lerpYaw && (_character.Input.HorizontalAxis != 0 || _character.Input.VerticalAxis != 0))
             _lerpYaw = true;
+        
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, _character.Camera.CameraYaw, 0),
+            Time.deltaTime * rotationLerpSpeed);
     }
 
     public void LateUpdate()

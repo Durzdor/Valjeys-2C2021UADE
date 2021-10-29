@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4297184156206357709}
   - component: {fileID: 4297184156205302897}
   - component: {fileID: 5083375085850191913}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RugBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6221603508336866795}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RugBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}

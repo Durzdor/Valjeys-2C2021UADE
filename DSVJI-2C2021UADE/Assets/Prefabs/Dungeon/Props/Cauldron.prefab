@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1699416900113714962}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cauldron
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 8498677198377225995}
   - component: {fileID: 8498677198376013839}
   - component: {fileID: 8498677198374085330}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cauldron
   m_TagString: Untagged
   m_Icon: {fileID: 0}

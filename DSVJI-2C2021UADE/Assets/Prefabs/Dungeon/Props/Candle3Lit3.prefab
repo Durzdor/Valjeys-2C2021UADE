@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5078121086953482641}
   - component: {fileID: 5078121086954936811}
   - component: {fileID: 5088796733308858997}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Candle3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 5403900974149843483}
   - component: {fileID: 5403900974150606301}
   - component: {fileID: 5403900974151825021}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 8950373577826486012}
   - component: {fileID: 8950373577826486014}
   - component: {fileID: 8950373577826486015}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flame (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 8950373578029414404}
   - component: {fileID: 8950373578029414406}
   - component: {fileID: 8950373578029414407}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flame (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,7 +340,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8950373578898301103}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Candle3Lit3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

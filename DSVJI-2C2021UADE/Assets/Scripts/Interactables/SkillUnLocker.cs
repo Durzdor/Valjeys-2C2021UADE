@@ -17,7 +17,7 @@ public class SkillUnLocker : Interactable
     private bool _isOpening;
     private bool _openComplete;
     private bool _skillAcquired;
-    private float _waitInterval = 6.45f;
+    private float _waitInterval = 5.15f;
     private Animator _animator;
     private AudioSource _audioSource;
     private static readonly int OpenChest = Animator.StringToHash("OpenTrigger");
@@ -60,12 +60,7 @@ public class SkillUnLocker : Interactable
         _animator.ResetTrigger(OpenChest);
         _openComplete = true;
         InteractableName = skillName;
-        if (!(Character is null))
-        {
-            Character.Interactable = this;
-            Character.IsInInteractRange = false;
-            Character.IsInInteractRange = true;
-        }
+        ResetLabel();
     }
 
     private void SkillAcquired()
@@ -75,5 +70,14 @@ public class SkillUnLocker : Interactable
         _audioSource.Play();
         _skillAcquired = true;
         InteractableName = "Skill Acquired";
+        ResetLabel();
+    }
+
+    private void ResetLabel()
+    {
+        if (Character is null) return;
+        Character.Interactable = this;
+        Character.IsInInteractRange = false;
+        Character.IsInInteractRange = true;
     }
 }

@@ -26,7 +26,7 @@ public class Character : MonoBehaviour
     public CharacterAnimation Animation { get; private set; }
     public Animator Animator { get; private set; }
     public CharacterController Controller { get; private set; }
-    public ThirdPersonController ThirdPersonController { get; private set; }
+    public CharacterMovement CharacterMovement { get; private set; }
     public CharacterInput Input { get; private set; }
     public CharacterSettings Settings { get; private set; }
     public Health Health { get; private set; }
@@ -108,7 +108,7 @@ public class Character : MonoBehaviour
 
         Animator = GetComponent<Animator>();
         Controller = GetComponent<CharacterController>();
-        ThirdPersonController = GetComponent<ThirdPersonController>();
+        CharacterMovement = GetComponent<CharacterMovement>();
         Animation = GetComponent<CharacterAnimation>();
         Input = GetComponent<CharacterInput>();
         Settings = GetComponent<CharacterSettings>();
@@ -211,12 +211,12 @@ public class Character : MonoBehaviour
     private IEnumerator TeleportTo(Transform pos)
     {
         _isTeleporting = true;
-        ThirdPersonController.enabled = false;
+        CharacterMovement.enabled = false;
         var playerTransform = transform;
         playerTransform.position = pos.position;
         playerTransform.rotation = pos.rotation;
         yield return new WaitForSeconds(0.15f);
-        ThirdPersonController.enabled = true;
+        CharacterMovement.enabled = true;
         _isTeleporting = false;
         // TODO: sacar el teleport overlay
     }

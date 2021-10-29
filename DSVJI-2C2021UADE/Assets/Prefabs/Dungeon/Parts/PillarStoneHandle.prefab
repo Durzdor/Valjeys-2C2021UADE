@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3358560}
   - component: {fileID: 2354548}
   - component: {fileID: 1831884248145317601}
-  m_Layer: 0
-  m_Name: PillarStone
+  m_Layer: 11
+  m_Name: PillarStoneHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

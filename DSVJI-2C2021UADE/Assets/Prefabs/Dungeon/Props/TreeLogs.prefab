@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1707912340800166520}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TreeLogs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 9198727460911086255}
   - component: {fileID: 9198727460910086255}
   - component: {fileID: 91974311126918130}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Logs
   m_TagString: Untagged
   m_Icon: {fileID: 0}

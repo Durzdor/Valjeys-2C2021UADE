@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 859504651524232216}
   - component: {fileID: 859504651525199576}
   - component: {fileID: 6153170380555961754}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CurvedStairs (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &859504651522905144
 Transform:
@@ -106,12 +106,12 @@ GameObject:
   - component: {fileID: 1977395404057014728}
   - component: {fileID: 1977395404058112776}
   - component: {fileID: 1877320857918959846}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CurvedStairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1977395404059881960
 Transform:
@@ -197,12 +197,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6506715941677950822}
-  m_Layer: 0
-  m_Name: CurvedStair180
+  m_Layer: 11
+  m_Name: StairStoneCurved180
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6506715941677950822
 Transform:

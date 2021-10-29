@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2082730634186153787}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4932726910730227691}
   - component: {fileID: 4932726910729154031}
   - component: {fileID: 6512677518533630505}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bench
   m_TagString: Untagged
   m_Icon: {fileID: 0}

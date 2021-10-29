@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2665280822354407858}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RugGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4935458849158358200}
   - component: {fileID: 4935458849159367884}
   - component: {fileID: 2618847955841995586}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RugGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}

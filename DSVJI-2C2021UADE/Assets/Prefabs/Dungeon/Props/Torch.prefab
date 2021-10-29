@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 768862362165982593}
   - component: {fileID: 768862362165008175}
   - component: {fileID: 740890232861884853}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Torch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7745655859158265570}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Torch
   m_TagString: Untagged
   m_Icon: {fileID: 0}

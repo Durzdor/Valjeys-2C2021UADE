@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 980851702993377242}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BedBunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 5700458673267006349}
   - component: {fileID: 5700458673265932031}
   - component: {fileID: 11342933826421081}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
