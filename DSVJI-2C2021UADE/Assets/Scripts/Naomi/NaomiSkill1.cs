@@ -32,6 +32,6 @@ public class NaomiSkill1 : Skill
         var position = projectileSpawnPoint.position;
         
         var projectile = Instantiate(projectileGameObject, position, transform.rotation);
-        projectile.Init(direction, position);
+        projectile.Init(direction, position, data.Damage);
     }
 }

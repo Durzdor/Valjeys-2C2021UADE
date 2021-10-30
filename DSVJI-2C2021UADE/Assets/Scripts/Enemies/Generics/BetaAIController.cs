@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BetaAIController : MonoBehaviour
 {
+    #region SerializedFields
+
+#pragma warning disable 649
     [SerializeField]
     private LayerMask _player;
     [SerializeField]
@@ -22,7 +25,9 @@ public class BetaAIController : MonoBehaviour
     [SerializeField]
     [Range(5, 30)]
     private int _damageOutput;
-    
+#pragma warning restore 649
+
+    #endregion
     
     private Transform _target;
     private Rigidbody _rb;

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: RuthSkill1
   m_EditorClassIdentifier: 
   cooldown: 1
+  damage: 4
   useCost: 1
   image: {fileID: 21300000, guid: c7e9b5c6b3134f64988686297f91368d, type: 3}

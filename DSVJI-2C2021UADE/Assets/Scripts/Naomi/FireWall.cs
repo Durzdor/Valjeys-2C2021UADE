@@ -12,9 +12,11 @@ public class FireWall : MonoBehaviour
     private float _tickTime;
     // private List<Collider> _enemyColliders = new List<Collider>();
     private bool _enemyCollide;
-
-    public void Init(Vector3 initialPosition)
+    private float _firewallDamage;
+    
+    public void Init(Vector3 initialPosition, float damage)
     {
+        _firewallDamage = damage;
         transform.position = initialPosition;
     }
     
@@ -50,10 +52,17 @@ public class FireWall : MonoBehaviour
     {
         print("Algo entro entro en mis dominios!!!  :"  + other.tag);
         
-        if (other.CompareTag("Enemy") && !_enemyCollide)
+        if (other.CompareTag("Enemy"))
         {
+            var enemy = other.GetComponent<BaseEnemy>();
+            if (enemy != null)
+            {
+                var enemyHealth = enemy.Health;
+                enemyHealth.TakeDamage(_firewallDamage);
+            }
             print("Un enemigo entro en mis dominios!!");
             _enemyCollide = true;
         }
     }
+    
 }

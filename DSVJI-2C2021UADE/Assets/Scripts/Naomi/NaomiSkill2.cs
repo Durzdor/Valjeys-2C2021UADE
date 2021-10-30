@@ -14,7 +14,6 @@ public class NaomiSkill2 : Skill
     private void OnEnable()
     {
         Data = data;
-        
     }
     
     public override void UseSkill()
@@ -32,6 +31,6 @@ public class NaomiSkill2 : Skill
         var position = fireWallSpawnPoint.position;
         
         var fireWall = Instantiate(fireWallGameObject, position, transform.rotation);
-        fireWall.Init(position);
+        fireWall.Init(position,data.Damage);
     }
 }

@@ -5,13 +5,15 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private float _lifespan = 3f;
     [SerializeField] private float _speed = 8f;
+    [SerializeField] private LayerMask collisionLayers;
     public int _powerLevel;
     
     private Vector3 _direction;
-    
+    private float _projectileDamage;
 
-    public void Init(Vector3 direction, Vector3 initialPosition)
+    public void Init(Vector3 direction, Vector3 initialPosition, float damage)
     {
+        _projectileDamage = damage;
         transform.position = initialPosition;
         _direction = direction;
     }
@@ -32,6 +34,7 @@ public class Projectile : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            other.GetComponent<BaseEnemy>().Health.TakeDamage(_projectileDamage);
             Destroy(gameObject);
         }
     }
@@ -47,7 +50,10 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        print("collision");
-        Destroy(gameObject);
+        if (other.gameObject.layer == collisionLayers)
+        {
+            print("collision");
+            Destroy(gameObject);
+        }
     }
 }

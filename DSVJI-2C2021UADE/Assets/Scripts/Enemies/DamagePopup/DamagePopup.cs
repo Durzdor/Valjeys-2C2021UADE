@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
 
-
 namespace Assets.Scripts.Enemies.DamagePopup
 {
     public class DamagePopup : MonoBehaviour
@@ -25,7 +24,7 @@ namespace Assets.Scripts.Enemies.DamagePopup
             _camera = Camera.main;
         }
 
-        public void ShowDamage(Vector3 position, int amount)
+        public void ShowDamage(Vector3 position, float amount)
         {
             transform.position = position;
             _tm.SetText(amount.ToString());
