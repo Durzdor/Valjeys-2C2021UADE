@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da9f1822aa0e8204ca03768b6381c2ce, type: 3}
+  m_Name: KeyboardMapping
+  m_EditorClassIdentifier: 
+  jump: 32
+  changeSpeed: 304
+  switchCharacter: 120
+  interact: 102
+  pause: 27
+  skill1: 323
+  skill2: 324
+  skill3: 113
+  skill4: 101
+  skill5: 114
+  horizontalAxis: Horizontal
+  verticalAxis: Vertical
+  mouseXAxis: Mouse X
+  mouseYAxis: Mouse Y
+  mouseWheelAxis: Mouse ScrollWheel

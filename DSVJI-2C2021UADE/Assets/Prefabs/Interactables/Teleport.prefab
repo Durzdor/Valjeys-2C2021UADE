@@ -138,11 +138,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0386c861e74103946b05313004586e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionType: 5
   isSceneTeleport: 1
   isEndGameTeleport: 1
   sceneToLoad: TutorialLevel
   teleportLocation: {fileID: 0}
-  teleportName: You are Winner!
+  teleportName: Teleport Location
 --- !u!1 &6887745676850475898
 GameObject:
   m_ObjectHideFlags: 0

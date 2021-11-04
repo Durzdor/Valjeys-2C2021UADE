@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float _lifespan = 3f;
     [SerializeField] private float _speed = 8f;
     [SerializeField] private LayerMask collisionLayers;
+    
     public int _powerLevel;
     
     private Vector3 _direction;
@@ -17,7 +18,7 @@ public class Projectile : MonoBehaviour
         transform.position = initialPosition;
         _direction = direction;
     }
-    
+
     void Update()
     {
         if (_lifespan <= 0)
@@ -26,7 +27,6 @@ public class Projectile : MonoBehaviour
         }
 
         _lifespan -= Time.deltaTime;
-        
         transform.Translate(_direction * _speed * Time.deltaTime, Space.World);
     }
 
@@ -42,10 +42,8 @@ public class Projectile : MonoBehaviour
     private void OnDrawGizmos()
     {
         var collider = GetComponent<Collider>();
-        
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(collider.transform.position, 1);
-            
     }
 
     private void OnCollisionEnter(Collision other)

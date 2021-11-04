@@ -50,7 +50,8 @@ public class MainMenuManager : MonoBehaviour
         var swap = $"{inputData.switchCharacter} - Switch Character\n";
         var interact = $"{inputData.interact} - Interact\n";
         var pause = $"{inputData.pause} - Pause\n";
-        controlsText.text = $"{title}{movement}{jump}{run}{swap}{interact}{pause}";
+        var zoom = $"{inputData.mouseWheelAxis} - Zoom\n";
+        controlsText.text = $"{title}{movement}{jump}{run}{swap}{interact}{pause}{zoom}";
     }
     
     public void ButtonAssign(int num)
@@ -104,16 +105,4 @@ public class MainMenuManager : MonoBehaviour
         ShowMainWindow();
         goBackButton.gameObject.SetActive(false);
     }
-
-    // private void ControlsTextUpdate()
-    // {
-    //     var title = "Controls\n\n";
-    //     var movement = "WASD - Movement\n";
-    //     var jump = $"{_input.Jump} - Jump\n";
-    //     var run = $"{_input.ChangeSpeed} - Run\n";
-    //     var swap = $"{_input.SwitchCharacter} - Switch Character\n";
-    //     var interact = $"{_input.Interact} - Interact\n";
-    //     var pause = $"{_input.Pause} - Pause\n";
-    //     controlsText.text = $"{title}{movement}{jump}{run}{swap}{interact}{pause}";
-    // }
 }

@@ -52,9 +52,7 @@ public class Character : MonoBehaviour
         set
         {
             _isInInteractRange = value;
-            OnCharacterInteractRange?.Invoke(!(Interactable is null)
-                ? $"Press {Input.KeyBindData.interact} to use {Interactable.Name}"
-                : null);
+            OnCharacterInteractRange?.Invoke(Interactable != null ? Interactable.InteractionType : InteractionType.None);
         } 
     }
     public int OrbsObtained
@@ -89,7 +87,7 @@ public class Character : MonoBehaviour
 
     public event Action OnCharacterSwitch;
     public event Action OnCharacterInteract;
-    public event Action<string> OnCharacterInteractRange;
+    public event Action<InteractionType> OnCharacterInteractRange;
     public event Action<string,string> OnCharacterOrbAcquired;
     public event Action OnCharacterCheckpointUsed;
     public event Action OnCharacterPause;
@@ -122,7 +120,6 @@ public class Character : MonoBehaviour
         Ui = GetComponent<CharacterUI>();
         NotificationPopup = GetComponentInChildren<NotificationPopup>();
         Camera = GetComponent<CharacterCamera>();
-
         #endregion
     }
 

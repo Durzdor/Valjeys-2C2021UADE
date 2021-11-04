@@ -1,13 +1,32 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
+
+public enum InteractionType
+{
+    None,
+    Checkpoint,
+    Door,
+    Orb,
+    SkillUnLocker,
+    Teleport
+}
 
 [RequireComponent(typeof(SphereCollider))]
 public abstract class Interactable : MonoBehaviour, IInteractable
 {
+    #region SerializedFields
+
+#pragma warning disable 649
+    [SerializeField] private InteractionType interactionType;    
+#pragma warning restore 649
+
+    #endregion
+    
     [CanBeNull] protected Character Character;
     protected string InteractableName;
     public string Name => InteractableName;
-    
+    public InteractionType InteractionType => interactionType;
     private void Awake()
     {
         GetComponent<SphereCollider>().isTrigger = true;

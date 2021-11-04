@@ -364,9 +364,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e48aafe4f0006df47937ed776fb92fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionType: 4
   unlockNaomiSkill: 0
   skillName: 
   skillIndex: 0
+  waitInterval: 2.575
 --- !u!65 &9021109619733234970
 BoxCollider:
   m_ObjectHideFlags: 0

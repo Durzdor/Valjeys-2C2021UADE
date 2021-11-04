@@ -453,4 +453,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078e55ea0a9e1f7489644819823c527c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionType: 2
   waitInterval: 4

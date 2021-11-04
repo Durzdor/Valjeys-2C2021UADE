@@ -9558,6 +9558,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lifespan: 3
   _speed: 8
+  collisionLayers:
+    serializedVersion: 2
+    m_Bits: 0
   _powerLevel: 1
 --- !u!135 &6827794878013467544
 SphereCollider:
