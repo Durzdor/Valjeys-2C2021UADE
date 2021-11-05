@@ -7,8 +7,10 @@ public abstract class Skill : MonoBehaviour, ISkill
     #region SerializedFields
 
 #pragma warning disable 649
+    [Header("Skill Base")][Space(5)]
     [SerializeField] protected bool useMana = true;
-    
+    [SerializeField] protected AudioSource skillAudioSource;
+    [SerializeField] protected float skillAudioDelay = 0.5f;
 #pragma warning restore 649
 
     #endregion
@@ -45,6 +47,10 @@ public abstract class Skill : MonoBehaviour, ISkill
                 else
                     Character.Stamina.ConsumeStamina(Data.UseCost);
                 CanUseSkill = true;
+                if (skillAudioSource != null)
+                {
+                    skillAudioSource.PlayDelayed(skillAudioDelay);
+                }
             }
             else
             {

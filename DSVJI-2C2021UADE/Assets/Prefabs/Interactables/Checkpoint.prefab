@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f740a50f93536040be9462103b772dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionType: 1
   checkpointName: Brazier of Lost Souls
 --- !u!1001 &6019690128068827520
 PrefabInstance:

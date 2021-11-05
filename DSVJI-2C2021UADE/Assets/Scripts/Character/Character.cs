@@ -8,22 +8,15 @@ public class Character : MonoBehaviour
     #region SerializedFields
 
 #pragma warning disable 649
-    [Header("Switch")] [Space(5)] [SerializeField]
-    private SkinnedMeshRenderer playerMesh;
-
+    [Header("Switch")] [Space(5)] 
+    [SerializeField] private SkinnedMeshRenderer playerMesh;
     [SerializeField] private GameObject ruthGo;
     [SerializeField] private GameObject naomiGo;
     [SerializeField] private int orbsNeeded;
     [SerializeField] private Transform defaultCheckpoint;
-
-    [Header("Sounds")]
-    [Space(5)]
-    [SerializeField]
-    private AudioSource _audioSwitchCharacter;
-    [SerializeField]
-    private AudioSource _audioDeathCharacter;
-
-    
+    [Header("Sounds")] [Space(5)]
+    [SerializeField] private AudioSource audioSwitchCharacter;
+    [SerializeField] private AudioSource audioDeathCharacter;
 #pragma warning restore 649
 
     #endregion
@@ -33,7 +26,7 @@ public class Character : MonoBehaviour
     public CharacterAnimation Animation { get; private set; }
     public Animator Animator { get; private set; }
     public CharacterController Controller { get; private set; }
-    public ThirdPersonController ThirdPersonController { get; private set; }
+    public CharacterMovement CharacterMovement { get; private set; }
     public CharacterInput Input { get; private set; }
     public CharacterSettings Settings { get; private set; }
     public Health Health { get; private set; }
@@ -45,6 +38,7 @@ public class Character : MonoBehaviour
     public CharacterSkillController SkillController { get; private set; }
     public CharacterUI Ui { get; private set; }
     public NotificationPopup NotificationPopup { get; private set; }
+    public CharacterCamera Camera { get; private set; }
 
     #endregion
 
@@ -58,9 +52,7 @@ public class Character : MonoBehaviour
         set
         {
             _isInInteractRange = value;
-            OnCharacterInteractRange?.Invoke(!(Interactable is null)
-                ? $"Press {Input.KeyBindData.interact} to use {Interactable.Name}"
-                : null);
+            OnCharacterInteractRange?.Invoke(Interactable != null ? Interactable.InteractionType : InteractionType.None);
         } 
     }
     public int OrbsObtained
@@ -95,7 +87,7 @@ public class Character : MonoBehaviour
 
     public event Action OnCharacterSwitch;
     public event Action OnCharacterInteract;
-    public event Action<string> OnCharacterInteractRange;
+    public event Action<InteractionType> OnCharacterInteractRange;
     public event Action<string,string> OnCharacterOrbAcquired;
     public event Action OnCharacterCheckpointUsed;
     public event Action OnCharacterPause;
@@ -114,7 +106,7 @@ public class Character : MonoBehaviour
 
         Animator = GetComponent<Animator>();
         Controller = GetComponent<CharacterController>();
-        ThirdPersonController = GetComponent<ThirdPersonController>();
+        CharacterMovement = GetComponent<CharacterMovement>();
         Animation = GetComponent<CharacterAnimation>();
         Input = GetComponent<CharacterInput>();
         Settings = GetComponent<CharacterSettings>();
@@ -127,7 +119,7 @@ public class Character : MonoBehaviour
         SkillController = GetComponent<CharacterSkillController>();
         Ui = GetComponent<CharacterUI>();
         NotificationPopup = GetComponentInChildren<NotificationPopup>();
-
+        Camera = GetComponent<CharacterCamera>();
         #endregion
     }
 
@@ -136,9 +128,12 @@ public class Character : MonoBehaviour
         Health.OnDeath += OnDeathHandler;
         Animation.OnSwitchComplete += OnSwitchCompleteHandler;
         Animation.OnDeathComplete += OnDeathCompleteHandler;
+        Animation.OnInteractionComplete += CharacterInteraction;
         
         CheckpointRespawn = defaultCheckpoint;
         _orbsObtained = 0;
+        IsNaomi = false;
+        SwitchToRuth();
     }
 
     private void Update()
@@ -155,7 +150,6 @@ public class Character : MonoBehaviour
         if (Input.GetInteractInput && IsInInteractRange)
         {
             OnCharacterInteract?.Invoke();
-            CharacterInteraction();
         }
         
         if (Input.GetPauseInput)
@@ -187,7 +181,7 @@ public class Character : MonoBehaviour
     private void OnDeathHandler()
     {
         IsAnimationLocked = true;
-        _audioDeathCharacter.Play();
+        audioDeathCharacter.Play();
     }
 
     private void OnDeathCompleteHandler()
@@ -201,6 +195,7 @@ public class Character : MonoBehaviour
     {
         Mana.ResetToMax();
         Health.ResetToMax();
+        Stamina.ResetToMax();
     }
 
     public void Teleport(Transform pos)
@@ -213,12 +208,12 @@ public class Character : MonoBehaviour
     private IEnumerator TeleportTo(Transform pos)
     {
         _isTeleporting = true;
-        ThirdPersonController.enabled = false;
+        CharacterMovement.enabled = false;
         var playerTransform = transform;
         playerTransform.position = pos.position;
         playerTransform.rotation = pos.rotation;
         yield return new WaitForSeconds(0.15f);
-        ThirdPersonController.enabled = true;
+        CharacterMovement.enabled = true;
         _isTeleporting = false;
         // TODO: sacar el teleport overlay
     }
@@ -228,24 +223,31 @@ public class Character : MonoBehaviour
         // turn on/off the required components for the switch
         IsAnimationLocked = true;
         IsNaomi = !IsNaomi;
-        Animator.SetBool(NaomiBool,IsNaomi);
     }
 
     private void OnSwitchCompleteHandler()
     {
         IsAnimationLocked = false;
-        _audioSwitchCharacter.Play();
+        audioSwitchCharacter.Play();
         if (IsNaomi)
-        {
-            ruthGo.SetActive(false);
-            naomiGo.SetActive(true);
-            playerMesh.material = Naomi.NaomiMaterial;
-        }
+            SwitchToNaomi();
         else
-        {
-            ruthGo.SetActive(true);
-            naomiGo.SetActive(false);
-            playerMesh.material = Ruth.RuthMaterial;
-        }
+            SwitchToRuth();
+    }
+
+    private void SwitchToNaomi()
+    {
+        ruthGo.SetActive(false);
+        naomiGo.SetActive(true);
+        playerMesh.material = Naomi.NaomiMaterial;
+        Animator.SetBool(NaomiBool,true);
+    }
+
+    private void SwitchToRuth()
+    {
+        ruthGo.SetActive(true);
+        naomiGo.SetActive(false);
+        playerMesh.material = Ruth.RuthMaterial;
+        Animator.SetBool(NaomiBool,false);
     }
 }

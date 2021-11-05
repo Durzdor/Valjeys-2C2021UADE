@@ -5,9 +5,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField][Tooltip("Maximum amount of health")] 
     private float maxHealth = 100f;
-    
-    private bool _isDead;
-    
+
     public event Action OnConsumed;
     public event Action OnGained;
     public event Action OnDeath;
@@ -15,8 +13,9 @@ public class Health : MonoBehaviour
     public float CurrentHealth { get; private set; }
     public float MaxHealth => maxHealth;
     public float GetRatio => CurrentHealth / maxHealth;
-
-    public bool IsDead => _isDead;
+    public float LastDamageTaken { get; private set; }
+    
+    public bool IsDead { get; private set; }
 
     private void Awake()
     {
@@ -40,14 +39,14 @@ public class Health : MonoBehaviour
    
     public void TakeDamage(float damage)
     {
-        if (_isDead) return;
+        if (IsDead) return;
         var healthBefore = CurrentHealth;
         CurrentHealth -= damage;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, maxHealth);
 
         // call OnDamage action
-        var trueDamageAmount = healthBefore - CurrentHealth;
-        if (trueDamageAmount > 0f)
+        LastDamageTaken = healthBefore - CurrentHealth;
+        if (LastDamageTaken > 0f)
         {
             // use this to display on screen
             OnConsumed?.Invoke();
@@ -58,12 +57,12 @@ public class Health : MonoBehaviour
     
     private void HandleDeath()
     {
-        if (_isDead) return;
+        if (IsDead) return;
 
         // call OnDie action
         if (CurrentHealth <= 0f)
         {
-            _isDead = true;
+            IsDead = true;
             OnDeath?.Invoke();
         }
     }
@@ -71,6 +70,6 @@ public class Health : MonoBehaviour
     public void ResetToMax()
     {
         Heal(maxHealth);
-        _isDead = false;
+        IsDead = false;
     }
 }

@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1163455634550522876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3434376548755704472}
+  m_Layer: 0
+  m_Name: Doors
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3434376548755704472
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163455634550522876}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9102908726384929607}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1606188182063045876
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,7 +150,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9102908725891022773}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,6 +246,7 @@ Transform:
   - {fileID: 9102908725303981434}
   - {fileID: 9102908726092572989}
   - {fileID: 1943866639597925460}
+  - {fileID: 3434376548755704472}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -286,6 +317,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Doorway (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2678242259234831411, guid: 0f5069d2912dc4a4985773bb60ed141f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2678242259671804577, guid: 0f5069d2912dc4a4985773bb60ed141f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4951196636423308299, guid: 0f5069d2912dc4a4985773bb60ed141f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7566905345676451947, guid: 0f5069d2912dc4a4985773bb60ed141f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f5069d2912dc4a4985773bb60ed141f, type: 3}
 --- !u!4 &276668916680914071 stripped
@@ -304,6 +355,10 @@ PrefabInstance:
     - target: {fileID: 163364, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
       propertyPath: m_Name
       value: WallStone (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 163364, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 461498, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -424,6 +479,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Doorway
       objectReference: {fileID: 0}
+    - target: {fileID: 2678242259234831411, guid: 0f5069d2912dc4a4985773bb60ed141f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2678242259671804577, guid: 0f5069d2912dc4a4985773bb60ed141f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4951196636423308299, guid: 0f5069d2912dc4a4985773bb60ed141f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7566905345676451947, guid: 0f5069d2912dc4a4985773bb60ed141f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f5069d2912dc4a4985773bb60ed141f, type: 3}
 --- !u!4 &5708552257294859309 stripped
@@ -442,6 +517,10 @@ PrefabInstance:
     - target: {fileID: 163364, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
       propertyPath: m_Name
       value: WallStone (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 163364, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 461498, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -506,6 +585,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallStone (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 163364, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 461498, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.5
@@ -568,6 +651,10 @@ PrefabInstance:
     - target: {fileID: 154028, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
       propertyPath: m_Name
       value: PillarStoneLines (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 154028, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 409222, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
       propertyPath: m_LocalPosition.x
@@ -632,6 +719,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallStone (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 163364, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 461498, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.5
@@ -694,6 +785,10 @@ PrefabInstance:
     - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_Name
       value: FlatStone
+      objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -758,6 +853,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallStone (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 163364, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 461498, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.5
@@ -820,6 +919,10 @@ PrefabInstance:
     - target: {fileID: 154028, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
       propertyPath: m_Name
       value: PillarStoneLines
+      objectReference: {fileID: 0}
+    - target: {fileID: 154028, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 409222, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
       propertyPath: m_LocalPosition.x
@@ -884,6 +987,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlatStone (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.5
@@ -946,6 +1053,10 @@ PrefabInstance:
     - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_Name
       value: FlatStone (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1010,6 +1121,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PillarStoneLines (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 154028, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 409222, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.5
@@ -1072,6 +1187,10 @@ PrefabInstance:
     - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_Name
       value: FlatStone (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1136,6 +1255,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlatStone (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.5
@@ -1198,6 +1321,10 @@ PrefabInstance:
     - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_Name
       value: FlatStone (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1262,6 +1389,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlatStone (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.5
@@ -1324,6 +1455,10 @@ PrefabInstance:
     - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_Name
       value: FlatStone (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1388,6 +1523,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlatStone (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.5
@@ -1450,6 +1589,10 @@ PrefabInstance:
     - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_Name
       value: FlatStone (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1514,6 +1657,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlatStone (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.5
@@ -1576,6 +1723,10 @@ PrefabInstance:
     - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_Name
       value: FlatStone (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1640,6 +1791,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlatStone (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5
@@ -1702,6 +1857,10 @@ PrefabInstance:
     - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_Name
       value: FlatStone (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1766,6 +1925,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallStone
       objectReference: {fileID: 0}
+    - target: {fileID: 163364, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 461498, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5
@@ -1828,6 +1991,10 @@ PrefabInstance:
     - target: {fileID: 154028, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
       propertyPath: m_Name
       value: PillarStoneLines (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 154028, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 409222, guid: 73c08e84ae0965a4b9674d1c89f21e59, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1892,6 +2059,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlatStone (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.5
@@ -1954,6 +2125,10 @@ PrefabInstance:
     - target: {fileID: 163364, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
       propertyPath: m_Name
       value: WallStone (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 163364, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 461498, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2018,6 +2193,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallStone (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 163364, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 461498, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.5
@@ -2080,6 +2259,10 @@ PrefabInstance:
     - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_Name
       value: FlatStone (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2144,6 +2327,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallStone (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 163364, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 461498, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.5
@@ -2206,6 +2393,10 @@ PrefabInstance:
     - target: {fileID: 163364, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
       propertyPath: m_Name
       value: WallStone (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 163364, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 461498, guid: 25e618ad9977daf44a684be7ffc5046b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2270,6 +2461,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlatStone (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5
@@ -2332,6 +2527,10 @@ PrefabInstance:
     - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_Name
       value: FlatStone (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 172604, guid: 72ee938e36712134b9a16980629526a3, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 448988, guid: 72ee938e36712134b9a16980629526a3, type: 3}
       propertyPath: m_LocalPosition.x

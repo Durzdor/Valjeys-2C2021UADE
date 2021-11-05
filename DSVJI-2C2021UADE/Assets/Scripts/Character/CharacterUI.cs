@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,8 +12,10 @@ public class CharacterUI : MonoBehaviour
     [SerializeField] private Image damageTakenPlateVFX;
     [SerializeField] private Image damageTakenOverlayVFX;
     [SerializeField] private Image checkpointUsed;
+    [SerializeField] private GameObject ruthMainIcon;
+    [SerializeField] private GameObject naomiMainIcon;
 
-    [Header("Images")] [Space(5)] 
+    [Header("Fill Bars")] [Space(5)] 
     [SerializeField] private Image healthBarFilling;
     [SerializeField] private Image manaBarFilling;
     [SerializeField] private Image staminaBarFilling;
@@ -27,7 +28,7 @@ public class CharacterUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI experienceText;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI levelText;
-    [SerializeField] private TextMeshProUGUI interactText;
+    [SerializeField] private TextMeshProUGUI switchKeyText;
 #pragma warning restore 649
 
     #endregion
@@ -49,19 +50,6 @@ public class CharacterUI : MonoBehaviour
         CharacterEventSubscriptions();
     }
 
-    private void InteractTextHandler([CanBeNull] string text)
-    {
-        if (text != null)
-        {
-            interactText.gameObject.SetActive(true);
-            interactText.text = text;
-        }
-        else
-        {
-            interactText.gameObject.SetActive(false);
-        }
-    }
-
     private void FirstLoad()
     {
         _characterMaxHp = _character.Health.MaxHealth;
@@ -74,6 +62,7 @@ public class CharacterUI : MonoBehaviour
         ExperienceBarUpdate(_character.Experience.CurrentExp, _character.Experience.GetRatio);
         NameChange(_character.IsNaomi ? "Naomi" : "Ruth");
         LevelUpUpdate();
+        UpdateSwitchKey();
     }
 
     private void CheckpointFeedback()
@@ -121,24 +110,29 @@ public class CharacterUI : MonoBehaviour
         {
             HealthBarUpdate(_character.Health.CurrentHealth, _character.Health.GetRatio);
         };
-        _character.Mana.OnConsumed += delegate { ManaBarUpdate(_character.Mana.CurrentMana, _character.Mana.GetRatio); };
-        _character.Mana.OnGained += delegate { ManaBarUpdate(_character.Mana.CurrentMana, _character.Mana.GetRatio); };
-        _character.Stamina.OnGained += delegate {StaminaBarUpdate(_character.Stamina.CurrentStamina, _character.Stamina.GetRatio); };
-        _character.Stamina.OnConsumed += delegate { StaminaBarUpdate(_character.Stamina.CurrentStamina, _character.Stamina.GetRatio); };
+        _character.Mana.OnConsumed += delegate 
+            { ManaBarUpdate(_character.Mana.CurrentMana, _character.Mana.GetRatio); };
+        _character.Mana.OnGained += delegate 
+            { ManaBarUpdate(_character.Mana.CurrentMana, _character.Mana.GetRatio); };
+        _character.Stamina.OnGained += delegate 
+            {StaminaBarUpdate(_character.Stamina.CurrentStamina, _character.Stamina.GetRatio); };
+        _character.Stamina.OnConsumed += delegate 
+            { StaminaBarUpdate(_character.Stamina.CurrentStamina, _character.Stamina.GetRatio); };
         _character.Ruth.OnRuthEnable += delegate
         {
             NameChange("Ruth");
+            RuthMainIcon();
         };
         _character.Naomi.OnNaomiEnable += delegate
         {
             NameChange("Naomi");
+            NaomiMainIcon();
         };
         _character.Experience.OnExpGained += delegate
         {
             ExperienceBarUpdate(_character.Experience.CurrentExp, _character.Experience.GetRatio);
         };
         _character.Experience.OnLevelUp += LevelUpUpdate;
-        _character.OnCharacterInteractRange += InteractTextHandler;
         _character.OnCharacterCheckpointUsed += CheckpointFeedback;
     }
 
@@ -193,5 +187,21 @@ public class CharacterUI : MonoBehaviour
     {
         healthBarFilling.fillAmount = hpPercent;
         healthText.text = $"{currHp} / {_characterMaxHp}";
+    }
+
+    private void RuthMainIcon()
+    {
+        ruthMainIcon.SetActive(true);
+        naomiMainIcon.SetActive(false);
+    }
+    private void NaomiMainIcon()
+    {
+        naomiMainIcon.SetActive(true);
+        ruthMainIcon.SetActive(false);
+    }
+
+    private void UpdateSwitchKey()
+    {
+        switchKeyText.text = _character.Input.KeyBindData.switchCharacter.ToString();
     }
 }

@@ -1,23 +1,32 @@
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Character))]
 public class CharacterAnimation : MonoBehaviour
 {
-    private Character _character;
+    private static readonly int VelX = Animator.StringToHash("VelX");
+    private static readonly int VelZ = Animator.StringToHash("VelZ");
+    private static readonly int Jump = Animator.StringToHash("JumpTrigger");
+    private static readonly int Landing = Animator.StringToHash("LandingTrigger");
+    private static readonly int Switch = Animator.StringToHash("SwitchTrigger");
+    private static readonly int Death = Animator.StringToHash("DeathTrigger");
+    private static readonly int Chest = Animator.StringToHash("ChestTrigger");
+    private static readonly int Interact = Animator.StringToHash("InteractTrigger");
+    private static readonly int Skill1Trigger = Animator.StringToHash("Skill1Trigger");
+    private static readonly int Skill2Trigger = Animator.StringToHash("Skill2Trigger");
+    private static readonly int Skill3Trigger = Animator.StringToHash("Skill3Trigger");
+    private static readonly int Skill4Trigger = Animator.StringToHash("Skill4Trigger");
+    private static readonly int Skill5Trigger = Animator.StringToHash("Skill5Trigger");
 
-    private static readonly int JumpTrigger = Animator.StringToHash("JumpTrigger");
-    private static readonly int LandTrigger = Animator.StringToHash("LandingTrigger");
-    private static readonly int SwitchTrigger = Animator.StringToHash("SwitchTrigger");
-    private static readonly int DeathTrigger = Animator.StringToHash("DeathTrigger");
-    private static readonly int GroundFloat = Animator.StringToHash("GroundFloat");
-    private static readonly int AirFloat = Animator.StringToHash("AirFloat");
-    private static readonly int GoingForwardBool = Animator.StringToHash("IsGoingForward");
-    private static readonly int IdleBool = Animator.StringToHash("IsIdle");
-    private static readonly int SprintBool = Animator.StringToHash("IsSprinting");
     public event Action OnSwitchComplete;
     public event Action OnDeathComplete;
+    public event Action OnInteractionComplete;
+    
+    private Character _character;
+    private int LocomotionLayer => _character.Animator.GetLayerIndex("Locomotion");
+    private int SpecialActionsLayer => _character.Animator.GetLayerIndex("SpecialActions");
+    private int NaomiLayer => _character.Animator.GetLayerIndex("Naomi");
+    private int RuthLayer => _character.Animator.GetLayerIndex("Ruth");
 
     private void Awake()
     {
@@ -26,118 +35,136 @@ public class CharacterAnimation : MonoBehaviour
 
     private void Start()
     {
-        _character.ThirdPersonController.OnJump += JumpHandler;
-        _character.ThirdPersonController.OnSprint += SprintHandler;
+        _character.CharacterMovement.OnJump += JumpHandler;
+        _character.CharacterMovement.OnLanding += LandingHandler;
         _character.OnCharacterSwitch += SwitchHandler;
         _character.Health.OnDeath += DeathHandler;
+        _character.OnCharacterInteract += InteractHandler;
+        _character.SkillController.OnSkill1 += delegate { SkillHandler(Skill1Trigger); };
+        _character.SkillController.OnSkill2 += delegate { SkillHandler(Skill2Trigger); };
+        _character.SkillController.OnSkill3 += delegate { SkillHandler(Skill3Trigger); };
+        _character.SkillController.OnSkill4 += delegate { SkillHandler(Skill4Trigger); };
+        _character.SkillController.OnSkill5 += delegate { SkillHandler(Skill5Trigger); };
     }
 
     private void Update()
     {
-        //if (character.IsAnimationLocked) return; VOS ERAS EL QUE ROMPIA
-        // character.Controller.velocity.magnitude < 0.001f
-        if (_character.Controller.isGrounded) // character.Controller.isGrounded
-        {
-            Landing();
-            // moving
-            if (_character.ThirdPersonController.IsInputMoving)
-            {
-                _character.Animator.SetBool(IdleBool, false);
-                // Forward
-                if (transform.InverseTransformDirection(_character.ThirdPersonController.MoveDirection).z > 0 && _character.Input.VerticalAxis > 0)
-                {
-                    _character.Animator.SetBool(GoingForwardBool, true);
-                }
-                // Backward
-                if (transform.InverseTransformDirection(_character.ThirdPersonController.MoveDirection).z  < 0 && _character.Input.VerticalAxis < 0)
-                {
-                    _character.Animator.SetBool(GoingForwardBool, false);
-                }
-                // Walk or Sprint
-                _character.Animator.SetFloat(GroundFloat, _character.Controller.velocity.magnitude);
-                _character.Animator.ResetTrigger(JumpTrigger);
-            }
+        WalkAnimations();
+        RunAnimations();
+    }
+    
+    private void WalkAnimations()
+    {
+        if (!_character.CharacterMovement.IsGrounded) return;
+        _character.Animator.SetFloat(VelX,_character.Input.HorizontalAxis);
+        _character.Animator.SetFloat(VelZ,_character.Input.VerticalAxis);
+    }
 
-            // if not moving idle
-            if (!_character.ThirdPersonController.IsInputMoving)
-            {
-                _character.Animator.SetBool(IdleBool, true);
-                _character.Animator.SetFloat(GroundFloat, 0f);
-            }
+    private void RunAnimations()
+    {
+        if (!_character.CharacterMovement.IsSprinting) return;
+        _character.Animator.SetFloat(VelX, _character.Animator.GetFloat(VelX) * 5);
+        _character.Animator.SetFloat(VelZ, _character.Animator.GetFloat(VelZ) * 5);
+    }
+    
+    private void JumpHandler()
+    {
+        _character.Animator.SetTrigger(Jump);
+        _character.Animator.ResetTrigger(Landing);
+    }
+
+    private void LandingHandler()
+    {
+        _character.Animator.SetTrigger(Landing);
+    }
+    
+    private void SwitchHandler()
+    {
+        ChangeLayerWeight(SpecialActionsLayer,1);
+        _character.Animator.SetTrigger(Switch);
+    }
+
+    private void DeathHandler()
+    {
+        ChangeLayerWeight(SpecialActionsLayer,1);
+        _character.Animator.SetTrigger(Death);
+    }
+    
+    private void InteractHandler()
+    {
+        if (_character.Interactable is null || _character.Interactable.Name == "Skill Acquired") return;
+        ChangeLayerWeight(SpecialActionsLayer,1);
+        _character.IsAnimationLocked = true;
+        if (_character.Interactable.Name == "Chest")
+        {
+            _character.Animator.SetTrigger(Chest);
         }
-
-        if (!_character.Controller.isGrounded) // !character.Controller.isGrounded / !character.ThirdPersonController.CoyoteGrounded
+        else
         {
-            NotGrounded();
-            //character.Animator.SetFloat(AirFloat, Mathf.Abs(character.Controller.velocity.y) + 0.1f);
-            
-            if (_character.Controller.velocity.y < 0.1f)
-            {
-                _character.Animator.SetFloat(AirFloat, Mathf.Abs(_character.Controller.velocity.y) + 0.1f);
-            }
+            _character.Animator.SetTrigger(Interact);
+            OnInteractionComplete?.Invoke();
         }
     }
     
-    private void DeathHandler()
+    private void SkillHandler(int id)
     {
-        _character.Animator.SetTrigger(DeathTrigger);
+        _character.IsAnimationLocked = true;
+        var layer = _character.IsNaomi ? NaomiLayer : RuthLayer;
+        ChangeLayerWeight(layer,1);
+        _character.Animator.SetTrigger(id);
+    }
+    
+    // Chest Animation event uses this method
+    public void ChestAnimationOpenEvent()
+    {
+        _character.Animator.ResetTrigger(Chest);
+        OnInteractionComplete?.Invoke();
     }
     
     // RDeath Animation event uses this method
     public void DeathAnimationEndedEvent()
     {
-        _character.Animator.ResetTrigger(DeathTrigger);
+        _character.Animator.ResetTrigger(Death);
         OnDeathComplete?.Invoke();
+        ChangeLayerWeight(SpecialActionsLayer,0);
+    }
+
+    public void SwitchAnimationEndedEvent()
+    {
+        _character.Animator.ResetTrigger(Switch);
+        OnSwitchComplete?.Invoke();
+        ChangeLayerWeight(SpecialActionsLayer,0);
     }
     
-    private void JumpHandler()
+    // Event to unlock the animations
+    public void AnimationUnLocker()
     {
-        _character.Animator.SetTrigger(JumpTrigger);
-        _character.Animator.ResetTrigger(LandTrigger);
+        _character.IsAnimationLocked = false;
     }
 
-    private void SprintHandler()
+    private void ChangeLayerWeight(int layer, float weight)
     {
-        _character.Animator.SetBool(SprintBool, _character.ThirdPersonController.IsSprinting);
+        _character.Animator.SetLayerWeight(layer,weight);
     }
 
-    private void NotGrounded()
+    // Special Layer Events
+    public void RemoveLockWeightSpecial()
     {
-        _character.Animator.SetFloat(GroundFloat, 0);
+        AnimationUnLocker();
+        ChangeLayerWeight(SpecialActionsLayer,0);
     }
 
-    private void Landing()
+    // Naomi Layer Events
+    public void RemoveLockWeightNaomi()
     {
-        if (_character.Animator.GetFloat(AirFloat) > -0.1)
-        {
-            _character.Animator.SetTrigger(LandTrigger);
-        }
-
-        _character.Animator.SetFloat(AirFloat, 0);
+        AnimationUnLocker();
+        ChangeLayerWeight(NaomiLayer,0);
     }
-
-    private void SwitchHandler()
-    {
-        _character.Animator.SetTrigger(SwitchTrigger);
-        StartCoroutine(WaitForSwitch());
-    }
-
     
-    private IEnumerator WaitForSwitch()
+    // Ruth Layer Events
+    public void RemoveLockWeightRuth()
     {
-        yield return new WaitForSeconds(0.2f);
-        var currAnim = _character.Animator.GetCurrentAnimatorClipInfo(0);
-        var clipLength = currAnim[0].clip.length;
-        while (clipLength > 0)
-        {
-            clipLength -= Time.deltaTime;
-            yield return null;
-        }
-
-        if (clipLength <= 0)
-        {
-            _character.Animator.ResetTrigger(SwitchTrigger);
-            OnSwitchComplete?.Invoke();
-        }
+        AnimationUnLocker();
+        ChangeLayerWeight(RuthLayer,0);
     }
 }

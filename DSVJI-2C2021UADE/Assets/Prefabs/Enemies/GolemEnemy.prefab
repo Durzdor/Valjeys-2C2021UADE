@@ -47,7 +47,8 @@ GameObject:
   - component: {fileID: 2148687461659745878}
   - component: {fileID: 2148687461659745897}
   - component: {fileID: 681845517062781666}
-  - component: {fileID: 8541782487180923287}
+  - component: {fileID: 8016621670033820769}
+  - component: {fileID: 1654865817}
   m_Layer: 0
   m_Name: GolemEnemy
   m_TagString: Enemy
@@ -67,6 +68,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1738887437172442917}
+  - {fileID: 5735625045682417736}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -82,11 +84,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bacea0b13e582fd478c2deb1727c3955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hp: 10
-  _dmgPopup: {fileID: 5850617534964350593, guid: 47f69fc66604dd541a5a5a3717c998b5,
+  dmgPopup: {fileID: 5850617534964350593, guid: 47f69fc66604dd541a5a5a3717c998b5,
     type: 3}
-  _damageHandler: {fileID: 5639041341116528509}
-  _anim: {fileID: 2282055711937585349}
+  dmgPopupPosition: {fileID: 5735625045682417736}
 --- !u!114 &5639041341116528509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,9 +131,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _animator: {fileID: 2282055711937585349}
-  _canAttackRadius: 1.9
-  _canSeeRadius: 10.3
-  _speed: 1.25
+  _canAttackRadius: 1
+  _canSeeRadius: 5
+  _speed: 2.5
   _obstacle:
     serializedVersion: 2
     m_Bits: 1024
@@ -147,7 +147,8 @@ AudioSource:
   m_GameObject: {fileID: 5293584256866075465}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8457255656070706880, guid: 56bce48c11bf71745ba6e8256cdce33c,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: dd4fb7c3318868c46bb6018af194e81b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -234,7 +235,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!136 &8541782487180923287
+--- !u!114 &8016621670033820769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5293584256866075465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d3a65e99491a6b4d8b81feb0600d473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+--- !u!136 &1654865817
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -244,10 +258,40 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.45261094
-  m_Height: 1.0511628
+  m_Radius: 0.9052218
+  m_Height: 2.102326
   m_Direction: 1
-  m_Center: {x: -0.013804376, y: 0.51085263, z: -0.056978315}
+  m_Center: {x: -0.02760876, y: 1.0217052, z: -0.11395664}
+--- !u!1 &8841401376995385103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5735625045682417736}
+  m_Layer: 0
+  m_Name: PopupLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5735625045682417736
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8841401376995385103}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.357, y: 1.828, z: 0.724}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5166090595145718406}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2282055711937585358
 PrefabInstance:
   m_ObjectHideFlags: 0
