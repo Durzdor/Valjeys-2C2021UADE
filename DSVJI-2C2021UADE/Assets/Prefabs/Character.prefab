@@ -3805,6 +3805,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: cc9588228d3d7f346b056d2a131e66ad, type: 2}
   weaponCollider: {fileID: 7342272891222857796}
   animationDuration: 2
+  characterHealth: {fileID: 6044810825460919643}
+  invulnerableTime: 1.2
 --- !u!114 &1674943874
 MonoBehaviour:
   m_ObjectHideFlags: 0

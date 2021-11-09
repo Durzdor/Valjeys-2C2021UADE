@@ -16,6 +16,7 @@ public class Health : MonoBehaviour
     public float LastDamageTaken { get; private set; }
     
     public bool IsDead { get; private set; }
+    public bool IsInvulnerable { get; private set; }
 
     private void Awake()
     {
@@ -39,7 +40,7 @@ public class Health : MonoBehaviour
    
     public void TakeDamage(float damage)
     {
-        if (IsDead) return;
+        if (IsDead || IsInvulnerable) return;
         var healthBefore = CurrentHealth;
         CurrentHealth -= damage;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, maxHealth);
@@ -65,6 +66,17 @@ public class Health : MonoBehaviour
             IsDead = true;
             OnDeath?.Invoke();
         }
+    }
+
+    private void UnsetInvulnerable()
+    {
+        IsInvulnerable = false;
+    }
+    
+    public void SetInvulnerable(float time)
+    {
+        IsInvulnerable = true;
+        Invoke(nameof(UnsetInvulnerable), time);
     }
 
     public void ResetToMax()
