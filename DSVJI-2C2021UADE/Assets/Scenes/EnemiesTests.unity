@@ -250,6 +250,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4070668319416521452, guid: fb209869d42d51f47b194f290c424bd3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.13258362
+      objectReference: {fileID: 0}
     - target: {fileID: 6044810825460919648, guid: fb209869d42d51f47b194f290c424bd3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -591,6 +596,24 @@ Transform:
   m_Father: {fileID: 1190085804}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1402431112 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4952151892576517529, guid: 97dc8d63ddfb91e4289fa9a7869be034,
+    type: 3}
+  m_PrefabInstance: {fileID: 2080697300}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1402431113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402431112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cc69cf6e8157df45bdd9c5941ecab99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1641295943
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,6 +719,11 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2148687461659745878, guid: 97dc8d63ddfb91e4289fa9a7869be034,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 2148687461659745897, guid: 97dc8d63ddfb91e4289fa9a7869be034,
         type: 3}
       propertyPath: _canAttackRadius
@@ -760,6 +788,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GolemEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367905081401467990, guid: 97dc8d63ddfb91e4289fa9a7869be034,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367905081401467990, guid: 97dc8d63ddfb91e4289fa9a7869be034,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -14.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367905081401467990, guid: 97dc8d63ddfb91e4289fa9a7869be034,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.99
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97dc8d63ddfb91e4289fa9a7869be034, type: 3}
