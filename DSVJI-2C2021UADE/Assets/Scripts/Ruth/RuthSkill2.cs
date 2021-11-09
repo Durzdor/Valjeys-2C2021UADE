@@ -8,6 +8,8 @@ public class RuthSkill2 : Skill
     [SerializeField] private SkillData data;
     [SerializeField] private WeaponCollider weaponCollider;
     [SerializeField] private float animationDuration;
+    [SerializeField] private Health characterHealth;
+    [SerializeField] private float invulnerableTime;
 #pragma warning restore 649
     #endregion
     
@@ -28,6 +30,7 @@ public class RuthSkill2 : Skill
     private void SkillAction()
     {
         if (!Character.Ruth.WeaponController.drawn) Character.Ruth.WeaponController.DrawSaveWeapon();
-        weaponCollider.OnAttack(animationDuration); 
+        weaponCollider.OnAttack(animationDuration);
+        characterHealth.SetInvulnerable(invulnerableTime);
     }
 }
