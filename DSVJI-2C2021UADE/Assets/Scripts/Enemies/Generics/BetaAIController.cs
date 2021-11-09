@@ -56,7 +56,7 @@ public class BetaAIController : MonoBehaviour
                 _animator.SetBool("PlayerOnAttackRange", true);
                 print("attack!");
                 _target = _attackArea[0].transform;
-                Attack(_target.GetComponent<Health>());
+                Attack();
             }
         }
         else
@@ -76,6 +76,7 @@ public class BetaAIController : MonoBehaviour
         }
     }
 
+    [Obsolete("El ataque ahora es controlado por el componente EnemyWeaponController.")]
     private void Attack(Health player)
     {
         _animator.SetBool("Walking", false);
@@ -83,6 +84,15 @@ public class BetaAIController : MonoBehaviour
         _attackSound.Play();
         transform.LookAt(_target);
         player.TakeDamage(_damageOutput);
+        _sw.Restart();
+    }
+
+    private void Attack()
+    {
+        _animator.SetBool("Walking", false);
+        _animator.SetTrigger("CanAttack");
+        _attackSound.Play();
+        transform.LookAt(_target);
         _sw.Restart();
     }
 
