@@ -12,6 +12,7 @@ public class MovementTrap : MonoBehaviour
     [SerializeField] private float moveBackInterval = 1f;
     [SerializeField] private float moveStartInterval = 1f;
     [SerializeField] private Transform movePivot;
+    [SerializeField] private Collider damageTrigger;
 #pragma warning restore 649
     #endregion
     
@@ -27,6 +28,7 @@ public class MovementTrap : MonoBehaviour
         if (_isMovementActive)
             yield break;
         _isMovementActive = true;
+        damageTrigger.enabled = true;
         float counter = 0;
         Vector3 defaultPosition = movePivot.position;
         Vector3 maxPosition = targetPosition.position; // transform.position + targetPosition
@@ -40,6 +42,7 @@ public class MovementTrap : MonoBehaviour
 
         if (canMoveBack)
         {
+            damageTrigger.enabled = false;
             yield return new WaitForSeconds(moveBackInterval);
 
             while (counter > 0)
