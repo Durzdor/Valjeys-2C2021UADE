@@ -2,17 +2,23 @@
 
 public class AIController : MonoBehaviour
 {
+    #region SerializedFields
+
+#pragma warning disable 649
     [SerializeField] private Transform target;
     [SerializeField] private GameObject body;
     [SerializeField] private Blackboard memory;
     [SerializeField] private Sensor sensor;
     [SerializeField] private SteeringBehaviour steeringBehaviour;
+#pragma warning restore 649
+
+    #endregion
     
     private float energy;
-    [SerializeField] private float maxEnergy;
+    [SerializeField] private float maxEnergy = 1f;
 
-    [Header("Movement")] [SerializeField] private float maxSpeed;
-    [SerializeField] private float steeringSpeed;
+    [Header("Movement")] [SerializeField] private float maxSpeed = 1f;
+    [SerializeField] private float steeringSpeed = 1f;
 
     public GameObject Body{ get => body; set => body = value; }
     public Blackboard Memory{ get => memory; set => memory = value; }

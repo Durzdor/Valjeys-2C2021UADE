@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class Sensor : MonoBehaviour
 {
+    #region SerializedFields
+
+#pragma warning disable 649
     [SerializeField] private AIController aiController;
     [SerializeField] private float repeatingTime;
     [SerializeField] private LayerMask whatIsObstacle;
     [SerializeField] private LayerMask sound;
     [SerializeField] private float coneAngle = 0.7f;
     [SerializeField] private float circleOverlapRadius;
+#pragma warning restore 649
+
+    #endregion
 
     private Vector3 bodyPosition;
     static Collider[] detectedColliders = new Collider[100];

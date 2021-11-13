@@ -4,9 +4,15 @@ using System.Collections.Generic;
 
 public class WanderNode : BehaviourNode
 {
+    #region SerializedFields
+
+#pragma warning disable 649
     [SerializeField] private float length = 3f;
     [SerializeField] private float randomRangeAngle = 3f;
     [SerializeField] private LayerMask whatIsObstacle;
+#pragma warning restore 649
+
+    #endregion
 
     private Collider[] detectedColliders;
     

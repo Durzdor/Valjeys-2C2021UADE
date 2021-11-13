@@ -20,10 +20,9 @@ public class ObjectDamage : MonoBehaviour
         if (!_hasCollided)
         {
             StartCoroutine(DamageInterval());
-            print("I damaged");
+            other.gameObject.GetComponent<Health>().TakeDamage(damage);
             _hasCollided = true;
         }
-        //other.gameObject.GetComponent<Health>().TakeDamage(damage);
     }
 
     private IEnumerator DamageInterval()

@@ -3,9 +3,15 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    #region SerializedFields
+
+#pragma warning disable 649
     [SerializeField] private float _lifespan = 3f;
     [SerializeField] private float _speed = 8f;
     [SerializeField] private LayerMask collisionLayers;
+#pragma warning restore 649
+
+    #endregion
     
     public int _powerLevel;
     

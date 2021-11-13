@@ -7,7 +7,7 @@ public class ChargeEnergyNode : BehaviourNode
 {
     private float _actualEnergy;
     private float _maxEnergy;
-    [SerializeField] private float _energyPerSeconds;
+    [SerializeField] private float _energyPerSeconds = 0.1f;
     private Color _lastColor;
 
     public override void Init(AIController ai)

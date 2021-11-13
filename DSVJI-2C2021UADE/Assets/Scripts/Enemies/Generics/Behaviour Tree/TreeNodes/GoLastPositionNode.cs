@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class GoLastPositionNode : BehaviourNode
 {
-    [SerializeField] private List<Node> nodes;
-    private Node closestNodeToListened;
-    private Node closestNodeToMe;
     // [SerializeField] private Node _endNode;
+
+    #region SerializedFields
+
+#pragma warning disable 649
+    [SerializeField] private List<Node> nodes;
     [SerializeField]private List<Node> path;
     [SerializeField] private int index;
-
     [SerializeField] private Node actualNode;
+#pragma warning restore 649
 
+    #endregion
+    
+    private Node closestNodeToListened;
+    private Node closestNodeToMe;
     public override void Init(AIController ai)
     {
         var target = (Vector3)ai.Memory.Get("listened");

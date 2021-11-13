@@ -5,10 +5,16 @@ using UnityEngine;
 
 public class DestructibleProp : MonoBehaviour
 {
+    #region SerializedFields
+
+#pragma warning disable 649
     [SerializeField] private GameObject _parent;
     [SerializeField] private int _powerLevel;
     [SerializeField] private ParticleSystem _explosion;
     [SerializeField] private GameObject[] _props;
+#pragma warning restore 649
+
+    #endregion
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Algo entro a mi dominio!!");

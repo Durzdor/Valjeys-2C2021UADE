@@ -11,9 +11,15 @@ enum ComparationType
 
 public class CheckDistanceNode : BehaviourNode
 {
+    #region SerializedFields
+
+#pragma warning disable 649
     [SerializeField] private ComparationType _comparationType;
     [SerializeField] private float _distanceToCheck;
     [SerializeField] private Transform _transformToComparate;
+#pragma warning restore 649
+
+    #endregion
 
     protected override BehaviourResult ExecuteInternal(AIController ai)
     {

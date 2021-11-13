@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class FireWall : MonoBehaviour
 {
+    #region SerializedFields
+
+#pragma warning disable 649
     [SerializeField] private float _lifespan = 3f;
     [SerializeField] private float _tickPerSecond = 4f;
     [SerializeField] private Collider _collider;
+#pragma warning restore 649
+
+    #endregion
 
     private Vector3 _direction;
     private float _tickTime;

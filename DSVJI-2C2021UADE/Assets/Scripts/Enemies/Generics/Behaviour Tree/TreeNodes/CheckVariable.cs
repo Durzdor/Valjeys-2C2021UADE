@@ -4,9 +4,15 @@ using System.Collections;
 
 public class CheckVariable : BehaviourNode
 {
+    #region SerializedFields
+
+#pragma warning disable 649
     [SerializeField] private string _variableToComparate;
     [SerializeField] private ComparationType _comparationType;
     [SerializeField] private float _floatToComparate;
+#pragma warning restore 649
+
+    #endregion
 
     protected override BehaviourResult ExecuteInternal(AIController ai)
     {
@@ -14,17 +20,12 @@ public class CheckVariable : BehaviourNode
         {
             case ComparationType.LesserThan:
                 return (float)ai.Memory.Get(_variableToComparate) < _floatToComparate ? BehaviourResult.Success : BehaviourResult.Failure;
-                break;
             case ComparationType.GreaterThan:
                 return (float)ai.Memory.Get(_variableToComparate) > _floatToComparate ? BehaviourResult.Success : BehaviourResult.Failure;
-                break;
             case ComparationType.LesserEqualThan:
                 return (float)ai.Memory.Get(_variableToComparate) <= _floatToComparate ? BehaviourResult.Success : BehaviourResult.Failure;
-                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
-
-        return BehaviourResult.Failure;
     }
 }

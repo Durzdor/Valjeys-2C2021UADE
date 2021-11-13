@@ -9,7 +9,7 @@ public class EnemyWeaponController : MonoBehaviour
     [SerializeField]
     private int _damage = 1;
     [SerializeField]
-    private int _attackTimer;
+    private int _attackTimer = 1;
     private Stopwatch _sw;
     private TimeSpan _ts;
 

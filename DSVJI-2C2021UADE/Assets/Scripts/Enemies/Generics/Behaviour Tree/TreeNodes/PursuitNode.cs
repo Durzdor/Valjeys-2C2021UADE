@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class PursuitNode : BehaviourNode
 {
+    #region SerializedFields
+
+#pragma warning disable 649
     [SerializeField] private float secondsToPredict;
-    
-    
     [SerializeField] private float energyReduction;
+#pragma warning restore 649
+
+    #endregion
 
     protected override BehaviourResult ExecuteInternal(AIController ai)
     {

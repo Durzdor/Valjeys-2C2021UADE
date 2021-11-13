@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class WaitForAttackNode : BehaviourNode
 {
-    [SerializeField] private int timeToListened;
-    [Range(0f, 10f)] [SerializeField] private float distance;
+    [SerializeField] private int timeToListened = 0;
+    [Range(0f, 10f)] [SerializeField] private float distance = 0;
     private float timeToWait;
     protected override BehaviourResult ExecuteInternal(AIController ai)
     {
