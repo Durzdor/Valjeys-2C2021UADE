@@ -17,6 +17,8 @@ public class BossAIController : MonoBehaviour
     [SerializeField]
     [Range(2, 4)]
     private float _spellAreaRange;
+    [SerializeField]
+    private Renderer _mat;
 
     #endregion
 
@@ -30,10 +32,16 @@ public class BossAIController : MonoBehaviour
 
     #endregion
 
+    void Start()
+    {
+        _mat.material.color = Color.Lerp(Color.magenta, Color.black, 0.5f);
+    }
+
     // Update is called once per frame
     void Update()
     {
         RangeCheck();
+        Action();
     }
 
     #region Metodos Privados
@@ -57,6 +65,25 @@ public class BossAIController : MonoBehaviour
 
 
     }
-    
+
+    private void Action()
+    {
+        if (_playerOnAreaSpellRange)
+        {
+
+        }
+
+        else if (_playerOnMeleeRange)
+        {
+
+        }
+
+        else
+        { 
+            //TODO: Deberia o hacer un ataque a distancia o acercarse al player para golpearlo a melee/area.
+        }
+
+    }
+
     #endregion
 }

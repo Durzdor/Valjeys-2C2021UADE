@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CanHearNode : BehaviourNode
 {
-    
     protected override BehaviourResult ExecuteInternal(AIController ai)
     {
         if ((bool)ai.Memory.Get("canHearPlayer"))
