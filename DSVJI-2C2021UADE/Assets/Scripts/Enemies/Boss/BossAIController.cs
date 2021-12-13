@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Enemies.Boss.Attacks;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +7,6 @@ public class BossAIController : MonoBehaviour
 
     #region Serializables
 
-    [SerializeField]
-    private List<BossAttack> _attacks;
     [SerializeField]
     private LayerMask _player;
     [SerializeField]
@@ -19,6 +17,8 @@ public class BossAIController : MonoBehaviour
     private float _spellAreaRange;
     [SerializeField]
     private Renderer _mat;
+    [SerializeField]
+    private List<BaseAttack> _attacks;
 
     #endregion
 
@@ -40,8 +40,14 @@ public class BossAIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RangeCheck();
-        Action();
+        if (Input.GetKey(KeyCode.A))
+        {
+            _attacks[0].Attack();
+        }
+        if (Input.GetKey(KeyCode.B))
+        {
+            _attacks[1].Attack();
+        }
     }
 
     #region Metodos Privados
