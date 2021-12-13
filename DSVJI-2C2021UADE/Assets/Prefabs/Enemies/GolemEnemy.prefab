@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 7102114842156724913}
   - component: {fileID: 995019803287896393}
   - component: {fileID: 1402431113}
+  - component: {fileID: 3740789754325328681}
   m_Layer: 2
   m_Name: GolemEnemy
   m_TagString: Enemy
@@ -155,7 +156,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4952151892576517529}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1580413637155813877}
@@ -365,6 +366,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cc69cf6e8157df45bdd9c5941ecab99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3740789754325328681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4952151892576517529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f6cb5001f09a04c890d8506e6d4c06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 1325316858108681749}
 --- !u!1 &8610304729431597535
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,7 +424,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1273d0bc368e6ae47ab8ce810841f7b0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1273d0bc368e6ae47ab8ce810841f7b0,
         type: 3}
@@ -526,6 +540,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 75493480999110893, guid: 1273d0bc368e6ae47ab8ce810841f7b0,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 75493480999110893, guid: 1273d0bc368e6ae47ab8ce810841f7b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1273d0bc368e6ae47ab8ce810841f7b0,
         type: 3}
