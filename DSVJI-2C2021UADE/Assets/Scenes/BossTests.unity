@@ -539,7 +539,7 @@ PrefabInstance:
     - target: {fileID: 8554404405367065864, guid: 011e05c919fd70f44b9adb745f527ff9,
         type: 3}
       propertyPath: _player.m_Bits
-      value: 768
+      value: 256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 011e05c919fd70f44b9adb745f527ff9, type: 3}

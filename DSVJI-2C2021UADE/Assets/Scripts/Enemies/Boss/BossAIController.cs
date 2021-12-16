@@ -48,33 +48,26 @@ public class BossAIController : MonoBehaviour
     {
         RangeCheck();
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            _attacks[0].Attack();
-        }
-        if (Input.GetKey(KeyCode.B))
-        {
-            _attacks[1].Attack();
-        }
+        
     }
 
     #region Metodos Privados
 
     private void RangeCheck()
     {
-        //Collider[] _meleeAttackArea = Physics.OverlapSphere(transform.position, _meleeAttackRange, _player);
-        //if (_meleeAttackArea.Length > 0)
-        //{
-        //    _playerOnMeleeRange = true;
-        //    return;
-        //}
+        Collider[] _meleeAttackArea = Physics.OverlapSphere(transform.position, _meleeAttackRange, _player);
+        if (_meleeAttackArea.Length > 0)
+        {
+            _playerOnMeleeRange = true;
+            return;
+        }
 
-        //Collider[] _areaSpells = Physics.OverlapSphere(transform.position, _spellAreaRange, _player);
-        //if (_areaSpells.Length > 0)
-        //{
-        //    _playerOnAreaSpellRange = true;
-        //    return;
-        //}
+        Collider[] _areaSpells = Physics.OverlapSphere(transform.position, _spellAreaRange, _player);
+        if (_areaSpells.Length > 0)
+        {
+            _playerOnAreaSpellRange = true;
+            return;
+        }
 
         Collider[] _areaProyectile = Physics.OverlapSphere(transform.position, _proyectileRange, _player);
         print(_areaProyectile.Length);
@@ -104,6 +97,18 @@ public class BossAIController : MonoBehaviour
             //TODO: Deberia o hacer un ataque a distancia o acercarse al player para golpearlo a melee/area.
         }
 
+    }
+
+    private void TestAttacks()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            _attacks[0].Attack();
+        }
+        if (Input.GetKey(KeyCode.B))
+        {
+            _attacks[1].Attack();
+        }
     }
 
     private void OnDrawGizmos()
