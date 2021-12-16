@@ -16,6 +16,9 @@ public class BossAIController : MonoBehaviour
     [Range(2, 4)]
     private float _spellAreaRange;
     [SerializeField]
+    [Range(4, 10)]
+    private float _proyectileRange;
+    [SerializeField]
     private Renderer _mat;
     [SerializeField]
     private List<BaseAttack> _attacks;
@@ -30,16 +33,21 @@ public class BossAIController : MonoBehaviour
     private bool _playerOnMeleeRange;
     private bool _playerOnAreaSpellRange;
 
+    private Blackboard _memory;
+
     #endregion
 
     void Start()
     {
         _mat.material.color = Color.Lerp(Color.magenta, Color.black, 0.5f);
+        _memory = GetComponent<Blackboard>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        RangeCheck();
+
         if (Input.GetKey(KeyCode.A))
         {
             _attacks[0].Attack();
@@ -54,21 +62,28 @@ public class BossAIController : MonoBehaviour
 
     private void RangeCheck()
     {
-        Collider[] _meleeAttackArea = Physics.OverlapSphere(transform.position, _meleeAttackRange, _player);
-        if (_meleeAttackArea.Length > 0)
+        //Collider[] _meleeAttackArea = Physics.OverlapSphere(transform.position, _meleeAttackRange, _player);
+        //if (_meleeAttackArea.Length > 0)
+        //{
+        //    _playerOnMeleeRange = true;
+        //    return;
+        //}
+
+        //Collider[] _areaSpells = Physics.OverlapSphere(transform.position, _spellAreaRange, _player);
+        //if (_areaSpells.Length > 0)
+        //{
+        //    _playerOnAreaSpellRange = true;
+        //    return;
+        //}
+
+        Collider[] _areaProyectile = Physics.OverlapSphere(transform.position, _proyectileRange, _player);
+        print(_areaProyectile.Length);
+        if (_areaProyectile.Length > 0)
         {
-            _playerOnMeleeRange = true;
+            print("Player!!");
+            _memory.Set("PlayerPosition", _areaProyectile[0].transform.position);
             return;
         }
-
-        Collider[] _areaSpells = Physics.OverlapSphere(transform.position, _spellAreaRange, _player);
-        if (_areaSpells.Length > 0)
-        {
-            _playerOnAreaSpellRange = true;
-            return;
-        }
-
-
 
     }
 
@@ -89,6 +104,16 @@ public class BossAIController : MonoBehaviour
             //TODO: Deberia o hacer un ataque a distancia o acercarse al player para golpearlo a melee/area.
         }
 
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _meleeAttackRange);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, _spellAreaRange);
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, _proyectileRange);
     }
 
     #endregion

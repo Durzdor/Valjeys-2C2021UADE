@@ -4986,6 +4986,7 @@ GameObject:
   - component: {fileID: 8896962523774094407}
   - component: {fileID: 8554404404535995271}
   - component: {fileID: 8554404405367065864}
+  - component: {fileID: 3233967396507397545}
   m_Layer: 2
   m_Name: GolemBoss
   m_TagString: Enemy
@@ -5214,6 +5215,18 @@ MonoBehaviour:
   _attacks:
   - {fileID: 3082887183241204592}
   - {fileID: 5813868956376598868}
+--- !u!114 &3233967396507397545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3607043085759803543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1ba1e1c1512f54fa43cd5a58aa5374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5304210892786550945
 GameObject:
   m_ObjectHideFlags: 0
@@ -5288,7 +5301,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 3514334360234809797, guid: 5d0f8b38d8673bc45aa4b7eb0d2bf4d0, type: 3}
-  _proyectileSpeed: 0
+  _proyectileSpeed: 0.35
+  _spawnPoint: {fileID: 4165416828595603067}
 --- !u!136 &7265187813339386645
 CapsuleCollider:
   m_ObjectHideFlags: 0

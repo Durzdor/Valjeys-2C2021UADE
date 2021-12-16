@@ -8,10 +8,22 @@ namespace Assets.Scripts.Enemies.Boss.Attacks
         private GameObject _prefab;
         [SerializeField]
         private float _proyectileSpeed;
+        [SerializeField]
+        private Transform _spawnPoint;
+
+        private Blackboard _memory;
+
+        public override void Start()
+        {
+            _memory = GetComponentInParent<Blackboard>();
+            base.Start();
+        }
 
         public override void Attack()
         {
-            Instantiate(_prefab).GetComponent<Proyectile>().SetUp(transform.forward, _proyectileSpeed);
+            Vector3 playerPos = (Vector3)_memory.Get("PlayerPosition");
+            Vector3 dir = playerPos - _spawnPoint.position;
+            Instantiate(_prefab, _spawnPoint).GetComponent<Proyectile>().SetUp(dir, _proyectileSpeed);
         }
     }
 }
