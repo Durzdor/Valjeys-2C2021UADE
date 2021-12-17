@@ -29,6 +29,10 @@ public class CharacterUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI switchKeyText;
+    
+    [Header("Assignable")][Space(5)] 
+    [SerializeField] private GameObject fadeGameObject;
+    [SerializeField] private Animator fadeAnimator;
 #pragma warning restore 649
 
     #endregion
@@ -38,6 +42,8 @@ public class CharacterUI : MonoBehaviour
     private float _characterMaxMana;
     private float _characterMaxStamina;
     private float _characterExpToLevel;
+    private static readonly int FadeIn = Animator.StringToHash("FadeIn");
+    private static readonly int FadeOut = Animator.StringToHash("FadeOut");
 
     private void Awake()
     {
@@ -134,6 +140,8 @@ public class CharacterUI : MonoBehaviour
         };
         _character.Experience.OnLevelUp += LevelUpUpdate;
         _character.OnCharacterCheckpointUsed += CheckpointFeedback;
+        _character.OnCharacterFadeIn += FadeInHandler;
+        _character.OnCharacterFadeOut += FadeOutHandler;
     }
 
     private void LevelUpUpdate()
@@ -203,5 +211,16 @@ public class CharacterUI : MonoBehaviour
     private void UpdateSwitchKey()
     {
         switchKeyText.text = _character.Input.KeyBindData.switchCharacter.ToString();
+    }
+
+    public void FadeInHandler()
+    {
+        fadeGameObject.SetActive(true);
+        fadeAnimator.SetTrigger(FadeIn);
+    }
+    public void FadeOutHandler()
+    {
+        fadeGameObject.SetActive(true);
+        fadeAnimator.SetTrigger(FadeOut);
     }
 }

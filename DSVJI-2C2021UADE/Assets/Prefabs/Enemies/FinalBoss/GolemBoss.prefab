@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2208f8877e3796147928bc3fdf793c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 7265187813339386651}
   _prefab: {fileID: 8200627944953173129, guid: fe536b2d9d8851249a9777577708aacc, type: 3}
   _spawnPoint: {fileID: 6875441775294921662}
 --- !u!1 &3047292796081966793
@@ -5167,7 +5168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d3a65e99491a6b4d8b81feb0600d473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 30
 --- !u!136 &8896962523774094407
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5208,13 +5209,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player:
     serializedVersion: 2
-    m_Bits: 0
-  _meleeAttackRange: 0
-  _spellAreaRange: 0
+    m_Bits: 256
+  _meleeAttackRange: 3.7
+  _spellAreaRange: 5.7
+  _proyectileRange: 10
   _mat: {fileID: 7340609252686830589}
   _attacks:
   - {fileID: 3082887183241204592}
   - {fileID: 5813868956376598868}
+  _attackIntervalInSeconds: 2
 --- !u!114 &3233967396507397545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5300,6 +5303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a05c1ef4274337a41be1810e3571d058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 7265187813339386651}
   _prefab: {fileID: 3514334360234809797, guid: 5d0f8b38d8673bc45aa4b7eb0d2bf4d0, type: 3}
   _proyectileSpeed: 0.35
   _spawnPoint: {fileID: 4165416828595603067}

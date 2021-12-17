@@ -11,7 +11,7 @@ public class GroundWaveController : MonoBehaviour
     private float _expandSpeed;
     private Vector3 _expand;
 
-    private readonly TimeSpan _ts = new TimeSpan(0, 0, 5);
+    private readonly TimeSpan _ts = new TimeSpan(0, 0, 1);
     private readonly Stopwatch _sw = new Stopwatch();
 
     // Start is called before the first frame update
@@ -27,5 +27,14 @@ public class GroundWaveController : MonoBehaviour
         if (_sw.Elapsed >= _ts)
             Destroy(gameObject);
         transform.localScale += _expand;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<Health>().TakeDamage(10);
+            Destroy(gameObject);
+        }
     }
 }

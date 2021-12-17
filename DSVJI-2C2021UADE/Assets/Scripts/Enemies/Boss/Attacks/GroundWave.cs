@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Enemies.Boss.Attacks 
 {
@@ -13,7 +11,8 @@ namespace Assets.Scripts.Enemies.Boss.Attacks
         
         public override void Attack()
         {
-            //_animator.SetTrigger("Spell");
+            _animator.ResetTrigger("Spell");
+            _animator.SetTrigger("Spell");
             Instantiate(_prefab, _spawnPoint);
         }
     }
