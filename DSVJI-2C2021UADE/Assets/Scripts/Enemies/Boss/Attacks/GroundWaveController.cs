@@ -28,4 +28,13 @@ public class GroundWaveController : MonoBehaviour
             Destroy(gameObject);
         transform.localScale += _expand;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<Health>().TakeDamage(10);
+            Destroy(gameObject);
+        }
+    }
 }

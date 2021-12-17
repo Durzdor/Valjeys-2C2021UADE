@@ -15,10 +15,10 @@ public class BossAIController : MonoBehaviour
     [Range(3, 4)]
     private float _meleeAttackRange;
     [SerializeField]
-    [Range(5, 7)]
+    [Range(5, 8)]
     private float _spellAreaRange;
     [SerializeField]
-    [Range(8, 10)]
+    [Range(9, 10)]
     private float _proyectileRange;
     [SerializeField]
     private Renderer _mat;

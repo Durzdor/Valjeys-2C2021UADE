@@ -523,28 +523,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8554404405367065864, guid: 011e05c919fd70f44b9adb745f527ff9,
         type: 3}
-      propertyPath: _meleeAttackRange
-      value: 3.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8554404405367065864, guid: 011e05c919fd70f44b9adb745f527ff9,
-        type: 3}
       propertyPath: _spellAreaRange
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8554404405367065864, guid: 011e05c919fd70f44b9adb745f527ff9,
-        type: 3}
-      propertyPath: _proyectileRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8554404405367065864, guid: 011e05c919fd70f44b9adb745f527ff9,
-        type: 3}
-      propertyPath: _player.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 8554404405367065864, guid: 011e05c919fd70f44b9adb745f527ff9,
-        type: 3}
-      propertyPath: _attackIntervalInSeconds
-      value: 2
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 011e05c919fd70f44b9adb745f527ff9, type: 3}

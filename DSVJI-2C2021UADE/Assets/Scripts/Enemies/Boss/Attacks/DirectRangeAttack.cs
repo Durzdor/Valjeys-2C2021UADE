@@ -13,14 +13,15 @@ namespace Assets.Scripts.Enemies.Boss.Attacks
 
         private Blackboard _memory;
 
-        public override void Start()
+        public void Start()
         {
             _memory = GetComponentInParent<Blackboard>();
-            base.Start();
         }
 
         public override void Attack()
         {
+            _animator.ResetTrigger("Spell");
+            _animator.SetTrigger("Spell");
             Vector3 playerPos = (Vector3)_memory.Get("PlayerPosition");
             Vector3 dir = playerPos - _spawnPoint.position;
             Instantiate(_prefab, _spawnPoint).GetComponent<Proyectile>().SetUp(dir, _proyectileSpeed);
