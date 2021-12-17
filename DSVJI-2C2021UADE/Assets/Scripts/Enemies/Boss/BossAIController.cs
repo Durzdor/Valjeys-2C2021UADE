@@ -64,15 +64,15 @@ public class BossAIController : MonoBehaviour
 
     private void RangeCheck()
     {
-        Collider[] _meleeAttackArea = Physics.OverlapSphere(transform.position, _meleeAttackRange, _player);
-        if (_meleeAttackArea.Length > 0)
-        {
-            _playerOnMeleeRange = true;
-            _playerOnAreaSpellRange = false;
-            _playerOnProyectileRange = false;
-            _memory.Set("PlayerPosition", _meleeAttackArea[0].transform.position);
-            return;
-        }
+        //Collider[] _meleeAttackArea = Physics.OverlapSphere(transform.position, _meleeAttackRange, _player);
+        //if (_meleeAttackArea.Length > 0)
+        //{
+        //    _playerOnMeleeRange = true;
+        //    _playerOnAreaSpellRange = false;
+        //    _playerOnProyectileRange = false;
+        //    _memory.Set("PlayerPosition", _meleeAttackArea[0].transform.position);
+        //    return;
+        //}
 
         Collider[] _areaSpells = Physics.OverlapSphere(transform.position, _spellAreaRange, _player);
         if (_areaSpells.Length > 0)
@@ -105,7 +105,7 @@ public class BossAIController : MonoBehaviour
 
         else if (_playerOnProyectileRange) _attacks[1].Attack();
 
-        else if (_playerOnMeleeRange) _attacks[2].Attack();
+        //else if (_playerOnMeleeRange) _attacks[2].Attack();
 
         _sw.Restart();
     }

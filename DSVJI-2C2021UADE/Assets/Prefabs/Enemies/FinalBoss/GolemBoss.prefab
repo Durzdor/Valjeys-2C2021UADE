@@ -5211,7 +5211,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _meleeAttackRange: 3.7
-  _spellAreaRange: 7
+  _spellAreaRange: 5.7
   _proyectileRange: 10
   _mat: {fileID: 7340609252686830589}
   _attacks:
