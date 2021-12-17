@@ -91,6 +91,8 @@ public class Character : MonoBehaviour
     public event Action<string,string> OnCharacterOrbAcquired;
     public event Action OnCharacterCheckpointUsed;
     public event Action OnCharacterPause;
+    public event Action OnCharacterFadeIn;
+    public event Action OnCharacterFadeOut;
 
     #endregion
     
@@ -158,6 +160,11 @@ public class Character : MonoBehaviour
         // Death Test
         if (UnityEngine.Input.GetKeyDown(KeyCode.L))
             Health.TakeDamage(9999);
+        // Orb Test
+        if (UnityEngine.Input.GetKeyDown(KeyCode.F6))
+        {
+            OrbsObtained = 3;
+        }
     }
 
     public void OrbAcquisition()
@@ -202,6 +209,7 @@ public class Character : MonoBehaviour
     {
         if (_isTeleporting) return;
         // TODO: poner algo para teleport overlay (Fade a negro?)
+        OnCharacterFadeIn?.Invoke();
         StartCoroutine(TeleportTo(pos));
     }
 
@@ -216,6 +224,7 @@ public class Character : MonoBehaviour
         CharacterMovement.enabled = true;
         _isTeleporting = false;
         // TODO: sacar el teleport overlay
+       
     }
 
     private void SwitchStart()

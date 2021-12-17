@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Valjeys.unity
     guid: 7b46fb80411f32341ad2b6545ecb94b0
   - enabled: 1
-    path: Assets/Scenes/GameEnd.unity
-    guid: 1cbb5a7a7140af54690bbf89d67e1935
+    path: Assets/Scenes/FinalBossArena.unity
+    guid: b8bcf8edc91514043bb3c96420698ac7
   m_configObjects: {}

@@ -24,9 +24,15 @@ public class Teleport : Interactable
     {
         if (CanGoToEnd || isSceneTeleport)
         {
-            SceneManager.LoadSceneAsync(sceneToLoad);
+            Character.Ui.FadeOutHandler();
+            Invoke(nameof(SceneLoad),4.5f);
             return;
         }
         if (!(Character is null)) Character.Teleport(teleportLocation);
+    }
+
+    private void SceneLoad()
+    {
+        SceneManager.LoadSceneAsync(sceneToLoad);
     }
 }
