@@ -12462,7 +12462,7 @@ PrefabInstance:
     - target: {fileID: 7274059298726911015, guid: 2b7988e0ba4786b42af25602eca34e1e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -12.75
       objectReference: {fileID: 0}
     - target: {fileID: 7274059298726911015, guid: 2b7988e0ba4786b42af25602eca34e1e,
         type: 3}
@@ -42580,6 +42580,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 313580142, guid: fb209869d42d51f47b194f290c424bd3, type: 3}
+      propertyPath: m_text
+      value: 'Mision buscar los 3 orbes en la mazmorra para poder hacer el ritual.
+
+        Buscar
+        las skills en los cofres.
+
+        Algunas skills pueden interactuar con
+        el ambiente.
+
+        Usar mapas (botones al pie de esta ventana) en caso
+        de estar muy perdido
+
+        DevKeys: L is death, f6 3 orbs.'
+      objectReference: {fileID: 0}
     - target: {fileID: 900668095, guid: fb209869d42d51f47b194f290c424bd3, type: 3}
       propertyPath: ruthUnlockedSkillList.Array.data[0]
       value: 0
@@ -42590,6 +42605,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1501781265, guid: fb209869d42d51f47b194f290c424bd3, type: 3}
       propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 366308040412296804, guid: fb209869d42d51f47b194f290c424bd3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745702447636739508, guid: fb209869d42d51f47b194f290c424bd3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745702447636739508, guid: fb209869d42d51f47b194f290c424bd3,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -540
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884399177795560493, guid: fb209869d42d51f47b194f290c424bd3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5548675626417050683, guid: fb209869d42d51f47b194f290c424bd3,
+        type: 3}
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6044810825019211948, guid: fb209869d42d51f47b194f290c424bd3,
@@ -42686,6 +42726,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: PlayerWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064189471529030031, guid: fb209869d42d51f47b194f290c424bd3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -270
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064189471529030031, guid: fb209869d42d51f47b194f290c424bd3,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -540
       objectReference: {fileID: 0}
     - target: {fileID: 6855062176497442655, guid: fb209869d42d51f47b194f290c424bd3,
         type: 3}
@@ -49230,12 +49280,12 @@ PrefabInstance:
     - target: {fileID: 3501814420444982827, guid: 46f1e06cc18f79a4c89b7a20b98942d0,
         type: 3}
       propertyPath: sceneToLoad
-      value: GameEnd
+      value: FinalBossArena
       objectReference: {fileID: 0}
     - target: {fileID: 3501814420444982827, guid: 46f1e06cc18f79a4c89b7a20b98942d0,
         type: 3}
       propertyPath: teleportName
-      value: End Scene
+      value: End?
       objectReference: {fileID: 0}
     - target: {fileID: 7316364639730625707, guid: 46f1e06cc18f79a4c89b7a20b98942d0,
         type: 3}
