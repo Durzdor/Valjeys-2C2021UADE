@@ -21,7 +21,12 @@ namespace Assets.Scripts.Enemies.Boss.Attacks
         {
             if (_sw.Elapsed >= _ts)
                 Destroy(gameObject);
-            transform.position += _dir;    
+            transform.position += _dir * Time.deltaTime;    
+        }
+
+        void LateUpdate()
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 }
