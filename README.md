@@ -16,7 +16,6 @@ Desarrollo de videojuegos I - 2do cuatrimestre 2021 - UADE
 
 ## Version History
 
-
 ####  **0.3** (10/09/21)
 
   * Main menu
@@ -33,3 +32,4 @@ Desarrollo de videojuegos I - 2do cuatrimestre 2021 - UADE
 ####  **0.1** (27/08/21)
 
    * Basic movement and animations
+
